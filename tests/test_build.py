@@ -41,6 +41,7 @@ ALLOWED_RM = {
     "59220",
     "200000",
     "300000",
+    "2618",
 }
 
 BANNED = ("wellbest", "spta", "siba", "gptp", "15 may", "48 months", "i-gps")
@@ -107,34 +108,44 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(build.render_analytics_script(""), "")
 
     def test_every_scheme_is_labelled_and_linked(self):
-        no_source = {
-            "rental",
-            "hdras",
-            "spektra-lite",
-        }
-        self.assertEqual({scheme["id"] for scheme in self.schemes if not scheme["links"]}, no_source)
+        self.assertTrue(all(scheme["links"] for scheme in self.schemes))
+        self.assertTrue(all(scheme["level"] in {"STATE", "FEDERAL"} for scheme in self.schemes))
         self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 28)
         for scheme in self.schemes:
             card = article(self.home, scheme["id"])
-            word = "State" if scheme["level"] == "STATE" else "Federal"
-            self.assertIn(f'class="level level-{scheme["level"].lower()}"', card)
-            self.assertIn(f">{word}</span>", card)
+            self.assertIn(f'data-level="{scheme["level"].lower()}"', card)
+            self.assertNotIn("scheme-kicker", card)
+            self.assertNotIn("scheme-short", card)
+            self.assertNotIn(">State</span>", card)
+            self.assertNotIn(">Federal</span>", card)
             self.assertIn(scheme["title"], card)
+            self.assertIn('class="sources-title">Source</h4>', card)
+            self.assertIn('class="sources"', card)
             for link in scheme["links"]:
                 self.assertIn(link["url"], card)
-                self.assertIn('class="sources-title">Source</h4>', card)
-            if scheme["links"]:
-                self.assertIn('class="sources"', card)
-            else:
-                self.assertNotIn("sources-title", card)
-                self.assertNotIn('class="sources"', card)
             if scheme["amount_basis"] == "none":
                 self.assertNotIn('class="amount-list"', card)
                 for amount in scheme.get("amounts") or []:
                     self.assertNotIn(amount, card)
             else:
+                many = " many" if len(scheme["amounts"]) > 1 else ""
+                self.assertIn(f'class="amount-list{many}"', card)
                 for amount in scheme["amounts"]:
                     self.assertIn(amount, card)
+        federal = {
+            "id": "sample",
+            "level": "FEDERAL",
+            "title": "Sample federal scheme",
+            "amount_basis": "none",
+            "unspecified": "None.",
+            "paragraphs": ["A federal payment."],
+            "links": [{"label": "Example", "url": "https://www.jkm.gov.my/"}],
+        }
+        shown = build.render_scheme(federal, show_level=True)
+        self.assertIn('data-level="federal"', shown)
+        self.assertIn('class="level level-federal"', shown)
+        self.assertIn(">Federal</span>", shown)
+        self.assertNotIn("scheme-short", shown)
 
     def test_groups_and_about(self):
         for group in self.site["groups"]:
@@ -188,27 +199,37 @@ class BuildTests(unittest.TestCase):
         blob = (self.home + self.about).casefold()
         for phrase in BANNED:
             self.assertNotIn(phrase, blob)
-        hdras = article(self.home, "hdras").casefold()
-        self.assertNotIn("rm200", hdras)
-        self.assertNotIn("48", hdras)
+        for scheme_id in ("rental", "hdras", "spektra-lite"):
+            self.assertNotIn(f'id="{scheme_id}"', self.home)
         efs = article(self.home, "efs")
-        self.assertIn("1 January 2026", efs)
-        self.assertIn("fully online", efs)
+        self.assertIn("within 1 year", efs)
+        self.assertIn("efs@sarawak.gov.my", efs)
+        self.assertNotIn("1 January 2026", efs)
         self.assertNotIn("JPN", efs)
-        skas_amounts = re.search(r'id="skas"[\s\S]*?<ul class="amount-list">([\s\S]*?)</ul>', self.home).group(1)
+        skas = article(self.home, "skas")
+        skas_amounts = re.search(r'<ul class="amount-list many">([\s\S]*?)</ul>', skas).group(1)
         self.assertIn("RM1,100", skas_amounts)
         self.assertIn("RM600", skas_amounts)
         self.assertIn("RM375", skas_amounts)
         self.assertNotIn("RM800", skas_amounts)
+        self.assertNotIn("dedicated live page", skas.casefold())
+        self.assertNotIn("10 March", skas)
+        self.assertNotIn("25 May", skas)
+        self.assertIn("10 November 2026", skas)
         self.assertNotIn("Use RM600", self.home)
         self.assertNotIn("state and federal", (self.home + self.about).casefold())
-        self.assertIn("25%", article(self.home, "electricity"))
-        self.assertIn("50%", article(self.home, "rental"))
+        self.assertNotIn("marked State", self.about)
+        self.assertNotIn("older rates", self.about.casefold())
+        self.assertNotIn("HDRAS", self.about)
+        electricity = article(self.home, "electricity")
+        self.assertIn("25%", electricity)
+        self.assertNotIn("not the SKAS payment", electricity)
+        self.assertIn("28 February 2027", electricity)
         self.assertIn("IGPS", self.home)
         self.assertIn("selected courses", article(self.home, "ftes").casefold())
 
     def test_published_directory_is_state_only(self):
-        self.assertEqual(len(self.schemes), 25)
+        self.assertEqual(len(self.schemes), 22)
         self.assertTrue(all(scheme["level"] == "STATE" for scheme in self.schemes))
         updated = re.search(r'<p class="updated">(.*?)</p>', self.home).group(1)
         self.assertIn(">Last updated</span>", updated)
@@ -226,7 +247,7 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn('data-category-filter hidden', self.home)
         self.assertNotRegex(self.home, r'<section class="category-filter"[^>]*\shidden')
         self.assertIn('data-section-filter="all"', self.home)
-        self.assertIn("Showing all 25 schemes", self.home)
+        self.assertIn("Showing all 22 schemes", self.home)
         self.assertNotIn("jump-links", self.home)
         self.assertNotIn("Household, senior and single adult", self.home + self.about)
         household = next(group for group in self.site["groups"] if group["id"] == "household")
@@ -273,6 +294,14 @@ class BuildTests(unittest.TestCase):
         self.assertIn("font-size: 9px;", button)
         self.assertIn("border-radius: 6px;", button)
         self.assertIn("line-height: 1.4;", button)
+        page_amount = re.search(
+            r'\.scheme\[data-amount-basis="page"\] \.amount-list li \{([^}]+)\}',
+            css,
+        ).group(1)
+        self.assertIn("font-size: 16px;", page_amount)
+        title = re.search(r"\.scheme h3 \{([^}]+)\}", css).group(1)
+        self.assertIn("font-size: 18px;", title)
+        self.assertIn('content: "•";', css)
         options = re.search(r"\.category-filter-options \{([^}]+)\}", css).group(1)
         self.assertIn("gap: 3px;", options)
         script = (self.dist / "app.js").read_text(encoding="utf-8")

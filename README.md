@@ -52,4 +52,4 @@ These are not done in this repository:
 
 ## What the directory leaves out
 
-Names and payment figures that were not on an official page in the 4 October 2026 check are omitted. That includes the HDRAS monthly repayment, which UKAS names as a scheme but which is not given as a ringgit amount on the HDC page.
+A scheme with no direct official page is left out. So is a payment that was not on the page checked on 4 October 2026.

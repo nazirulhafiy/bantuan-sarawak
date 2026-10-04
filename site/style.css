@@ -578,16 +578,30 @@ html[data-theme="dark"] .category-filter-button.is-active {
 }
 
 .amount-list {
-  display: grid;
-  gap: 4px;
   margin: 12px 0 0;
   padding: 0;
   list-style: none;
 }
 
+.amount-list.many li {
+  position: relative;
+  padding-left: 0.95em;
+}
+
+.amount-list.many li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+}
+
+.amount-list li + li {
+  margin-top: 4px;
+}
+
 .scheme[data-amount-basis="page"] .amount-list li {
   color: var(--ink);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 750;
   letter-spacing: -.01em;
 }
