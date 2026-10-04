@@ -490,8 +490,23 @@ html[data-theme="dark"] .category-filter-button.is-active {
 }
 
 .group-head h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.38em;
   margin: 0 0 8px;
   font-size: 28px;
+}
+
+.group-head h2 > span {
+  min-width: 0;
+}
+
+.group-icon {
+  width: 0.92em;
+  height: 0.92em;
+  flex: 0 0 auto;
+  display: block;
+  overflow: visible;
 }
 
 .sources {

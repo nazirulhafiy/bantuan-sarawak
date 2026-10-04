@@ -118,6 +118,8 @@ def validate(site: dict, schemes: list[dict]) -> None:
         for link in links:
             check_official_url(link["url"], scheme_id)
     for group in site["groups"]:
+        if group["id"] not in GROUP_ICONS:
+            raise SystemExit(f"No heading icon for group {group['id']}")
         for link in group.get("links", []):
             check_official_url(link["url"], group["id"])
     for desk in site.get("desks", []):
@@ -179,6 +181,58 @@ def render_scheme(scheme: dict, show_level: bool = False) -> str:
     return "\n".join(parts)
 
 
+# Stroke glyphs for category headings. Each one is a different shape so the
+# sections can be told apart. The heading text stays the accessible name.
+GROUP_ICONS = {
+    "household": (
+        '<path d="M3.5 11 12 3.2 20.5 11"/>'
+        '<path d="M6.2 10.2V21h11.6V10.2"/>'
+        '<path d="M10 21v-6h4V21"/>'
+    ),
+    "student": (
+        '<path d="M12 6.2C10.2 4.4 7 3.5 3.2 3.5v14.2c3.8.3 6.8 1.1 8.8 2.8"/>'
+        '<path d="M12 6.2c1.8-1.8 5-2.7 8.8-2.7v14.2c-3.8.3-6.8 1.1-8.8 2.8"/>'
+        '<path d="M12 6.2v14.3"/>'
+    ),
+    "housing": (
+        '<path d="M3.2 10.6 12 3l8.8 7.6"/>'
+        '<path d="M6 10.2V21h12V10.2"/>'
+        '<path d="M9.2 13.2h2.1M12.7 13.2h2.1M9.2 16.4h2.1M12.7 16.4h2.1"/>'
+        '<path d="M16.2 5.2V3.4h2.4v4"/>'
+    ),
+    "health": (
+        '<circle cx="12" cy="12" r="9"/>'
+        '<path d="M12 7.5v9M7.5 12h9"/>'
+    ),
+    "baby": (
+        '<path d="M9 2.8h6"/>'
+        '<path d="M10.2 2.8v3.4M13.8 2.8v3.4"/>'
+        '<rect x="7.2" y="6.6" width="9.6" height="14.2" rx="3.2"/>'
+        '<path d="M7.2 12.6h9.6"/>'
+    ),
+    "business": (
+        '<path d="M3.2 4.6q2.2 2.6 4.4 0 2.2 2.6 4.4 0 2.2 2.6 4.4 0 2.2 2.6 4.4 0"/>'
+        '<path d="M5.2 7.2h13.6V21H5.2z"/>'
+        '<path d="M9.6 21v-5.2h4.8V21"/>'
+    ),
+    "welfare": (
+        '<path d="M21 8.4c0-2.5-2.1-4.5-4.7-4.5-1.9 0-3.6 1.1-4.3 2.7C11.3 5 9.6 3.9 7.7 3.9 5.1 3.9 3 5.9 3 8.4 3 15.6 12 20.6 12 20.6S21 15.6 21 8.4z"/>'
+    ),
+}
+
+
+def render_group_icon(group_id: str) -> str:
+    try:
+        body = GROUP_ICONS[group_id]
+    except KeyError:
+        raise SystemExit(f"No heading icon for group {group_id}") from None
+    return (
+        '<svg class="group-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" '
+        'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+        f'stroke-linejoin="round">{body}</svg>'
+    )
+
+
 def render_groups(site: dict, schemes: list[dict]) -> str:
     show_level = any(scheme["level"] == "FEDERAL" for scheme in schemes)
     blocks = []
@@ -188,7 +242,7 @@ def render_groups(site: dict, schemes: list[dict]) -> str:
         blocks.append(
             f"""    <section class="group" id="{esc(group['id'])}" aria-labelledby="group-{esc(group['id'])}">
       <header class="group-head">
-        <h2 id="group-{esc(group['id'])}">{esc(group['title'])}</h2>
+        <h2 id="group-{esc(group['id'])}">{render_group_icon(group['id'])}<span>{esc(group['title'])}</span></h2>
       </header>
       <div class="scheme-list">
 {cards}
