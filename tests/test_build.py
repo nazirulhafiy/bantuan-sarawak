@@ -193,7 +193,7 @@ class BuildTests(unittest.TestCase):
         welfare = next(group for group in self.site["groups"] if group["id"] == "welfare")
         self.assertEqual(welfare["id"], "welfare")
         self.assertEqual(welfare["title"], "Welfare")
-        self.assertNotIn("JKMS welfare", self.home)
+        self.assertIn('id="group-welfare">Welfare</h2>', self.home)
         for group in self.site["groups"]:
             count = sum(scheme["group"] == group["id"] for scheme in self.schemes)
             self.assertGreater(count, 0)
