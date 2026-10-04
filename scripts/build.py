@@ -212,7 +212,7 @@ def render_category_filter(site: dict, schemes: list[dict]) -> str:
             f'data-filter-label="{esc(group["title"])}" aria-pressed="false">{esc(group["title"])} '
             f'<span class="category-filter-count" aria-hidden="true">{count}</span></button>'
         )
-    return f"""    <section class="category-filter" aria-labelledby="category-filter-title" data-category-filter hidden>
+    return f"""    <section class="category-filter" aria-labelledby="category-filter-title" data-category-filter>
       <p class="category-filter-title" id="category-filter-title">Browse by category</p>
       <div class="category-filter-options">
         {' '.join(buttons)}
