@@ -383,14 +383,14 @@ html[data-theme="dark"] .brief-deck { color: #d2d8df; }
 .category-filter-button {
   appearance: none;
   flex: 0 0 auto;
-  padding: 6px 8px;
+  padding: 5px 6px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--card);
   color: #4b5563;
   cursor: pointer;
   font: inherit;
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 800;
   letter-spacing: .02em;
   line-height: 1.4;
