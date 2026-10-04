@@ -258,6 +258,28 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(welfare["title"], "Welfare")
         self.assertIn('id="group-welfare">', self.home)
         self.assertIn(">Welfare</span></h2>", self.home)
+        health = next(group for group in self.site["groups"] if group["id"] == "health")
+        self.assertEqual(health["id"], "health")
+        self.assertEqual(health["title"], "Senior Citizen")
+        self.assertIn('id="health"', self.home)
+        self.assertIn('id="group-health">', self.home)
+        self.assertIn(">Senior Citizen</span></h2>", self.home)
+        self.assertIn(
+            'data-section-filter="health" data-filter-label="Senior Citizen"',
+            self.home,
+        )
+        self.assertNotIn("Health and seniors", self.home + self.about)
+        baby_heading = re.search(
+            r'<h2 id="group-baby">(<svg class="group-icon"[\s\S]*?</svg>)<span>New baby</span></h2>',
+            self.home,
+        )
+        self.assertIsNotNone(baby_heading)
+        baby_icon = baby_heading.group(1)
+        self.assertNotIn("<rect", baby_icon)
+        self.assertEqual(baby_icon.count("<circle"), 2)
+        self.assertIn('viewBox="0 0 24 24"', baby_icon)
+        self.assertIn('width="22"', baby_icon)
+        self.assertIn('height="22"', baby_icon)
         self.assertEqual(self.home.count('class="group-icon"'), len(self.site["groups"]))
         self.assertNotIn("group-icon", self.about)
         filter_row = re.search(
