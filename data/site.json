@@ -1,0 +1,127 @@
+{
+  "name": "Bantuan.Sarawak.News",
+  "short_name": "Bantuan Sarawak",
+  "url": "https://bantuan.sarawak.news/",
+  "checked": "2026-10-04",
+  "title": "Sarawak government assistance, in one directory.",
+  "og_title": "Bantuan Sarawak",
+  "description": "An independent directory of Sarawak state and federal assistance. Amounts come from official pages checked on 4 October 2026, and each scheme links to its source.",
+  "about_seo_title": "About | Bantuan Sarawak",
+  "about_description": "Bantuan Sarawak is an independent directory. It links only to official pages and lists amounts checked on 4 October 2026. The government does not run this site.",
+  "introduction": "A directory of state and federal help for people in Sarawak. Amounts on this page were on an official page when the list was checked on 4 October 2026. This site does not take applications.",
+  "changes_title": "What changed in the 4 October 2026 check",
+  "changes_intro": "These are corrections against older notes. Each one follows an official page.",
+  "changes": [
+    "SKAS rates in the UKAS notice of 16 April 2026 are RM1,100 for a household, RM600 for a senior and RM375 for a single adult. The Service Sarawak SKAS page still shows RM800, RM250 and RM400. Those older figures are not the 2026 rates.",
+    "The SKAS launch statement sets phase one on 10 March 2026, phase two on 25 May 2026 and phase three on 10 November 2026.",
+    "From 1 January 2026, Endowment Fund Sarawak applications are fully online through Service Sarawak and the Sarawak government portal. KPWK says manual and physical applications are no longer accepted.",
+    "The graduate flight subsidy is officially Inisiatif Graduan Pulang Sarawak (IGPS). The maximum is RM300 a trip, for up to two trips a year, claimed within 60 days.",
+    "Free study at Swinburne, Curtin, UTS and i-CATS is a tuition waiver for selected courses (FTES). It is not free study plus an allowance for every student. The extra RM15,000 a year applies only when family income per person is RM1,500 or below.",
+    "PPR, Youth Agropreneur NextGen and BUDI Agri-Komoditi are federal programmes.",
+    "Bantuan Warga Emas follows the federal JKM rate of RM600 a month. A JKMS pamphlet still shows RM500.",
+    "A 25% domestic electricity discount from April to December 2026, and a 50% rental discount for markets, stalls and certain state business premises, were announced with SKAS. They are separate from the SKAS payment."
+  ],
+  "groups": [
+    {
+      "id": "household",
+      "title": "Household, senior and single adult",
+      "intro": "SKAS is the 2026 basic-needs payment. The electricity discount and the rental discount were announced with it. They are separate measures, not part of the SKAS food payment."
+    },
+    {
+      "id": "student",
+      "title": "Students",
+      "intro": "State education aid published by Yayasan Sarawak and MEITD. Sign in at my-Yayasan with Sarawak Pass. Phase 1 in 2026 ran from 31 March to 30 April. Phase 2, for special financial assistance, the laptop and the book voucher, runs from 30 September to 30 October 2026. It was open on my-Yayasan at this check.",
+      "links": [
+        {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
+        {"label": "Phase 1 2026 notice", "url": "https://yayasansarawak.org.my/my/hebahan-permohonan-inisiatif-bantuan-pendidikan-pelajar-ipt-kerajaan-sarawak-fasa-1-2026/"},
+        {"label": "Yayasan scholarships", "url": "https://yayasansarawak.org.my/my/biasiswa/"},
+        {"label": "MEITD notice", "url": "https://meitd.sarawak.gov.my/web/subpage/news_view/2075"}
+      ]
+    },
+    {
+      "id": "housing",
+      "title": "Housing",
+      "intro": "State schemes are published by the Housing Development Corporation and UKAS. PPR is federal. HDC manages completed PPR units. The HDRAS monthly repayment is not stated on the official HDC page, so no repayment figure is shown.",
+      "links": [
+        {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
+      ]
+    },
+    {
+      "id": "health",
+      "title": "Health and seniors",
+      "intro": "State schemes for older residents: outpatient treatment, the Kenyalang Gold Card, and a payment to the family of a card holder who has died."
+    },
+    {
+      "id": "baby",
+      "title": "New baby",
+      "intro": "Two state schemes around a birth. From 2026, the endowment fund application is online only."
+    },
+    {
+      "id": "business",
+      "title": "Small business",
+      "intro": "State enterprise schemes are listed first. Youth Agropreneur NextGen and BUDI Agri-Komoditi are federal programmes posted for Sarawak applicants. They are marked Federal."
+    },
+    {
+      "id": "welfare",
+      "title": "JKMS welfare",
+      "intro": "Jabatan Kebajikan Masyarakat Sarawak handles state aid and federal aid at district offices. Bantuan Am and Bantuan Belia-Beliawanis are state. Bantuan Warga Emas, Bantuan Kanak-Kanak, EPOKU, BTB, BPT and Bantuan Anak Pelihara are federal. The JKMS page, updated 9 September 2026, lists a state-aid poverty line (PGK) of RM1,198 a month and a federal-aid PGK of RM1,236 a month. Apply at the nearest Pejabat Kebajikan Masyarakat with form JKMS/1/2010 (Pindaan 1/2024). The stated process time is 30 days. Phone 082-374888. Email welfare@sarawak.gov.my.",
+      "links": [
+        {"label": "JKMS", "url": "https://welfare.sarawak.gov.my"},
+        {"label": "Welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
+        {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"},
+        {"label": "Bantuan Kanak-Kanak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/187"},
+        {"label": "Economic branch", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"},
+        {"label": "Federal JKM monthly aid", "url": "https://www.jkm.gov.my/main/article/bantuan-bulanan"}
+      ]
+    }
+  ],
+  "about_sections": [
+    {
+      "id": "what",
+      "title": "What this site is",
+      "paragraphs": [
+        "Bantuan Sarawak is an independent directory of government assistance for people in Sarawak. It is a list of schemes, not a news feed. The Sarawak government does not run this website, and neither does any ministry.",
+        "This site does not take applications. Each scheme links to the official page that was checked."
+      ]
+    },
+    {
+      "id": "figures",
+      "title": "Where the figures come from",
+      "paragraphs": [
+        "Amounts are taken from official pages checked on 4 October 2026. If a ringgit figure was not on an official page, it is not shown.",
+        "Some JKMS rates appear only on a rate-sheet attachment, not on the main HTML page. Those cards are marked “On an attachment”.",
+        "The Bantuan Warga Emas figure used here is the federal JKM rate of RM600 a month. An older JKMS pamphlet still shows RM500."
+      ]
+    },
+    {
+      "id": "labels",
+      "title": "State and federal",
+      "paragraphs": [
+        "Every scheme is marked State or Federal. State schemes are Sarawak government programmes. Federal schemes are national programmes, including some that you apply for at a Sarawak JKMS office.",
+        "PPR, Youth Agropreneur NextGen and BUDI Agri-Komoditi are federal. So are Bantuan Warga Emas, Bantuan Kanak-Kanak, EPOKU, BTB, BPT, Bantuan Anak Pelihara, and Tabung Bantuan Segera. Bantuan Am and Bantuan Belia-Beliawanis are state."
+      ]
+    },
+    {
+      "id": "left-out",
+      "title": "What is left out",
+      "paragraphs": [
+        "A scheme name or a payment that was not confirmed on an official page in this check is left out. The HDRAS monthly repayment is one of those figures. UKAS describes the scheme. The repayment amount is not on the official HDC page.",
+        "The Service Sarawak SKAS page still shows older rates. This directory uses the UKAS rates of 16 April 2026: RM1,100, RM600 and RM375."
+      ]
+    }
+  ],
+  "desks": [
+    {
+      "name": "Talikhidmat",
+      "detail": "082-555999 · 555999@sarawak.gov.my",
+      "url": "https://talikhidmat.sarawak.gov.my",
+      "label": "talikhidmat.sarawak.gov.my"
+    },
+    {
+      "name": "JKMS",
+      "detail": "082-374888 · welfare@sarawak.gov.my",
+      "url": "https://welfare.sarawak.gov.my",
+      "label": "welfare.sarawak.gov.my"
+    }
+  ]
+}

@@ -1,0 +1,673 @@
+[
+  {
+    "id": "skas",
+    "group": "household",
+    "level": "STATE",
+    "short": "SKAS",
+    "title": "Sumbangan Keperluan Asas Sarawak (SKAS) 2026",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,100 for a household",
+      "RM600 for a senior",
+      "RM375 for a single adult"
+    ],
+    "amount_note": "UKAS, 16 April 2026. Paid in three phases through S Pay Global for essential food at participating shops.",
+    "paragraphs": [
+      "State payment. Anak Sarawak with identity-card status K, living in Sarawak. Household income RM5,000 or below. Single adult income RM2,500 or below. A senior aged 60 or older, without a spouse or children, with income RM5,000 or below. Recipients are drawn from federal Sumbangan Tunai Rahmah (STR) data.",
+      "Phases in 2026: 10 March, 25 May and 10 November. People on the STR list are included automatically. Check status on S Pay Global or sarawak.gov.my. Service Sarawak also describes a path for eligible people who are not on the STR list.",
+      "The Service Sarawak SKAS page still shows RM800, RM250 and RM400, and STR Phase 4 for 2024. Those are not the 2026 rates. A dedicated live page at sarawak.gov.my/skas was not confirmed."
+    ],
+    "links": [
+      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/38473"},
+      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/35567"},
+      {"label": "Sarawak government notice", "url": "https://www.sarawak.gov.my/web/home/article_view/0/380"},
+      {"label": "Service Sarawak claim path (rates on this page are out of date)", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/319/757/"}
+    ]
+  },
+  {
+    "id": "electricity",
+    "group": "household",
+    "level": "STATE",
+    "short": "Electricity",
+    "title": "Domestic electricity discount",
+    "amount_basis": "page",
+    "amounts": [
+      "25% for domestic users, April to December 2026"
+    ],
+    "amount_note": "Announced with the SKAS increase. This discount is not the SKAS payment.",
+    "paragraphs": [
+      "State cost-of-living measure for domestic electricity users. It runs from April to December 2026."
+    ],
+    "links": [
+      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/38473"},
+      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/35567"},
+      {"label": "Sarawak government notice", "url": "https://www.sarawak.gov.my/web/home/article_view/0/380"}
+    ]
+  },
+  {
+    "id": "rental",
+    "group": "household",
+    "level": "STATE",
+    "short": "Rent",
+    "title": "Rental discount for markets, stalls and state premises",
+    "amount_basis": "page",
+    "amounts": [
+      "50% off the rent"
+    ],
+    "amount_note": "Announced with the SKAS increase. This discount is not the SKAS payment.",
+    "paragraphs": [
+      "State measure. It covers markets and stalls under local authorities, and business premises under state statutory bodies."
+    ],
+    "links": [
+      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/38473"},
+      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/35567"},
+      {"label": "Sarawak government notice", "url": "https://www.sarawak.gov.my/web/home/article_view/0/380"}
+    ]
+  },
+  {
+    "id": "bkk-ipt",
+    "group": "student",
+    "level": "STATE",
+    "short": "BKK IPT",
+    "title": "Bantuan Kewangan Khas (BKK) for IPT students",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,200 a year",
+      "RM600 each semester"
+    ],
+    "amount_note": "Paid twice a year through S Pay Global. This is not the federal child aid that also uses the initials BKK.",
+    "paragraphs": [
+      "For diploma and first-degree students at IPTA and IPTS. There is no income cap."
+    ],
+    "links": [
+      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
+      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"}
+    ]
+  },
+  {
+    "id": "laptop",
+    "group": "student",
+    "level": "STATE",
+    "short": "Laptop",
+    "title": "Free laptop",
+    "amount_basis": "none",
+    "unspecified": "The laptop is given in kind. The official page does not state a ringgit value, so none is shown.",
+    "paragraphs": [
+      "For first-year diploma or bachelor students only. Family income per person must be RM1,500 or below."
+    ],
+    "links": [
+      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
+      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"}
+    ]
+  },
+  {
+    "id": "book-voucher",
+    "group": "student",
+    "level": "STATE",
+    "short": "Books",
+    "title": "Book voucher",
+    "amount_basis": "page",
+    "amounts": [
+      "RM500 through S Pay Global"
+    ],
+    "amount_note": "The amount is on the Yayasan IPT page. The 2026 circular covers Foundation through PhD, with no income cap.",
+    "paragraphs": [
+      "State book aid for IPT students, paid through S Pay Global."
+    ],
+    "links": [
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
+      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"},
+      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
+    ]
+  },
+  {
+    "id": "igps",
+    "group": "student",
+    "level": "STATE",
+    "short": "IGPS",
+    "title": "Inisiatif Graduan Pulang Sarawak (IGPS)",
+    "amount_basis": "page",
+    "amounts": [
+      "Up to RM300 a trip",
+      "Up to 2 trips a year"
+    ],
+    "amount_note": "Claim within 60 days. The official name is IGPS.",
+    "paragraphs": [
+      "State flight subsidy for the graduate return-to-Sarawak initiative."
+    ],
+    "links": [
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
+      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"},
+      {"label": "MEITD notice", "url": "https://meitd.sarawak.gov.my/web/subpage/news_view/2075"}
+    ]
+  },
+  {
+    "id": "ipt-entry",
+    "group": "student",
+    "level": "STATE",
+    "short": "Entry grant",
+    "title": "Geran Kemasukan IPT",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,000 for study in Sarawak",
+      "RM1,500 for study outside Sarawak"
+    ],
+    "amount_note": "Family income per person must be RM1,500 or below.",
+    "paragraphs": [
+      "Covers certificate, matriculation, foundation, pre-diploma, diploma and bachelor programmes."
+    ],
+    "links": [
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
+      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"},
+      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
+    ]
+  },
+  {
+    "id": "ftes",
+    "group": "student",
+    "level": "STATE",
+    "short": "FTES",
+    "title": "Selected-course tuition waiver at four institutions",
+    "amount_basis": "page",
+    "amounts": [
+      "RM15,000 a year, only if income per person is RM1,500 or below"
+    ],
+    "amount_note": "The stipend is RM5,000 for lodging and RM10,000 through S Pay Global. It is not paid to every student.",
+    "paragraphs": [
+      "State FTES tuition waiver for selected courses at Swinburne, Curtin, UTS and i-CATS. It is not free study plus an allowance for every student at those four institutions.",
+      "There is no separate FTES application. The university forwards the names."
+    ],
+    "links": [
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
+      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"},
+      {"label": "MEITD notice", "url": "https://meitd.sarawak.gov.my/web/subpage/news_view/2075"}
+    ]
+  },
+  {
+    "id": "hdas",
+    "group": "housing",
+    "level": "STATE",
+    "short": "HDAS",
+    "title": "HDAS deposit assistance",
+    "amount_basis": "page",
+    "amounts": [
+      "Deposit of 10%, or a maximum of RM10,000"
+    ],
+    "amount_note": "Stated on the HDC page for HDAS.",
+    "paragraphs": [
+      "State help for a first home, for B40 and M40 buyers. Buy an affordable home from a registered developer, or build on SPK or SPS land.",
+      "Apply through Mutiara on 082-313035."
+    ],
+    "links": [
+      {"label": "HDC — HDAS", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/163"},
+      {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
+    ]
+  },
+  {
+    "id": "hdras",
+    "group": "housing",
+    "level": "STATE",
+    "short": "HDRAS",
+    "title": "Housing Deposit and Repayment Assistance Scheme (HDRAS)",
+    "amount_basis": "none",
+    "unspecified": "UKAS describes this scheme. The monthly repayment amount is not stated on the official HDC page, so no repayment figure is shown.",
+    "paragraphs": [
+      "UKAS also uses the name Skim Bantuan Bayaran Balik (HDRAS). Eligibility includes sub-sale and auction homes priced below RM300,000."
+    ],
+    "links": [
+      {"label": "UKAS — HDRAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/29385"},
+      {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
+    ]
+  },
+  {
+    "id": "sras",
+    "group": "housing",
+    "level": "STATE",
+    "short": "SRAS",
+    "title": "SRAS rent assistance",
+    "amount_basis": "page",
+    "amounts": [
+      "RM200 a month for students"
+    ],
+    "amount_note": "The student rate is on a UKAS page. It is not on the HDC SRAS webpage, which has almost no scheme text.",
+    "paragraphs": [
+      "For IPTA and IPTS students renting in Kuching, Samarahan, Sibu, Bintulu or Miri.",
+      "The HDC form also covers PPR tenants with identity-card status K and income of RM4,556 or below. SRAS is not only a student payment.",
+      "The HDC gallery on 21 August 2026 pointed online applications to apply-sras.ireka.my."
+    ],
+    "links": [
+      {"label": "UKAS — student rate", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/27839"},
+      {"label": "HDC — SRAS page", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/139"},
+      {"label": "SRAS online application", "url": "https://apply-sras.ireka.my"}
+    ]
+  },
+  {
+    "id": "spektra-permata",
+    "group": "housing",
+    "level": "STATE",
+    "short": "Spektra Permata",
+    "title": "Rumah Spektra Permata",
+    "amount_basis": "page",
+    "amounts": [
+      "Selling price below RM200,000",
+      "Household income RM1,500 to RM6,000"
+    ],
+    "amount_note": "These are the official price and income band, not a cash grant.",
+    "paragraphs": [
+      "State affordable home listed by HDC."
+    ],
+    "links": [
+      {"label": "HDC — Spektra Permata", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/127"}
+    ]
+  },
+  {
+    "id": "spektra-lite",
+    "group": "housing",
+    "level": "STATE",
+    "short": "Spektra Lite / Medium",
+    "title": "Spektra Lite and Spektra Medium",
+    "amount_basis": "none",
+    "unspecified": "Named in UKAS DUN answers. A selling price was not stated on the pages checked, so none is shown.",
+    "paragraphs": [
+      "State housing products named alongside the other Spektra homes."
+    ],
+    "links": [
+      {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
+    ]
+  },
+  {
+    "id": "sri-pertiwi",
+    "group": "housing",
+    "level": "STATE",
+    "short": "Sri Pertiwi",
+    "title": "Sri Pertiwi",
+    "amount_basis": "none",
+    "unspecified": "No selling price was stated on the pages checked, so none is shown.",
+    "paragraphs": [
+      "Named in UKAS DUN answers. UKAS and HDC put household income at up to RM10,000."
+    ],
+    "links": [
+      {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
+    ]
+  },
+  {
+    "id": "ppr",
+    "group": "housing",
+    "level": "FEDERAL",
+    "short": "PPR",
+    "title": "PPR",
+    "amount_basis": "page",
+    "amounts": [
+      "Rent RM100 a month",
+      "Ownership price RM50,400 to RM59,220"
+    ],
+    "amount_note": "Federal programme (JPN). HDC manages completed units in Sarawak. This is not a state HDC product.",
+    "paragraphs": [
+      "The HDC page states the ownership price band and the monthly rent for completed units."
+    ],
+    "links": [
+      {"label": "HDC — PPR", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/63"}
+    ]
+  },
+  {
+    "id": "schb",
+    "group": "health",
+    "level": "STATE",
+    "short": "SCHB",
+    "title": "Senior Citizen Health Benefit (SCHB)",
+    "amount_basis": "page",
+    "amounts": [
+      "Up to RM500 a person a year"
+    ],
+    "amount_note": "Cashless outpatient treatment at panel clinics.",
+    "paragraphs": [
+      "Identity-card status K, age 60 or older, household income RM7,000 or below, and no other outpatient cover.",
+      "Apply online on Service Sarawak. That page does not name iSarawakCare."
+    ],
+    "links": [
+      {"label": "Service Sarawak — SCHB", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/742/"}
+    ]
+  },
+  {
+    "id": "kgc",
+    "group": "health",
+    "level": "STATE",
+    "short": "KGC",
+    "title": "Kenyalang Gold Card (KGC)",
+    "amount_basis": "none",
+    "unspecified": "Participating merchants give discounts. The Service Sarawak page does not list the discount rates, so none are shown.",
+    "paragraphs": [
+      "Identity-card status K, age 60 or older, and a permanent resident of Sarawak. People who qualify are entitled automatically. Activate the card online. The virtual card sits in SarawakPass."
+    ],
+    "links": [
+      {"label": "Service Sarawak — KGC", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/822"}
+    ]
+  },
+  {
+    "id": "bik",
+    "group": "health",
+    "level": "STATE",
+    "short": "BIK",
+    "title": "Bantuan Ihsan Kematian (BIK)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,800 to the next of kin"
+    ],
+    "amount_note": "For the family of a Kenyalang Gold Card holder who has died.",
+    "paragraphs": [
+      "Claim within 4 months (120 days). The person who died must not receive a JPA death benefit, and must not have been living in a government institution.",
+      "Apply at Service Sarawak, a JKMS counter, a Resident, district or sub-district office, or a Service Sarawak centre."
+    ],
+    "links": [
+      {"label": "Service Sarawak — BIK", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/847/"}
+    ]
+  },
+  {
+    "id": "bib",
+    "group": "baby",
+    "level": "STATE",
+    "short": "BIB",
+    "title": "Bantuan Ibu Bersalin (BIB)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM450 cash"
+    ],
+    "paragraphs": [
+      "Malaysian mother with identity-card status K, or the wife of a Malaysian with status K. The birth can be in or outside Sarawak. Gestation of at least 22 weeks. Apply within 3 months of delivery.",
+      "You need SarawakPass and S Pay Global. Apply on iSarawakCare."
+    ],
+    "links": [
+      {"label": "Service Sarawak — BIB", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/383/"},
+      {"label": "iSarawakCare", "url": "https://isarawakcare.sarawak.gov.my"}
+    ]
+  },
+  {
+    "id": "efs",
+    "group": "baby",
+    "level": "STATE",
+    "short": "EFS",
+    "title": "Endowment Fund Sarawak (EFS)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,000 in trust savings"
+    ],
+    "amount_note": "From 1 January 2026, applications are fully online. KPWK says manual and physical applications are no longer accepted.",
+    "paragraphs": [
+      "Either parent, or both, must be Malaysian with identity-card status K. The child can be born in or outside Sarawak. Apply within 1 year of the birth.",
+      "Apply through Service Sarawak and the Sarawak government portal. KPWK says the money can be withdrawn at age 18 with MyKad at the bank. The exception is if the child dies before 18."
+    ],
+    "links": [
+      {"label": "Service Sarawak — EFS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/846"},
+      {"label": "KPWK", "url": "https://kpwk.sarawak.gov.my/web/subpage/webpage_view/100"},
+      {"label": "KPWK announcement", "url": "https://kpwk.sarawak.gov.my/web/subpage/announcement_view/95"},
+      {"label": "KPWK FAQ", "url": "https://kpwk.sarawak.gov.my/web/subpage/faq_view/"}
+    ]
+  },
+  {
+    "id": "kirwas",
+    "group": "business",
+    "level": "STATE",
+    "short": "KIRWaS",
+    "title": "Bantuan Ketua Isi Rumah Wanita (KIRWaS)",
+    "amount_basis": "page",
+    "amounts": [
+      "Service Sarawak: RM500 cash",
+      "JWKS: RM1,000 one-off"
+    ],
+    "amount_note": "Two official pages state two amounts. Use the page you apply on.",
+    "paragraphs": [
+      "Service Sarawak: income from RM1,169 to RM4,849, and not already a JKMS recipient. Apply on iSarawakCare.",
+      "JWKS: RM1,000 one-off for women entrepreneurs in hardcore poverty, with income of RM1,298 or below."
+    ],
+    "links": [
+      {"label": "Service Sarawak — KIRWaS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/729"},
+      {"label": "JWKS — KIRWaS", "url": "https://jwks.sarawak.gov.my/web/subpage/webpage_view/182"},
+      {"label": "iSarawakCare", "url": "https://isarawakcare.sarawak.gov.my"}
+    ]
+  },
+  {
+    "id": "smcs",
+    "group": "business",
+    "level": "STATE",
+    "short": "SMCS",
+    "title": "Sarawak Micro Credit Scheme (SMCS)",
+    "amount_basis": "page",
+    "amounts": [
+      "Type 1: RM1,000 to RM10,000 at 0%",
+      "Type 2: RM5,001 to RM50,000 at 4%"
+    ],
+    "amount_note": "Type 1 is for B40 borrowers. All sectors except agriculture.",
+    "paragraphs": [
+      "State micro-credit. The two types cover different loan sizes and rates."
+    ],
+    "links": [
+      {"label": "Service Sarawak — SMCS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/259/390"}
+    ]
+  },
+  {
+    "id": "geran-pelancaran",
+    "group": "business",
+    "level": "STATE",
+    "short": "Geran Pelancaran",
+    "title": "Geran Pelancaran / modal mikro",
+    "amount_basis": "page",
+    "amounts": [
+      "Up to RM5,000, one-off"
+    ],
+    "amount_note": "JKMS economic programme, on the economic development branch page. Maximum RM5,000, one-off.",
+    "paragraphs": [
+      "Service Sarawak also describes Geran Pelancaran as appliances. Apply on iSarawakCare or at a JKMS office."
+    ],
+    "links": [
+      {"label": "JKMS — Geran Pelancaran", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"},
+      {"label": "iSarawakCare", "url": "https://isarawakcare.sarawak.gov.my"}
+    ]
+  },
+  {
+    "id": "nextgen",
+    "group": "business",
+    "level": "FEDERAL",
+    "short": "NextGen",
+    "title": "Youth Agropreneur NextGen 2026",
+    "amount_basis": "page",
+    "amounts": [
+      "In-kind start-up support up to RM30,000",
+      "In-kind scale-up support up to RM50,000"
+    ],
+    "amount_note": "Federal KPKM programme, posted on the Sarawak M-FICORD site. Not a state grant.",
+    "paragraphs": [
+      "Apply through the federal portal named on the M-FICORD notice."
+    ],
+    "links": [
+      {"label": "M-FICORD notice", "url": "https://mficord.sarawak.gov.my/web/subpage/announcement_view/127"},
+      {"label": "eGAN application portal", "url": "https://app-egam.kpkm.gov.my"}
+    ]
+  },
+  {
+    "id": "budi",
+    "group": "business",
+    "level": "FEDERAL",
+    "short": "BUDI",
+    "title": "BUDI Agri-Komoditi",
+    "amount_basis": "none",
+    "unspecified": "Federal diesel cash subsidy. The page checked does not state a ringgit amount, so none is shown.",
+    "paragraphs": [
+      "KPKM subsidy for eligible farmers, livestock operators and aquaculture operators. It is separate from the state schemes on this page."
+    ],
+    "links": [
+      {"label": "KPKM — BUDI Agri-Komoditi", "url": "https://www.kpkm.gov.my/en/information/media-statement/year-2024/2024/2435-bantuan-tunai-subsidi-diesel-sektor-pertanian-di-bawah-inisiatif-budi-agri-komoditi"}
+    ]
+  },
+  {
+    "id": "ba",
+    "group": "welfare",
+    "level": "STATE",
+    "short": "BA",
+    "title": "Bantuan Am (BA)",
+    "amount_basis": "attachment",
+    "amounts": [
+      "RM200 to RM300 a month"
+    ],
+    "amount_note": "This range is on a JKMS rate-sheet attachment. It is not on the main JKMS HTML page.",
+    "paragraphs": [
+      "State aid, handled at a JKMS office. Treat the range with care until you have the attachment in front of you."
+    ],
+    "links": [
+      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
+      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
+    ]
+  },
+  {
+    "id": "bbb",
+    "group": "welfare",
+    "level": "STATE",
+    "short": "BBB",
+    "title": "Bantuan Belia-Beliawanis (BBB)",
+    "amount_basis": "attachment",
+    "amounts": [
+      "RM200 a month"
+    ],
+    "amount_note": "This figure is on a JKMS rate-sheet attachment. It is not on the main JKMS HTML page.",
+    "paragraphs": [
+      "State aid for youth, handled at a JKMS office."
+    ],
+    "links": [
+      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
+      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
+    ]
+  },
+  {
+    "id": "bwe",
+    "group": "welfare",
+    "level": "FEDERAL",
+    "short": "BWE",
+    "title": "Bantuan Warga Emas (BWE)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM600 a month"
+    ],
+    "amount_note": "Federal JKM rate. A JKMS pamphlet still shows RM500. Use RM600.",
+    "paragraphs": [
+      "Federal senior aid. You apply at a JKMS office. The amount on this card is the figure on jkm.gov.my, not the older pamphlet."
+    ],
+    "links": [
+      {"label": "JKM — monthly aid", "url": "https://www.jkm.gov.my/main/article/bantuan-bulanan"},
+      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"}
+    ]
+  },
+  {
+    "id": "bkk-child",
+    "group": "welfare",
+    "level": "FEDERAL",
+    "short": "BKK",
+    "title": "Bantuan Kanak-Kanak (BKK)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM250 a month at age 6 and under",
+      "RM200 a month from age 7 to under 18",
+      "Maximum RM1,000 a family"
+    ],
+    "amount_note": "Stated on the JKMS Bantuan Kanak-Kanak page. This is federal child aid, not the state IPT special assistance that also uses the initials BKK.",
+    "paragraphs": [
+      "Federal aid, handled at a JKMS office."
+    ],
+    "links": [
+      {"label": "JKMS — Bantuan Kanak-Kanak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/187"},
+      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
+    ]
+  },
+  {
+    "id": "epoku",
+    "group": "welfare",
+    "level": "FEDERAL",
+    "short": "EPOKU",
+    "title": "Elaun Pekerja Orang Kurang Upaya (EPOKU)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM450 a month"
+    ],
+    "amount_note": "The JKMS attachment and federal JKM both state RM450 a month.",
+    "paragraphs": [
+      "Federal aid, handled at a JKMS office."
+    ],
+    "links": [
+      {"label": "JKM — monthly aid", "url": "https://www.jkm.gov.my/main/article/bantuan-bulanan"},
+      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"}
+    ]
+  },
+  {
+    "id": "btb",
+    "group": "welfare",
+    "level": "FEDERAL",
+    "short": "BTB",
+    "title": "Bantuan Orang Kurang Upaya Tidak Berupaya Bekerja (BTB)",
+    "amount_basis": "attachment",
+    "amounts": [
+      "RM300 a month"
+    ],
+    "amount_note": "This figure is on a JKMS rate-sheet attachment.",
+    "paragraphs": [
+      "Federal aid for an OKU who is unable to work. Apply at a JKMS office."
+    ],
+    "links": [
+      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
+      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
+    ]
+  },
+  {
+    "id": "bpt",
+    "group": "welfare",
+    "level": "FEDERAL",
+    "short": "BPT",
+    "title": "Bantuan Penjagaan (BPT)",
+    "amount_basis": "attachment",
+    "amounts": [
+      "RM500 a month"
+    ],
+    "amount_note": "This figure is on a JKMS rate-sheet attachment.",
+    "paragraphs": [
+      "The JKMS scheme list names this in full: Bantuan Penjagaan Orang Kurang Upaya Terlantar, Pesakit Kronik Terlantar dan Pesakit Kronik Tidak Terlantar. It is federal aid, handled at a JKMS office."
+    ],
+    "links": [
+      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
+      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
+    ]
+  },
+  {
+    "id": "bap",
+    "group": "welfare",
+    "level": "FEDERAL",
+    "short": "BAP",
+    "title": "Bantuan Anak Pelihara (BAP)",
+    "amount_basis": "attachment",
+    "amounts": [
+      "RM250 to RM500"
+    ],
+    "amount_note": "This range is on a JKMS rate-sheet attachment.",
+    "paragraphs": [
+      "Federal aid, handled at a JKMS office."
+    ],
+    "links": [
+      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
+      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
+    ]
+  },
+  {
+    "id": "bencana",
+    "group": "welfare",
+    "level": "FEDERAL",
+    "short": "Bencana",
+    "title": "Bencana / Tabung Bantuan Segera",
+    "amount_basis": "none",
+    "unspecified": "A monthly amount is not stated on the official page, so none is shown.",
+    "paragraphs": [
+      "Bencana is a service area, not a named monthly scheme. Tabung Bantuan Segera is a federal lump-sum channel. Apply through JKMS."
+    ],
+    "links": [
+      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
+      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
+    ]
+  }
+]
