@@ -107,6 +107,19 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(build.render_analytics_script(""), "")
 
     def test_every_scheme_is_labelled_and_linked(self):
+        no_source = {
+            "skas",
+            "electricity",
+            "rental",
+            "igps",
+            "ipt-entry",
+            "ftes",
+            "hdras",
+            "spektra-lite",
+            "sri-pertiwi",
+        }
+        self.assertEqual({scheme["id"] for scheme in self.schemes if not scheme["links"]}, no_source)
+        self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 22)
         for scheme in self.schemes:
             card = article(self.home, scheme["id"])
             word = "State" if scheme["level"] == "STATE" else "Federal"
@@ -115,6 +128,12 @@ class BuildTests(unittest.TestCase):
             self.assertIn(scheme["title"], card)
             for link in scheme["links"]:
                 self.assertIn(link["url"], card)
+                self.assertIn('class="sources-title">Source</h4>', card)
+            if scheme["links"]:
+                self.assertIn('class="sources"', card)
+            else:
+                self.assertNotIn("sources-title", card)
+                self.assertNotIn('class="sources"', card)
             if scheme["amount_basis"] == "none":
                 self.assertNotIn('class="amount-list"', card)
                 for amount in scheme.get("amounts") or []:
@@ -138,7 +157,18 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("Pages checked for this group", self.home)
         self.assertNotIn("sources group-sources", self.home)
         self.assertIn("my-Yayasan", self.home)
-        self.assertIn("Official pages", self.home)
+        self.assertIn('class="sources-title">Source</h4>', self.home)
+        self.assertNotIn("Official pages", self.home)
+        self.assertNotIn("news_view", self.home)
+        self.assertNotIn("announcement_view", self.home)
+        self.assertNotIn("isarawakcare.sarawak.gov.my", self.home)
+        self.assertNotIn("Bantuan-IPT-ENG.pdf", self.home)
+        self.assertNotIn("article_view/0/380", self.home)
+        self.assertNotIn("faq_view", self.home)
+        self.assertNotIn("webpage_view/117", self.home)
+        self.assertNotIn("sla_view/319/757", self.home)
+        self.assertNotIn("meitd.sarawak.gov.my", self.home)
+        self.assertNotRegex(self.home, r'href="https://hdc\.sarawak\.gov\.my/?"')
         self.assertIn("independent", self.about.casefold())
         self.assertIn("4 October 2026", self.about)
         self.assertIn("does not run", self.about)

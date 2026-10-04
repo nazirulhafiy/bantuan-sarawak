@@ -17,12 +17,7 @@
       "Phases in 2026: 10 March, 25 May and 10 November. People on the STR list are included automatically. Check status on S Pay Global or sarawak.gov.my. Service Sarawak also describes a path for eligible people who are not on the STR list.",
       "The Service Sarawak SKAS page still shows RM800, RM250 and RM400, and STR Phase 4 for 2024. Those are not the 2026 rates. A dedicated live page at sarawak.gov.my/skas was not confirmed."
     ],
-    "links": [
-      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/38473"},
-      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/35567"},
-      {"label": "Sarawak government notice", "url": "https://www.sarawak.gov.my/web/home/article_view/0/380"},
-      {"label": "Service Sarawak claim path (rates on this page are out of date)", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/319/757/"}
-    ]
+    "links": []
   },
   {
     "id": "electricity",
@@ -38,11 +33,7 @@
     "paragraphs": [
       "State cost-of-living measure for domestic electricity users. It runs from April to December 2026."
     ],
-    "links": [
-      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/38473"},
-      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/35567"},
-      {"label": "Sarawak government notice", "url": "https://www.sarawak.gov.my/web/home/article_view/0/380"}
-    ]
+    "links": []
   },
   {
     "id": "rental",
@@ -58,11 +49,7 @@
     "paragraphs": [
       "State measure. It covers markets and stalls under local authorities, and business premises under state statutory bodies."
     ],
-    "links": [
-      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/38473"},
-      {"label": "UKAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/35567"},
-      {"label": "Sarawak government notice", "url": "https://www.sarawak.gov.my/web/home/article_view/0/380"}
-    ]
+    "links": []
   },
   {
     "id": "bkk-ipt",
@@ -81,8 +68,7 @@
     ],
     "links": [
       {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
-      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"}
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
     ]
   },
   {
@@ -98,8 +84,7 @@
     ],
     "links": [
       {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
-      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"}
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
     ]
   },
   {
@@ -118,7 +103,6 @@
     ],
     "links": [
       {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
-      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"},
       {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
     ]
   },
@@ -137,11 +121,7 @@
     "paragraphs": [
       "State flight subsidy for the graduate return-to-Sarawak initiative."
     ],
-    "links": [
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
-      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"},
-      {"label": "MEITD notice", "url": "https://meitd.sarawak.gov.my/web/subpage/news_view/2075"}
-    ]
+    "links": []
   },
   {
     "id": "ipt-entry",
@@ -158,11 +138,7 @@
     "paragraphs": [
       "Covers certificate, matriculation, foundation, pre-diploma, diploma and bachelor programmes."
     ],
-    "links": [
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
-      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"},
-      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
-    ]
+    "links": []
   },
   {
     "id": "ftes",
@@ -179,11 +155,7 @@
       "State FTES tuition waiver for selected courses at Swinburne, Curtin, UTS and i-CATS. It is not free study plus an allowance for every student at those four institutions.",
       "There is no separate FTES application. The university forwards the names."
     ],
-    "links": [
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
-      {"label": "Yayasan IPT brief (PDF)", "url": "https://yayasansarawak.org.my/wp-content/uploads/2026/03/Bantuan-IPT-ENG.pdf"},
-      {"label": "MEITD notice", "url": "https://meitd.sarawak.gov.my/web/subpage/news_view/2075"}
-    ]
+    "links": []
   },
   {
     "id": "hdas",
@@ -201,8 +173,7 @@
       "Apply through Mutiara on 082-313035."
     ],
     "links": [
-      {"label": "HDC — HDAS", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/163"},
-      {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
+      {"label": "HDC — HDAS", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/163"}
     ]
   },
   {
@@ -216,10 +187,7 @@
     "paragraphs": [
       "UKAS also uses the name Skim Bantuan Bayaran Balik (HDRAS). Eligibility includes sub-sale and auction homes priced below RM300,000."
     ],
-    "links": [
-      {"label": "UKAS — HDRAS", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/29385"},
-      {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
-    ]
+    "links": []
   },
   {
     "id": "sras",
@@ -238,7 +206,6 @@
       "The HDC gallery on 21 August 2026 pointed online applications to apply-sras.ireka.my."
     ],
     "links": [
-      {"label": "UKAS — student rate", "url": "https://ukas.sarawak.gov.my/web/subpage/news_view/27839"},
       {"label": "HDC — SRAS page", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/139"},
       {"label": "SRAS online application", "url": "https://apply-sras.ireka.my"}
     ]
@@ -273,9 +240,7 @@
     "paragraphs": [
       "State housing products named alongside the other Spektra homes."
     ],
-    "links": [
-      {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
-    ]
+    "links": []
   },
   {
     "id": "sri-pertiwi",
@@ -288,9 +253,7 @@
     "paragraphs": [
       "Named in UKAS DUN answers. UKAS and HDC put household income at up to RM10,000."
     ],
-    "links": [
-      {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
-    ]
+    "links": []
   },
   {
     "id": "schb",
@@ -360,8 +323,7 @@
       "You need SarawakPass and S Pay Global. Apply on iSarawakCare."
     ],
     "links": [
-      {"label": "Service Sarawak — BIB", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/383/"},
-      {"label": "iSarawakCare", "url": "https://isarawakcare.sarawak.gov.my"}
+      {"label": "Service Sarawak — BIB", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/383/"}
     ]
   },
   {
@@ -381,9 +343,7 @@
     ],
     "links": [
       {"label": "Service Sarawak — EFS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/846"},
-      {"label": "KPWK", "url": "https://kpwk.sarawak.gov.my/web/subpage/webpage_view/100"},
-      {"label": "KPWK announcement", "url": "https://kpwk.sarawak.gov.my/web/subpage/announcement_view/95"},
-      {"label": "KPWK FAQ", "url": "https://kpwk.sarawak.gov.my/web/subpage/faq_view/"}
+      {"label": "KPWK", "url": "https://kpwk.sarawak.gov.my/web/subpage/webpage_view/100"}
     ]
   },
   {
@@ -404,8 +364,7 @@
     ],
     "links": [
       {"label": "Service Sarawak — KIRWaS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/729"},
-      {"label": "JWKS — KIRWaS", "url": "https://jwks.sarawak.gov.my/web/subpage/webpage_view/182"},
-      {"label": "iSarawakCare", "url": "https://isarawakcare.sarawak.gov.my"}
+      {"label": "JWKS — KIRWaS", "url": "https://jwks.sarawak.gov.my/web/subpage/webpage_view/182"}
     ]
   },
   {
@@ -442,8 +401,7 @@
       "Service Sarawak also describes Geran Pelancaran as appliances. Apply on iSarawakCare or at a JKMS office."
     ],
     "links": [
-      {"label": "JKMS — Geran Pelancaran", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"},
-      {"label": "iSarawakCare", "url": "https://isarawakcare.sarawak.gov.my"}
+      {"label": "JKMS — Geran Pelancaran", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"}
     ]
   },
   {
@@ -461,7 +419,6 @@
       "State aid, handled at a JKMS office. Treat the range with care until you have the attachment in front of you."
     ],
     "links": [
-      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
       {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
     ]
   },
@@ -480,7 +437,6 @@
       "State aid for youth, handled at a JKMS office."
     ],
     "links": [
-      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
       {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
     ]
   }
