@@ -190,6 +190,10 @@ class BuildTests(unittest.TestCase):
         household = next(group for group in self.site["groups"] if group["id"] == "household")
         self.assertEqual(household["id"], "household")
         self.assertEqual(household["title"], "Household")
+        welfare = next(group for group in self.site["groups"] if group["id"] == "welfare")
+        self.assertEqual(welfare["id"], "welfare")
+        self.assertEqual(welfare["title"], "Welfare")
+        self.assertNotIn("JKMS welfare", self.home)
         for group in self.site["groups"]:
             count = sum(scheme["group"] == group["id"] for scheme in self.schemes)
             self.assertGreater(count, 0)
