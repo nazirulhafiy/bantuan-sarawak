@@ -108,18 +108,12 @@ class BuildTests(unittest.TestCase):
 
     def test_every_scheme_is_labelled_and_linked(self):
         no_source = {
-            "skas",
-            "electricity",
             "rental",
-            "igps",
-            "ipt-entry",
-            "ftes",
             "hdras",
             "spektra-lite",
-            "sri-pertiwi",
         }
         self.assertEqual({scheme["id"] for scheme in self.schemes if not scheme["links"]}, no_source)
-        self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 22)
+        self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 28)
         for scheme in self.schemes:
             card = article(self.home, scheme["id"])
             word = "State" if scheme["level"] == "STATE" else "Federal"
@@ -167,7 +161,13 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("faq_view", self.home)
         self.assertNotIn("webpage_view/117", self.home)
         self.assertNotIn("sla_view/319/757", self.home)
-        self.assertNotIn("meitd.sarawak.gov.my", self.home)
+        self.assertIn("sla_view/0/821/", article(self.home, "skas"))
+        self.assertIn(
+            "https://meitd.sarawak.gov.my/web/subpage/webpage_view/156",
+            article(self.home, "ftes"),
+        )
+        self.assertNotIn("meitd.sarawak.gov.my/web/subpage/news_view", self.home)
+        self.assertNotIn("sarawakenergy.com/media-info/media-releases", self.home)
         self.assertNotRegex(self.home, r'href="https://hdc\.sarawak\.gov\.my/?"')
         self.assertIn("independent", self.about.casefold())
         self.assertIn("4 October 2026", self.about)

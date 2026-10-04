@@ -30,6 +30,8 @@ OFFICIAL_HOSTS = {
     "yayasansarawak.org.my",
     "meitd.sarawak.gov.my",
     "hdc.sarawak.gov.my",
+    "mudenr.sarawak.gov.my",
+    "www.sarawakenergy.com",
     "apply-sras.ireka.my",
     "kpwk.sarawak.gov.my",
     "isarawakcare.sarawak.gov.my",

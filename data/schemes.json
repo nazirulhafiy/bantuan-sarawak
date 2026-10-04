@@ -14,10 +14,12 @@
     "amount_note": "UKAS, 16 April 2026. Paid in three phases through S Pay Global for essential food at participating shops.",
     "paragraphs": [
       "State payment. Anak Sarawak with identity-card status K, living in Sarawak. Household income RM5,000 or below. Single adult income RM2,500 or below. A senior aged 60 or older, without a spouse or children, with income RM5,000 or below. Recipients are drawn from federal Sumbangan Tunai Rahmah (STR) data.",
-      "Phases in 2026: 10 March, 25 May and 10 November. People on the STR list are included automatically. Check status on S Pay Global or sarawak.gov.my. Service Sarawak also describes a path for eligible people who are not on the STR list.",
-      "The Service Sarawak SKAS page still shows RM800, RM250 and RM400, and STR Phase 4 for 2024. Those are not the 2026 rates. A dedicated live page at sarawak.gov.my/skas was not confirmed."
+      "Phases in 2026: 10 March, 25 May and 10 November. People on the STR list are included automatically. Check status on S Pay Global or sarawak.gov.my. Service Sarawak says no new application or appeal is open for people who are not on the STR list.",
+      "A dedicated live page at sarawak.gov.my/skas was not confirmed."
     ],
-    "links": []
+    "links": [
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/821/"}
+    ]
   },
   {
     "id": "electricity",
@@ -33,7 +35,9 @@
     "paragraphs": [
       "State cost-of-living measure for domestic electricity users. It runs from April to December 2026."
     ],
-    "links": []
+    "links": [
+      {"label": "Sarawak Energy", "url": "https://www.sarawakenergy.com/media-info/announcements-publications/extension-of-electricity-discounts-for-sarawak-energy-account-holders-until-december-2026"}
+    ]
   },
   {
     "id": "rental",
@@ -121,7 +125,9 @@
     "paragraphs": [
       "State flight subsidy for the graduate return-to-Sarawak initiative."
     ],
-    "links": []
+    "links": [
+      {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/biasiswa-2/"}
+    ]
   },
   {
     "id": "ipt-entry",
@@ -138,7 +144,9 @@
     "paragraphs": [
       "Covers certificate, matriculation, foundation, pre-diploma, diploma and bachelor programmes."
     ],
-    "links": []
+    "links": [
+      {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/biasiswa-2/"}
+    ]
   },
   {
     "id": "ftes",
@@ -155,7 +163,9 @@
       "State FTES tuition waiver for selected courses at Swinburne, Curtin, UTS and i-CATS. It is not free study plus an allowance for every student at those four institutions.",
       "There is no separate FTES application. The university forwards the names."
     ],
-    "links": []
+    "links": [
+      {"label": "MEITD", "url": "https://meitd.sarawak.gov.my/web/subpage/webpage_view/156"}
+    ]
   },
   {
     "id": "hdas",
@@ -249,11 +259,13 @@
     "short": "Sri Pertiwi",
     "title": "Sri Pertiwi",
     "amount_basis": "none",
-    "unspecified": "No selling price was stated on the pages checked, so none is shown.",
+    "unspecified": "The 2018 Sri Pertiwi guidelines state selling-price caps. Those caps are not shown here.",
     "paragraphs": [
       "Named in UKAS DUN answers. UKAS and HDC put household income at up to RM10,000."
     ],
-    "links": []
+    "links": [
+      {"label": "Sri Pertiwi guidelines", "url": "https://mudenr.sarawak.gov.my/web/attachment/show/?docid=U2JnN2NtQmNWZi9DWkhaYUlUMnhsdz09OjrhxKX9m6xObBhS-XQMz_Kf"}
+    ]
   },
   {
     "id": "schb",
