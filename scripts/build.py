@@ -197,20 +197,28 @@ def render_groups(site: dict, schemes: list[dict]) -> str:
     return "\n".join(blocks)
 
 
-def render_jump(site: dict, schemes: list[dict]) -> str:
-    links = []
+def render_category_filter(site: dict, schemes: list[dict]) -> str:
+    buttons = [
+        f'<button type="button" class="category-filter-button is-active" data-section-filter="all" '
+        f'data-filter-label="All schemes" aria-pressed="true">All '
+        f'<span class="category-filter-count" aria-hidden="true">{len(schemes)}</span></button>'
+    ]
     for group in site["groups"]:
         count = sum(scheme["group"] == group["id"] for scheme in schemes)
-        links.append(
-            f'<a href="#{esc(group["id"])}">{esc(group["title"])} '
-            f'<span class="jump-count">{count}</span></a>'
+        if not count:
+            continue
+        buttons.append(
+            f'<button type="button" class="category-filter-button" data-section-filter="{esc(group["id"])}" '
+            f'data-filter-label="{esc(group["title"])}" aria-pressed="false">{esc(group["title"])} '
+            f'<span class="category-filter-count" aria-hidden="true">{count}</span></button>'
         )
-    return f"""    <nav class="jump" aria-label="Browse by category">
-      <p class="jump-title">Browse by category</p>
-      <div class="jump-links">
-        {' '.join(links)}
+    return f"""    <section class="category-filter" aria-labelledby="category-filter-title" data-category-filter hidden>
+      <p class="category-filter-title" id="category-filter-title">Browse by category</p>
+      <div class="category-filter-options">
+        {' '.join(buttons)}
       </div>
-    </nav>"""
+      <p class="visually-hidden" data-filter-status aria-live="polite">Showing all {len(schemes)} schemes</p>
+    </section>"""
 
 
 def render_header(site: dict, active: str) -> str:
@@ -271,7 +279,7 @@ def render_footer(site: dict, active: str) -> str:
       </nav>
     </div>
     <div class="site-footer-bottom">
-      <p>Built by <a href="https://hafiy.my">hafiy.my</a>, an independent publication. Not affiliated with the Sarawak Government.</p>
+      <p>Built by <a class="site-footer-link site-footer-credit-link" href="https://hafiy.my" target="_blank" rel="noopener noreferrer">hafiy.my</a>, an independent publication. Not affiliated with the Sarawak Government.</p>
     </div>
   </footer>"""
 
@@ -372,7 +380,7 @@ def render_home(site: dict, schemes: list[dict]) -> str:
       <p class="brief-deck">{esc(site['introduction'])}</p>
       <p class="updated"><span class="updated-label">Last updated</span> <time datetime="{esc(site['checked'])}">{esc(checked_label(site['checked']))}</time></p>
     </header>
-{render_jump(site, schemes)}
+{render_category_filter(site, schemes)}
 {render_groups(site, schemes)}
   </main>
   <button class="back-to-top" type="button" data-back-to-top aria-label="Back to top" hidden><span class="back-to-top-label">Back to top</span> <span class="back-to-top-arrow" aria-hidden="true">↑</span></button>

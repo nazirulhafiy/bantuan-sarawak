@@ -132,7 +132,8 @@ class BuildTests(unittest.TestCase):
         self.assertIn("does not run", self.about)
         footer_bottom = (
             '<div class="site-footer-bottom">\n'
-            '      <p>Built by <a href="https://hafiy.my">hafiy.my</a>, an independent publication. '
+            '      <p>Built by <a class="site-footer-link site-footer-credit-link" href="https://hafiy.my" '
+            'target="_blank" rel="noopener noreferrer">hafiy.my</a>, an independent publication. '
             "Not affiliated with the Sarawak Government.</p>"
         )
         self.assertEqual(self.home.count('<footer class="site-footer">'), 1)
@@ -178,8 +179,11 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn('data-level="federal"', self.home)
         self.assertNotIn("level-filter", self.home)
         self.assertNotIn("data-level-filter", self.home)
-        self.assertIn('<p class="jump-title">Browse by category</p>', self.home)
-        self.assertIn('aria-label="Browse by category"', self.home)
+        self.assertIn('<p class="category-filter-title" id="category-filter-title">Browse by category</p>', self.home)
+        self.assertIn('data-category-filter', self.home)
+        self.assertIn('data-section-filter="all"', self.home)
+        self.assertIn("Showing all 25 schemes", self.home)
+        self.assertNotIn("jump-links", self.home)
         self.assertNotIn("Household, senior and single adult", self.home + self.about)
         household = next(group for group in self.site["groups"] if group["id"] == "household")
         self.assertEqual(household["id"], "household")
@@ -188,7 +192,11 @@ class BuildTests(unittest.TestCase):
             count = sum(scheme["group"] == group["id"] for scheme in self.schemes)
             self.assertGreater(count, 0)
             self.assertIn(
-                f'href="#{group["id"]}">{group["title"]} <span class="jump-count">{count}</span>',
+                f'data-section-filter="{group["id"]}" data-filter-label="{group["title"]}"',
+                self.home,
+            )
+            self.assertIn(
+                f'{group["title"]} <span class="category-filter-count" aria-hidden="true">{count}</span>',
                 self.home,
             )
             self.assertIn(f'id="group-{group["id"]}">{group["title"]}</h2>', self.home)
@@ -209,10 +217,17 @@ class BuildTests(unittest.TestCase):
             self.assertNotIn(f'id="{scheme_id}"', self.home)
             self.assertIn(title, backlog)
             self.assertIn(f'"id": "{scheme_id}"', backlog)
-        self.assertNotIn("level-filter", (self.dist / "style.css").read_text(encoding="utf-8"))
+        css = (self.dist / "style.css").read_text(encoding="utf-8")
+        self.assertNotIn("level-filter", css)
+        self.assertNotIn("jump-links", css)
+        self.assertIn("padding: 5px 6px;", css)
+        self.assertIn("font-size: 9px;", css)
+        self.assertIn("border-radius: 6px;", css)
         script = (self.dist / "app.js").read_text(encoding="utf-8")
         self.assertNotIn("data-level-filter", script)
         self.assertNotIn("levelFilter", script)
+        self.assertIn("data-category-filter", script)
+        self.assertIn("Showing all ${visibleCount} schemes", script)
 
     def test_ringgit_figures_are_on_the_allowlist(self):
         found = {value.replace(",", "") for value in re.findall(r"RM\s*([0-9][0-9,]*)", self.home + self.about)}

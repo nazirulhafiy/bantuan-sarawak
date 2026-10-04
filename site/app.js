@@ -104,4 +104,62 @@
     window.addEventListener("scroll", updateBackToTop, { passive: true });
     updateBackToTop();
   }
+
+  const filter = document.querySelector("[data-category-filter]");
+  if (filter) {
+    const buttons = Array.from(filter.querySelectorAll("[data-section-filter]"));
+    const groups = Array.from(document.querySelectorAll(".group"));
+    const status = filter.querySelector("[data-filter-status]");
+
+    function applyFilter(section) {
+      const activeButton = buttons.find((button) => button.dataset.sectionFilter === section);
+      if (!activeButton) return;
+
+      let visibleCount = 0;
+      groups.forEach((group) => {
+        const isVisible = section === "all" || group.id === section;
+        group.hidden = !isVisible;
+        if (isVisible) visibleCount += group.querySelectorAll(".scheme").length;
+      });
+
+      buttons.forEach((button) => {
+        const isActive = button === activeButton;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      if (status) {
+        status.textContent = section === "all"
+          ? `Showing all ${visibleCount} schemes`
+          : `Showing ${visibleCount} ${activeButton.dataset.filterLabel} schemes`;
+      }
+    }
+
+    filter.hidden = false;
+    filter.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-section-filter]");
+      if (!button || !filter.contains(button)) return;
+      const resetToAll = button.classList.contains("is-active") && button.dataset.sectionFilter !== "all";
+      applyFilter(resetToAll ? "all" : button.dataset.sectionFilter);
+    });
+
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href*='#']");
+      if (!link) return;
+      const href = link.getAttribute("href") || "";
+      const hashIndex = href.indexOf("#");
+      if (hashIndex === -1) return;
+      const id = decodeURIComponent(href.slice(hashIndex + 1));
+      if (!buttons.some((button) => button.dataset.sectionFilter === id)) return;
+      event.preventDefault();
+      applyFilter(id);
+      const target = document.getElementById(id);
+      if (!target) return;
+      history.pushState(null, "", `#${id}`);
+      jumpTo(target);
+    });
+
+    const fromHash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
+    applyFilter(buttons.some((button) => button.dataset.sectionFilter === fromHash) ? fromHash : "all");
+  }
 })();
