@@ -135,7 +135,6 @@
       }
     }
 
-    filter.hidden = false;
     filter.addEventListener("click", (event) => {
       const button = event.target.closest("[data-section-filter]");
       if (!button || !filter.contains(button)) return;
