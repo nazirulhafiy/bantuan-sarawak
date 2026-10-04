@@ -232,17 +232,6 @@ def render_filter(schemes: list[dict]) -> str:
     </section>"""
 
 
-def render_changes(site: dict) -> str:
-    items = "\n".join(f"        <li>{esc(item)}</li>" for item in site["changes"])
-    return f"""    <section class="changes" aria-labelledby="changes-title">
-      <h2 id="changes-title">{esc(site['changes_title'])}</h2>
-      <p>{esc(site['changes_intro'])}</p>
-      <ol>
-{items}
-      </ol>
-    </section>"""
-
-
 def render_header(site: dict, active: str) -> str:
     def link(page: str, href: str, label: str) -> str:
         current = ' aria-current="page"' if active == page else ""
@@ -402,7 +391,6 @@ def render_home(site: dict, schemes: list[dict]) -> str:
       <p class="brief-deck">{esc(site['introduction'])}</p>
       <p class="updated"><span class="updated-label">Checked</span> <time datetime="{esc(site['checked'])}">{esc(checked_label(site['checked']))}</time> <span class="updated-count">{len(schemes)} schemes</span></p>
     </header>
-{render_changes(site)}
 {render_jump(site, schemes)}
 {render_filter(schemes)}
 {render_groups(site, schemes)}

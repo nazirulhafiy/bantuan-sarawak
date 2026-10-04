@@ -321,7 +321,6 @@ html[data-theme="dark"] .brief-deck { color: #d2d8df; }
   font-weight: 750;
 }
 
-.changes,
 .jump,
 .level-filter,
 .group,
@@ -331,15 +330,6 @@ html[data-theme="dark"] .brief-deck { color: #d2d8df; }
   margin-left: auto;
 }
 
-.changes {
-  margin-top: 8px;
-  padding: 22px 22px 8px;
-  border-radius: 10px;
-  background: var(--sarawak-yellow-soft);
-  animation: rise .7s cubic-bezier(.22, 1, .36, 1) .08s both;
-}
-
-.changes h2,
 .group-head h2,
 .about-section h2,
 .about-hero h1 {
@@ -347,36 +337,12 @@ html[data-theme="dark"] .brief-deck { color: #d2d8df; }
   line-height: 1.15;
 }
 
-.changes h2 {
-  margin: 0 0 8px;
-  font-size: 22px;
-}
-
-.changes p,
 .group-head p,
 .about-section p,
 .scheme-copy p,
 .amount-note,
 .unspecified {
   color: var(--muted);
-}
-
-.changes p { margin: 0 0 12px; }
-
-.changes ol {
-  margin: 0;
-  padding: 0 0 8px 20px;
-}
-
-.changes li {
-  margin: 0 0 12px;
-  padding-left: 4px;
-  color: var(--ink);
-}
-
-.changes li::marker {
-  color: var(--sarawak-red-ink);
-  font-weight: 800;
 }
 
 .jump { margin-top: 28px; }
@@ -874,8 +840,6 @@ html[data-theme="dark"] .site-footer {
 
   .brief-deck { font-size: 17px; }
 
-  .changes { padding: 18px 14px 4px; }
-
   .group-head h2,
   .about-section h2 { font-size: 23px; }
 
@@ -897,6 +861,5 @@ html[data-theme="dark"] .site-footer {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
-  .brief,
-  .changes { animation: none; }
+  .brief { animation: none; }
 }
