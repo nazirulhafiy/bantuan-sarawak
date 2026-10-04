@@ -12,53 +12,31 @@
   "groups": [
     {
       "id": "household",
-      "title": "Household",
-      "intro": "SKAS is the 2026 basic-needs payment. The electricity discount and the rental discount were announced with it. They are separate measures, not part of the SKAS food payment."
+      "title": "Household"
     },
     {
       "id": "student",
-      "title": "Students",
-      "intro": "State education aid published by Yayasan Sarawak and MEITD. Sign in at my-Yayasan with Sarawak Pass. Phase 1 in 2026 ran from 31 March to 30 April. Phase 2, for special financial assistance, the laptop and the book voucher, runs from 30 September to 30 October 2026. It was open on my-Yayasan at this check.",
-      "links": [
-        {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
-        {"label": "Phase 1 2026 notice", "url": "https://yayasansarawak.org.my/my/hebahan-permohonan-inisiatif-bantuan-pendidikan-pelajar-ipt-kerajaan-sarawak-fasa-1-2026/"},
-        {"label": "Yayasan scholarships", "url": "https://yayasansarawak.org.my/my/biasiswa/"},
-        {"label": "MEITD notice", "url": "https://meitd.sarawak.gov.my/web/subpage/news_view/2075"}
-      ]
+      "title": "Students"
     },
     {
       "id": "housing",
-      "title": "Housing",
-      "intro": "State schemes are published by the Housing Development Corporation and UKAS. The HDRAS monthly repayment is not stated on the official HDC page, so no repayment figure is shown.",
-      "links": [
-        {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
-      ]
+      "title": "Housing"
     },
     {
       "id": "health",
-      "title": "Health and seniors",
-      "intro": "State schemes for older residents: outpatient treatment, the Kenyalang Gold Card, and a payment to the family of a card holder who has died."
+      "title": "Health and seniors"
     },
     {
       "id": "baby",
-      "title": "New baby",
-      "intro": "Two state schemes around a birth. From 2026, the endowment fund application is online only."
+      "title": "New baby"
     },
     {
       "id": "business",
-      "title": "Small business",
-      "intro": "State enterprise schemes."
+      "title": "Small business"
     },
     {
       "id": "welfare",
-      "title": "Welfare",
-      "intro": "Jabatan Kebajikan Masyarakat Sarawak handles Bantuan Am and Bantuan Belia-Beliawanis at district offices. The JKMS page, updated 9 September 2026, lists a state-aid poverty line (PGK) of RM1,198 a month. Apply at the nearest Pejabat Kebajikan Masyarakat with form JKMS/1/2010 (Pindaan 1/2024). The stated process time is 30 days. Phone 082-374888. Email welfare@sarawak.gov.my.",
-      "links": [
-        {"label": "JKMS", "url": "https://welfare.sarawak.gov.my"},
-        {"label": "Welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
-        {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"},
-        {"label": "Economic branch", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"}
-      ]
+      "title": "Welfare"
     }
   ],
   "about_sections": [

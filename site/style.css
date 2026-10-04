@@ -334,7 +334,6 @@ html[data-theme="dark"] .brief-deck { color: #d2d8df; }
   line-height: 1.15;
 }
 
-.group-head p,
 .about-section p,
 .scheme-copy p,
 .amount-note,
@@ -342,8 +341,7 @@ html[data-theme="dark"] .brief-deck { color: #d2d8df; }
   color: var(--muted);
 }
 
-.sources-title,
-.group-sources-title {
+.sources-title {
   margin: 0 0 8px;
   color: var(--muted);
   font-size: 10px;
@@ -496,9 +494,6 @@ html[data-theme="dark"] .category-filter-button.is-active {
   font-size: 28px;
 }
 
-.group-head p { margin: 0 0 14px; }
-
-.group-sources,
 .sources {
   display: flex;
   flex-wrap: wrap;

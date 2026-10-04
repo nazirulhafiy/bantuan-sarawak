@@ -176,18 +176,10 @@ def render_groups(site: dict, schemes: list[dict]) -> str:
     for group in site["groups"]:
         grouped = [scheme for scheme in schemes if scheme["group"] == group["id"]]
         cards = "\n".join(render_scheme(scheme) for scheme in grouped)
-        extra = ""
-        if group.get("links"):
-            extra = (
-                '        <h3 class="group-sources-title">Pages checked for this group</h3>\n'
-                + render_links(group["links"], "sources group-sources")
-            )
         blocks.append(
             f"""    <section class="group" id="{esc(group['id'])}" aria-labelledby="group-{esc(group['id'])}">
       <header class="group-head">
         <h2 id="group-{esc(group['id'])}">{esc(group['title'])}</h2>
-        <p>{esc(group['intro'])}</p>
-{extra}
       </header>
       <div class="scheme-list">
 {cards}
