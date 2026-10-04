@@ -6,7 +6,7 @@ The figures were taken from the directory data checked on 4 October 2026. Each s
 
 To restore a scheme, copy its JSON object back into `data/schemes.json`. Keep `level` as `FEDERAL` and `group` as the category id.
 
-10 federal schemes were removed. 25 state schemes remain in `data/schemes.json`.
+10 federal schemes were removed. 22 state schemes remain in `data/schemes.json`.
 
 ## Schemes removed
 

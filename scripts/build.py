@@ -113,8 +113,8 @@ def validate(site: dict, schemes: list[dict]) -> None:
         if not scheme.get("paragraphs"):
             raise SystemExit(f"{scheme_id} needs paragraphs")
         links = scheme.get("links")
-        if not isinstance(links, list):
-            raise SystemExit(f"{scheme_id} needs a links list")
+        if not isinstance(links, list) or not links:
+            raise SystemExit(f"{scheme_id} needs a source link")
         for link in links:
             check_official_url(link["url"], scheme_id)
     for group in site["groups"]:
@@ -143,27 +143,31 @@ def render_links(links: list[dict], class_name: str = "sources") -> str:
       </ul>"""
 
 
-def render_scheme(scheme: dict) -> str:
+def render_scheme(scheme: dict, show_level: bool = False) -> str:
     level = scheme["level"]
-    level_word = "State" if level == "STATE" else "Federal"
     basis = scheme["amount_basis"]
+    header = ["      <header class=\"scheme-head\">"]
+    if show_level:
+        level_word = "State" if level == "STATE" else "Federal"
+        header.append(
+            "        <p class=\"scheme-kicker\">\n"
+            f"          <span class=\"level level-{level.lower()}\">{level_word}</span>\n"
+            "        </p>"
+        )
+    header.append(f"        <h3>{esc(scheme['title'])}</h3>")
+    header.append("      </header>")
     parts = [
         f"""    <article class="scheme" id="{esc(scheme['id'])}" data-level="{level.lower()}" data-amount-basis="{esc(basis)}">
-      <header class="scheme-head">
-        <p class="scheme-kicker">
-          <span class="level level-{level.lower()}">{level_word}</span>
-          <span class="scheme-short">{esc(scheme['short'])}</span>
-        </p>
-        <h3>{esc(scheme['title'])}</h3>
-      </header>"""
+{chr(10).join(header)}"""
     ]
     if basis == "attachment":
         parts.append('      <p class="basis">On an attachment</p>')
     if basis == "none":
         parts.append(f'      <p class="unspecified">{esc(scheme["unspecified"])}</p>')
     else:
+        many = " many" if len(scheme["amounts"]) > 1 else ""
         amounts = "\n".join(f"        <li>{esc(amount)}</li>" for amount in scheme["amounts"])
-        parts.append(f"      <ul class=\"amount-list\">\n{amounts}\n      </ul>")
+        parts.append(f'      <ul class="amount-list{many}">\n{amounts}\n      </ul>')
     if scheme.get("amount_note"):
         parts.append(f'      <p class="amount-note">{esc(scheme["amount_note"])}</p>')
     paragraphs = "\n".join(f"        <p>{esc(paragraph)}</p>" for paragraph in scheme["paragraphs"])
@@ -176,10 +180,11 @@ def render_scheme(scheme: dict) -> str:
 
 
 def render_groups(site: dict, schemes: list[dict]) -> str:
+    show_level = any(scheme["level"] == "FEDERAL" for scheme in schemes)
     blocks = []
     for group in site["groups"]:
         grouped = [scheme for scheme in schemes if scheme["group"] == group["id"]]
-        cards = "\n".join(render_scheme(scheme) for scheme in grouped)
+        cards = "\n".join(render_scheme(scheme, show_level) for scheme in grouped)
         blocks.append(
             f"""    <section class="group" id="{esc(group['id'])}" aria-labelledby="group-{esc(group['id'])}">
       <header class="group-head">

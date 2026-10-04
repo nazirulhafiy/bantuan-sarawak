@@ -60,15 +60,14 @@
       "id": "labels",
       "title": "State schemes",
       "paragraphs": [
-        "Every scheme in this directory is a Sarawak state programme and is marked State."
+        "Every scheme in this directory is a Sarawak state programme."
       ]
     },
     {
       "id": "left-out",
       "title": "What is left out",
       "paragraphs": [
-        "A scheme name or a payment that was not confirmed on an official page in this check is left out. The HDRAS monthly repayment is one of those figures. UKAS describes the scheme. The repayment amount is not on the official HDC page.",
-        "The Service Sarawak SKAS page still shows older rates. This directory uses the UKAS rates of 16 April 2026: RM1,100, RM600 and RM375."
+        "A scheme with no direct official page is left out. So is a payment that was not on the page checked."
       ]
     }
   ],
