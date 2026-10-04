@@ -83,11 +83,6 @@ def checked_label(iso_date: str) -> str:
     return f"{checked.strftime('%A').upper()}, {checked.day} {checked.strftime('%b %Y').upper()}"
 
 
-def long_date(iso_date: str) -> str:
-    checked = datetime.strptime(iso_date, "%Y-%m-%d")
-    return f"{checked.day} {checked.strftime('%B %Y')}"
-
-
 def validate(site: dict, schemes: list[dict]) -> None:
     group_ids = [group["id"] for group in site["groups"]]
     if len(group_ids) != len(set(group_ids)):
@@ -210,26 +205,12 @@ def render_jump(site: dict, schemes: list[dict]) -> str:
             f'<a href="#{esc(group["id"])}">{esc(group["title"])} '
             f'<span class="jump-count">{count}</span></a>'
         )
-    return f"""    <nav class="jump" aria-label="On this page">
-      <p class="jump-title">On this page</p>
+    return f"""    <nav class="jump" aria-label="Browse by category">
+      <p class="jump-title">Browse by category</p>
       <div class="jump-links">
         {' '.join(links)}
       </div>
     </nav>"""
-
-
-def render_filter(schemes: list[dict]) -> str:
-    state_count = sum(scheme["level"] == "STATE" for scheme in schemes)
-    federal_count = sum(scheme["level"] == "FEDERAL" for scheme in schemes)
-    return f"""    <section class="level-filter" aria-labelledby="level-filter-title" data-level-filter hidden>
-      <p class="level-filter-title" id="level-filter-title">Show</p>
-      <div class="level-filter-options">
-        <button type="button" class="level-filter-button is-active" data-level-filter-value="all" aria-pressed="true">All <span class="level-filter-count">{len(schemes)}</span></button>
-        <button type="button" class="level-filter-button" data-level-filter-value="state" aria-pressed="false">State <span class="level-filter-count">{state_count}</span></button>
-        <button type="button" class="level-filter-button" data-level-filter-value="federal" aria-pressed="false">Federal <span class="level-filter-count">{federal_count}</span></button>
-      </div>
-      <p class="visually-hidden" data-filter-status aria-live="polite">Showing all {len(schemes)} schemes</p>
-    </section>"""
 
 
 def render_header(site: dict, active: str) -> str:
@@ -290,7 +271,7 @@ def render_footer(site: dict, active: str) -> str:
       </nav>
     </div>
     <div class="site-footer-bottom">
-      <p>Independent directory. Figures checked {esc(long_date(site['checked']))}. The Sarawak government does not run this site.</p>
+      <p>Built by <a href="https://hafiy.my">hafiy.my</a>, an independent publication. Not affiliated with the Sarawak Government.</p>
     </div>
   </footer>"""
 
@@ -389,10 +370,9 @@ def render_home(site: dict, schemes: list[dict]) -> str:
     <header class="brief">
       <h1>{esc(site['title'])}</h1>
       <p class="brief-deck">{esc(site['introduction'])}</p>
-      <p class="updated"><span class="updated-label">Checked</span> <time datetime="{esc(site['checked'])}">{esc(checked_label(site['checked']))}</time> <span class="updated-count">{len(schemes)} schemes</span></p>
+      <p class="updated"><span class="updated-label">Last updated</span> <time datetime="{esc(site['checked'])}">{esc(checked_label(site['checked']))}</time></p>
     </header>
 {render_jump(site, schemes)}
-{render_filter(schemes)}
 {render_groups(site, schemes)}
   </main>
   <button class="back-to-top" type="button" data-back-to-top aria-label="Back to top" hidden><span class="back-to-top-label">Back to top</span> <span class="back-to-top-arrow" aria-hidden="true">↑</span></button>
@@ -441,7 +421,7 @@ def render_about(site: dict) -> str:
     <header class="about-hero">
       <p class="about-eyebrow">About the directory</p>
       <h1>About Bantuan Sarawak</h1>
-      <p class="about-lede">An independent list of state and federal assistance, with official links only. Amounts were checked on 4 October 2026.</p>
+      <p class="about-lede">An independent list of state assistance, with official links only. Amounts were checked on 4 October 2026.</p>
     </header>
 {chr(10).join(sections)}
     <section class="about-section" aria-labelledby="about-desks">

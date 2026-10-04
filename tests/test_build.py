@@ -130,6 +130,15 @@ class BuildTests(unittest.TestCase):
         self.assertIn("independent", self.about.casefold())
         self.assertIn("4 October 2026", self.about)
         self.assertIn("does not run", self.about)
+        footer_bottom = (
+            '<div class="site-footer-bottom">\n'
+            '      <p>Built by <a href="https://hafiy.my">hafiy.my</a>, an independent publication. '
+            "Not affiliated with the Sarawak Government.</p>"
+        )
+        self.assertEqual(self.home.count('<footer class="site-footer">'), 1)
+        self.assertEqual(self.about.count('<footer class="site-footer">'), 1)
+        self.assertIn(footer_bottom, self.home)
+        self.assertIn(footer_bottom, self.about)
         self.assertIn("official", self.about.casefold())
 
     def test_rejected_claims_stay_out(self):
@@ -148,17 +157,62 @@ class BuildTests(unittest.TestCase):
         self.assertIn("RM600", skas_amounts)
         self.assertIn("RM375", skas_amounts)
         self.assertNotIn("RM800", skas_amounts)
-        bwe = article(self.home, "bwe")
-        self.assertIn("RM600 a month", bwe)
-        self.assertIn("RM500", bwe)
-        self.assertIn("Use RM600", bwe)
-        self.assertIn('data-level="federal"', article(self.home, "ppr"))
-        self.assertIn('data-level="federal"', article(self.home, "nextgen"))
-        self.assertIn('data-level="federal"', article(self.home, "budi"))
+        self.assertNotIn("Use RM600", self.home)
+        self.assertNotIn("state and federal", (self.home + self.about).casefold())
         self.assertIn("25%", article(self.home, "electricity"))
         self.assertIn("50%", article(self.home, "rental"))
         self.assertIn("IGPS", self.home)
         self.assertIn("selected courses", article(self.home, "ftes").casefold())
+
+    def test_published_directory_is_state_only(self):
+        self.assertEqual(len(self.schemes), 25)
+        self.assertTrue(all(scheme["level"] == "STATE" for scheme in self.schemes))
+        updated = re.search(r'<p class="updated">(.*?)</p>', self.home).group(1)
+        self.assertIn(">Last updated</span>", updated)
+        self.assertIn(">SUNDAY, 4 OCT 2026</time>", updated)
+        self.assertNotIn("Checked", updated)
+        self.assertNotIn("schemes", updated.casefold())
+        self.assertNotIn("updated-count", self.home)
+        deck = re.search(r'<p class="brief-deck">(.*?)</p>', self.home).group(1)
+        self.assertEqual(deck, "A directory of state help for people in Sarawak.")
+        self.assertNotIn('data-level="federal"', self.home)
+        self.assertNotIn("level-filter", self.home)
+        self.assertNotIn("data-level-filter", self.home)
+        self.assertIn('<p class="jump-title">Browse by category</p>', self.home)
+        self.assertIn('aria-label="Browse by category"', self.home)
+        self.assertNotIn("Household, senior and single adult", self.home + self.about)
+        household = next(group for group in self.site["groups"] if group["id"] == "household")
+        self.assertEqual(household["id"], "household")
+        self.assertEqual(household["title"], "Household")
+        for group in self.site["groups"]:
+            count = sum(scheme["group"] == group["id"] for scheme in self.schemes)
+            self.assertGreater(count, 0)
+            self.assertIn(
+                f'href="#{group["id"]}">{group["title"]} <span class="jump-count">{count}</span>',
+                self.home,
+            )
+            self.assertIn(f'id="group-{group["id"]}">{group["title"]}</h2>', self.home)
+        removed = {
+            "ppr": "PPR",
+            "nextgen": "Youth Agropreneur NextGen 2026",
+            "budi": "BUDI Agri-Komoditi",
+            "bwe": "Bantuan Warga Emas (BWE)",
+            "bkk-child": "Bantuan Kanak-Kanak (BKK)",
+            "epoku": "Elaun Pekerja Orang Kurang Upaya (EPOKU)",
+            "btb": "Bantuan Orang Kurang Upaya Tidak Berupaya Bekerja (BTB)",
+            "bpt": "Bantuan Penjagaan (BPT)",
+            "bap": "Bantuan Anak Pelihara (BAP)",
+            "bencana": "Bencana / Tabung Bantuan Segera",
+        }
+        backlog = (ROOT / "docs" / "federal-assistance-backlog.md").read_text(encoding="utf-8")
+        for scheme_id, title in removed.items():
+            self.assertNotIn(f'id="{scheme_id}"', self.home)
+            self.assertIn(title, backlog)
+            self.assertIn(f'"id": "{scheme_id}"', backlog)
+        self.assertNotIn("level-filter", (self.dist / "style.css").read_text(encoding="utf-8"))
+        script = (self.dist / "app.js").read_text(encoding="utf-8")
+        self.assertNotIn("data-level-filter", script)
+        self.assertNotIn("levelFilter", script)
 
     def test_ringgit_figures_are_on_the_allowlist(self):
         found = {value.replace(",", "") for value in re.findall(r"RM\s*([0-9][0-9,]*)", self.home + self.about)}

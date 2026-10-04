@@ -5,14 +5,14 @@
   "checked": "2026-10-04",
   "title": "Sarawak government assistance, in one directory.",
   "og_title": "Bantuan Sarawak",
-  "description": "An independent directory of Sarawak state and federal assistance. Amounts come from official pages checked on 4 October 2026, and each scheme links to its source.",
+  "description": "An independent directory of Sarawak state assistance. Amounts come from official pages checked on 4 October 2026, and each scheme links to its source.",
   "about_seo_title": "About | Bantuan Sarawak",
   "about_description": "Bantuan Sarawak is an independent directory. It links only to official pages and lists amounts checked on 4 October 2026. The government does not run this site.",
-  "introduction": "A directory of state and federal help for people in Sarawak. Amounts on this page were on an official page when the list was checked on 4 October 2026. This site does not take applications.",
+  "introduction": "A directory of state help for people in Sarawak.",
   "groups": [
     {
       "id": "household",
-      "title": "Household, senior and single adult",
+      "title": "Household",
       "intro": "SKAS is the 2026 basic-needs payment. The electricity discount and the rental discount were announced with it. They are separate measures, not part of the SKAS food payment."
     },
     {
@@ -29,7 +29,7 @@
     {
       "id": "housing",
       "title": "Housing",
-      "intro": "State schemes are published by the Housing Development Corporation and UKAS. PPR is federal. HDC manages completed PPR units. The HDRAS monthly repayment is not stated on the official HDC page, so no repayment figure is shown.",
+      "intro": "State schemes are published by the Housing Development Corporation and UKAS. The HDRAS monthly repayment is not stated on the official HDC page, so no repayment figure is shown.",
       "links": [
         {"label": "HDC", "url": "https://hdc.sarawak.gov.my"}
       ]
@@ -47,19 +47,17 @@
     {
       "id": "business",
       "title": "Small business",
-      "intro": "State enterprise schemes are listed first. Youth Agropreneur NextGen and BUDI Agri-Komoditi are federal programmes posted for Sarawak applicants. They are marked Federal."
+      "intro": "State enterprise schemes."
     },
     {
       "id": "welfare",
       "title": "JKMS welfare",
-      "intro": "Jabatan Kebajikan Masyarakat Sarawak handles state aid and federal aid at district offices. Bantuan Am and Bantuan Belia-Beliawanis are state. Bantuan Warga Emas, Bantuan Kanak-Kanak, EPOKU, BTB, BPT and Bantuan Anak Pelihara are federal. The JKMS page, updated 9 September 2026, lists a state-aid poverty line (PGK) of RM1,198 a month and a federal-aid PGK of RM1,236 a month. Apply at the nearest Pejabat Kebajikan Masyarakat with form JKMS/1/2010 (Pindaan 1/2024). The stated process time is 30 days. Phone 082-374888. Email welfare@sarawak.gov.my.",
+      "intro": "Jabatan Kebajikan Masyarakat Sarawak handles Bantuan Am and Bantuan Belia-Beliawanis at district offices. The JKMS page, updated 9 September 2026, lists a state-aid poverty line (PGK) of RM1,198 a month. Apply at the nearest Pejabat Kebajikan Masyarakat with form JKMS/1/2010 (Pindaan 1/2024). The stated process time is 30 days. Phone 082-374888. Email welfare@sarawak.gov.my.",
       "links": [
         {"label": "JKMS", "url": "https://welfare.sarawak.gov.my"},
         {"label": "Welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
         {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"},
-        {"label": "Bantuan Kanak-Kanak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/187"},
-        {"label": "Economic branch", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"},
-        {"label": "Federal JKM monthly aid", "url": "https://www.jkm.gov.my/main/article/bantuan-bulanan"}
+        {"label": "Economic branch", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"}
       ]
     }
   ],
@@ -77,16 +75,14 @@
       "title": "Where the figures come from",
       "paragraphs": [
         "Amounts are taken from official pages checked on 4 October 2026. If a ringgit figure was not on an official page, it is not shown.",
-        "Some JKMS rates appear only on a rate-sheet attachment, not on the main HTML page. Those cards are marked “On an attachment”.",
-        "The Bantuan Warga Emas figure used here is the federal JKM rate of RM600 a month. An older JKMS pamphlet still shows RM500."
+        "Some JKMS rates appear only on a rate-sheet attachment, not on the main HTML page. Those cards are marked “On an attachment”."
       ]
     },
     {
       "id": "labels",
-      "title": "State and federal",
+      "title": "State schemes",
       "paragraphs": [
-        "Every scheme is marked State or Federal. State schemes are Sarawak government programmes. Federal schemes are national programmes, including some that you apply for at a Sarawak JKMS office.",
-        "PPR, Youth Agropreneur NextGen and BUDI Agri-Komoditi are federal. So are Bantuan Warga Emas, Bantuan Kanak-Kanak, EPOKU, BTB, BPT, Bantuan Anak Pelihara, and Tabung Bantuan Segera. Bantuan Am and Bantuan Belia-Beliawanis are state."
+        "Every scheme in this directory is a Sarawak state programme and is marked State."
       ]
     },
     {
