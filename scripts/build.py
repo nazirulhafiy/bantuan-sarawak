@@ -110,9 +110,10 @@ def validate(site: dict, schemes: list[dict]) -> None:
             raise SystemExit(f"{scheme_id} needs at least one amount")
         if not scheme.get("paragraphs"):
             raise SystemExit(f"{scheme_id} needs paragraphs")
-        if not scheme.get("links"):
-            raise SystemExit(f"{scheme_id} needs an official link")
-        for link in scheme["links"]:
+        links = scheme.get("links")
+        if not isinstance(links, list):
+            raise SystemExit(f"{scheme_id} needs a links list")
+        for link in links:
             check_official_url(link["url"], scheme_id)
     for group in site["groups"]:
         for link in group.get("links", []):
@@ -165,8 +166,9 @@ def render_scheme(scheme: dict) -> str:
         parts.append(f'      <p class="amount-note">{esc(scheme["amount_note"])}</p>')
     paragraphs = "\n".join(f"        <p>{esc(paragraph)}</p>" for paragraph in scheme["paragraphs"])
     parts.append(f"      <div class=\"scheme-copy\">\n{paragraphs}\n      </div>")
-    parts.append('      <h4 class="sources-title">Official pages</h4>')
-    parts.append(render_links(scheme["links"]))
+    if scheme["links"]:
+        parts.append('      <h4 class="sources-title">Source</h4>')
+        parts.append(render_links(scheme["links"]))
     parts.append("    </article>")
     return "\n".join(parts)
 
