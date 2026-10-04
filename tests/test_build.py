@@ -127,6 +127,18 @@ class BuildTests(unittest.TestCase):
         for group in self.site["groups"]:
             self.assertIn(f'id="{group["id"]}"', self.home)
             self.assertIn(group["title"], self.home)
+            self.assertNotIn("intro", group)
+            self.assertNotIn("links", group)
+        for match in re.finditer(
+            r'<header class="group-head">([\s\S]*?)</header>',
+            self.home,
+        ):
+            self.assertNotRegex(match.group(1), r'<p[\s>]')
+        self.assertNotIn("group-sources-title", self.home)
+        self.assertNotIn("Pages checked for this group", self.home)
+        self.assertNotIn("sources group-sources", self.home)
+        self.assertIn("my-Yayasan", self.home)
+        self.assertIn("Official pages", self.home)
         self.assertIn("independent", self.about.casefold())
         self.assertIn("4 October 2026", self.about)
         self.assertIn("does not run", self.about)
