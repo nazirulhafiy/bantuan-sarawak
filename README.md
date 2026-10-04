@@ -2,7 +2,7 @@
 
 Independent directory of Sarawak government assistance, for [bantuan.sarawak.news](https://bantuan.sarawak.news/).
 
-This is not a news feed and not a government website. It lists state and federal schemes, with the amount and the official page each figure came from. The figures were checked on 4 October 2026. If a ringgit amount was not on an official page, it is not shown.
+This is not a news feed and not a government website. It lists state schemes, with the amount and the official page each figure came from. The figures were checked on 4 October 2026. If a ringgit amount was not on an official page, it is not shown.
 
 Applications are made on the official pages linked from each scheme.
 
@@ -31,8 +31,9 @@ python3 -m unittest discover -s tests -v
 ## Data
 
 - `data/site.json` — titles, the “what changed” list, audience groups, about copy
-- `data/schemes.json` — schemes, State or Federal, amounts, official URLs
-- `site/style.css` and `site/app.js` — visual design and the dark-mode, menu, and State/Federal filter
+- `data/schemes.json` — state schemes, amounts, official URLs
+- `docs/federal-assistance-backlog.md` — federal schemes taken out of the directory, with the fields needed to add them back
+- `site/style.css` and `site/app.js` — visual design, dark mode and the menu
 - `site/social-card.png` — Open Graph image, 1200×630
 
 `scripts/render_social_card.py` can redraw the card when Pillow and Noto Sans are installed. The site build only copies the PNG.

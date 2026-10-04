@@ -293,25 +293,6 @@
     ]
   },
   {
-    "id": "ppr",
-    "group": "housing",
-    "level": "FEDERAL",
-    "short": "PPR",
-    "title": "PPR",
-    "amount_basis": "page",
-    "amounts": [
-      "Rent RM100 a month",
-      "Ownership price RM50,400 to RM59,220"
-    ],
-    "amount_note": "Federal programme (JPN). HDC manages completed units in Sarawak. This is not a state HDC product.",
-    "paragraphs": [
-      "The HDC page states the ownership price band and the monthly rent for completed units."
-    ],
-    "links": [
-      {"label": "HDC — PPR", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/63"}
-    ]
-  },
-  {
     "id": "schb",
     "group": "health",
     "level": "STATE",
@@ -466,41 +447,6 @@
     ]
   },
   {
-    "id": "nextgen",
-    "group": "business",
-    "level": "FEDERAL",
-    "short": "NextGen",
-    "title": "Youth Agropreneur NextGen 2026",
-    "amount_basis": "page",
-    "amounts": [
-      "In-kind start-up support up to RM30,000",
-      "In-kind scale-up support up to RM50,000"
-    ],
-    "amount_note": "Federal KPKM programme, posted on the Sarawak M-FICORD site. Not a state grant.",
-    "paragraphs": [
-      "Apply through the federal portal named on the M-FICORD notice."
-    ],
-    "links": [
-      {"label": "M-FICORD notice", "url": "https://mficord.sarawak.gov.my/web/subpage/announcement_view/127"},
-      {"label": "eGAN application portal", "url": "https://app-egam.kpkm.gov.my"}
-    ]
-  },
-  {
-    "id": "budi",
-    "group": "business",
-    "level": "FEDERAL",
-    "short": "BUDI",
-    "title": "BUDI Agri-Komoditi",
-    "amount_basis": "none",
-    "unspecified": "Federal diesel cash subsidy. The page checked does not state a ringgit amount, so none is shown.",
-    "paragraphs": [
-      "KPKM subsidy for eligible farmers, livestock operators and aquaculture operators. It is separate from the state schemes on this page."
-    ],
-    "links": [
-      {"label": "KPKM — BUDI Agri-Komoditi", "url": "https://www.kpkm.gov.my/en/information/media-statement/year-2024/2024/2435-bantuan-tunai-subsidi-diesel-sektor-pertanian-di-bawah-inisiatif-budi-agri-komoditi"}
-    ]
-  },
-  {
     "id": "ba",
     "group": "welfare",
     "level": "STATE",
@@ -532,138 +478,6 @@
     "amount_note": "This figure is on a JKMS rate-sheet attachment. It is not on the main JKMS HTML page.",
     "paragraphs": [
       "State aid for youth, handled at a JKMS office."
-    ],
-    "links": [
-      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
-      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
-    ]
-  },
-  {
-    "id": "bwe",
-    "group": "welfare",
-    "level": "FEDERAL",
-    "short": "BWE",
-    "title": "Bantuan Warga Emas (BWE)",
-    "amount_basis": "page",
-    "amounts": [
-      "RM600 a month"
-    ],
-    "amount_note": "Federal JKM rate. A JKMS pamphlet still shows RM500. Use RM600.",
-    "paragraphs": [
-      "Federal senior aid. You apply at a JKMS office. The amount on this card is the figure on jkm.gov.my, not the older pamphlet."
-    ],
-    "links": [
-      {"label": "JKM — monthly aid", "url": "https://www.jkm.gov.my/main/article/bantuan-bulanan"},
-      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"}
-    ]
-  },
-  {
-    "id": "bkk-child",
-    "group": "welfare",
-    "level": "FEDERAL",
-    "short": "BKK",
-    "title": "Bantuan Kanak-Kanak (BKK)",
-    "amount_basis": "page",
-    "amounts": [
-      "RM250 a month at age 6 and under",
-      "RM200 a month from age 7 to under 18",
-      "Maximum RM1,000 a family"
-    ],
-    "amount_note": "Stated on the JKMS Bantuan Kanak-Kanak page. This is federal child aid, not the state IPT special assistance that also uses the initials BKK.",
-    "paragraphs": [
-      "Federal aid, handled at a JKMS office."
-    ],
-    "links": [
-      {"label": "JKMS — Bantuan Kanak-Kanak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/187"},
-      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
-    ]
-  },
-  {
-    "id": "epoku",
-    "group": "welfare",
-    "level": "FEDERAL",
-    "short": "EPOKU",
-    "title": "Elaun Pekerja Orang Kurang Upaya (EPOKU)",
-    "amount_basis": "page",
-    "amounts": [
-      "RM450 a month"
-    ],
-    "amount_note": "The JKMS attachment and federal JKM both state RM450 a month.",
-    "paragraphs": [
-      "Federal aid, handled at a JKMS office."
-    ],
-    "links": [
-      {"label": "JKM — monthly aid", "url": "https://www.jkm.gov.my/main/article/bantuan-bulanan"},
-      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"}
-    ]
-  },
-  {
-    "id": "btb",
-    "group": "welfare",
-    "level": "FEDERAL",
-    "short": "BTB",
-    "title": "Bantuan Orang Kurang Upaya Tidak Berupaya Bekerja (BTB)",
-    "amount_basis": "attachment",
-    "amounts": [
-      "RM300 a month"
-    ],
-    "amount_note": "This figure is on a JKMS rate-sheet attachment.",
-    "paragraphs": [
-      "Federal aid for an OKU who is unable to work. Apply at a JKMS office."
-    ],
-    "links": [
-      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
-      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
-    ]
-  },
-  {
-    "id": "bpt",
-    "group": "welfare",
-    "level": "FEDERAL",
-    "short": "BPT",
-    "title": "Bantuan Penjagaan (BPT)",
-    "amount_basis": "attachment",
-    "amounts": [
-      "RM500 a month"
-    ],
-    "amount_note": "This figure is on a JKMS rate-sheet attachment.",
-    "paragraphs": [
-      "The JKMS scheme list names this in full: Bantuan Penjagaan Orang Kurang Upaya Terlantar, Pesakit Kronik Terlantar dan Pesakit Kronik Tidak Terlantar. It is federal aid, handled at a JKMS office."
-    ],
-    "links": [
-      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
-      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
-    ]
-  },
-  {
-    "id": "bap",
-    "group": "welfare",
-    "level": "FEDERAL",
-    "short": "BAP",
-    "title": "Bantuan Anak Pelihara (BAP)",
-    "amount_basis": "attachment",
-    "amounts": [
-      "RM250 to RM500"
-    ],
-    "amount_note": "This range is on a JKMS rate-sheet attachment.",
-    "paragraphs": [
-      "Federal aid, handled at a JKMS office."
-    ],
-    "links": [
-      {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
-      {"label": "How to apply", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
-    ]
-  },
-  {
-    "id": "bencana",
-    "group": "welfare",
-    "level": "FEDERAL",
-    "short": "Bencana",
-    "title": "Bencana / Tabung Bantuan Segera",
-    "amount_basis": "none",
-    "unspecified": "A monthly amount is not stated on the official page, so none is shown.",
-    "paragraphs": [
-      "Bencana is a service area, not a named monthly scheme. Tabung Bantuan Segera is a federal lump-sum channel. Apply through JKMS."
     ],
     "links": [
       {"label": "JKMS welfare schemes", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/117"},
