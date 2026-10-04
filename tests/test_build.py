@@ -256,7 +256,17 @@ class BuildTests(unittest.TestCase):
         welfare = next(group for group in self.site["groups"] if group["id"] == "welfare")
         self.assertEqual(welfare["id"], "welfare")
         self.assertEqual(welfare["title"], "Welfare")
-        self.assertIn('id="group-welfare">Welfare</h2>', self.home)
+        self.assertIn('id="group-welfare">', self.home)
+        self.assertIn(">Welfare</span></h2>", self.home)
+        self.assertEqual(self.home.count('class="group-icon"'), len(self.site["groups"]))
+        self.assertNotIn("group-icon", self.about)
+        filter_row = re.search(
+            r'<section class="category-filter"[\s\S]*?</section>',
+            self.home,
+        ).group(0)
+        self.assertNotIn("<svg", filter_row)
+        self.assertNotIn("group-icon", filter_row)
+        icons = []
         for group in self.site["groups"]:
             count = sum(scheme["group"] == group["id"] for scheme in self.schemes)
             self.assertGreater(count, 0)
@@ -268,7 +278,18 @@ class BuildTests(unittest.TestCase):
                 f'{group["title"]} <span class="category-filter-count" aria-hidden="true">{count}</span>',
                 self.home,
             )
-            self.assertIn(f'id="group-{group["id"]}">{group["title"]}</h2>', self.home)
+            heading = re.search(
+                rf'<h2 id="group-{group["id"]}">(<svg class="group-icon"[\s\S]*?</svg>)<span>{re.escape(group["title"])}</span></h2>',
+                self.home,
+            )
+            self.assertIsNotNone(heading, group["id"])
+            icon = heading.group(1)
+            self.assertIn('aria-hidden="true"', icon)
+            self.assertIn('stroke="currentColor"', icon)
+            self.assertNotIn("<img", icon)
+            self.assertNotIn("href=", icon)
+            icons.append(icon)
+        self.assertEqual(len(icons), len(set(icons)))
         removed = {
             "ppr": "PPR",
             "nextgen": "Youth Agropreneur NextGen 2026",
