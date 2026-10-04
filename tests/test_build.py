@@ -238,7 +238,7 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("schemes", updated.casefold())
         self.assertNotIn("updated-count", self.home)
         deck = re.search(r'<p class="brief-deck">(.*?)</p>', self.home).group(1)
-        self.assertEqual(deck, "A directory of state help for people in Sarawak.")
+        self.assertEqual(deck, "Each scheme links to its official page.")
         self.assertNotIn('data-level="federal"', self.home)
         self.assertNotIn("level-filter", self.home)
         self.assertNotIn("data-level-filter", self.home)
