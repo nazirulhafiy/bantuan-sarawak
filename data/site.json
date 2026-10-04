@@ -9,18 +9,6 @@
   "about_seo_title": "About | Bantuan Sarawak",
   "about_description": "Bantuan Sarawak is an independent directory. It links only to official pages and lists amounts checked on 4 October 2026. The government does not run this site.",
   "introduction": "A directory of state and federal help for people in Sarawak. Amounts on this page were on an official page when the list was checked on 4 October 2026. This site does not take applications.",
-  "changes_title": "What changed in the 4 October 2026 check",
-  "changes_intro": "These are corrections against older notes. Each one follows an official page.",
-  "changes": [
-    "SKAS rates in the UKAS notice of 16 April 2026 are RM1,100 for a household, RM600 for a senior and RM375 for a single adult. The Service Sarawak SKAS page still shows RM800, RM250 and RM400. Those older figures are not the 2026 rates.",
-    "The SKAS launch statement sets phase one on 10 March 2026, phase two on 25 May 2026 and phase three on 10 November 2026.",
-    "From 1 January 2026, Endowment Fund Sarawak applications are fully online through Service Sarawak and the Sarawak government portal. KPWK says manual and physical applications are no longer accepted.",
-    "The graduate flight subsidy is officially Inisiatif Graduan Pulang Sarawak (IGPS). The maximum is RM300 a trip, for up to two trips a year, claimed within 60 days.",
-    "Free study at Swinburne, Curtin, UTS and i-CATS is a tuition waiver for selected courses (FTES). It is not free study plus an allowance for every student. The extra RM15,000 a year applies only when family income per person is RM1,500 or below.",
-    "PPR, Youth Agropreneur NextGen and BUDI Agri-Komoditi are federal programmes.",
-    "Bantuan Warga Emas follows the federal JKM rate of RM600 a month. A JKMS pamphlet still shows RM500.",
-    "A 25% domestic electricity discount from April to December 2026, and a 50% rental discount for markets, stalls and certain state business premises, were announced with SKAS. They are separate from the SKAS payment."
-  ],
   "groups": [
     {
       "id": "household",

@@ -127,8 +127,6 @@ class BuildTests(unittest.TestCase):
         for group in self.site["groups"]:
             self.assertIn(f'id="{group["id"]}"', self.home)
             self.assertIn(group["title"], self.home)
-        self.assertIn("What changed in the 4 October 2026 check", self.home)
-        self.assertIn("25 May 2026", self.home)
         self.assertIn("independent", self.about.casefold())
         self.assertIn("4 October 2026", self.about)
         self.assertIn("does not run", self.about)
