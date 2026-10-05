@@ -551,7 +551,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.35em;
+  gap: 0.5em;
   padding: 10px 16px;
   background: var(--sarawak-black);
 }
@@ -601,6 +601,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
 
 .scheme-rank {
   flex: 0 0 auto;
+  margin-right: 0.35em;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
@@ -609,7 +610,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
 }
 
 .scheme-rank::after {
-  content: ".";
+  content: ".\00a0";
   font-weight: 700;
 }
 
@@ -622,7 +623,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
   color: #fff;
   font-size: 16px;
   font-weight: 700;
-  letter-spacing: -.02em;
+  letter-spacing: 0;
   line-height: 1.4;
 }
 
