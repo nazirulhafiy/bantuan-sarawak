@@ -405,7 +405,7 @@
     "level": "STATE",
     "short": "BA",
     "title": "Bantuan Am (BA)",
-    "amount_basis": "attachment",
+    "amount_basis": "page",
     "amounts": [
       "RM200 to RM300 a month"
     ],
@@ -422,7 +422,7 @@
     "level": "STATE",
     "short": "BBB",
     "title": "Bantuan Belia-Beliawanis (BBB)",
-    "amount_basis": "attachment",
+    "amount_basis": "page",
     "amounts": [
       "RM200 a month"
     ],
