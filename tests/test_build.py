@@ -375,15 +375,20 @@ class BuildTests(unittest.TestCase):
             r"\.sources-title,\s*\n\.scheme-head > h3 \{([^}]+)\}",
             css,
         ).group(1)
-        self.assertIn("background: var(--sarawak-yellow);", scheme_title_pill)
+        self.assertNotIn("background:", scheme_title_pill)
         self.assertNotIn("text-transform", scheme_title_pill)
         self.assertNotIn("font-size", scheme_title_pill)
         self.assertIn("max-width: 100%;", scheme_title_pill)
         source_title = re.search(r"\.sources-title \{([^}]+)\}", css).group(1)
+        self.assertIn("background: var(--sarawak-yellow);", source_title)
+        self.assertIn("color: var(--sarawak-black);", source_title)
         self.assertIn("text-transform: uppercase;", source_title)
-        self.assertIn("font-size: 10px;", source_title)
+        self.assertIn("font-size: 14px;", source_title)
         self.assertIn("font-weight: 900;", source_title)
+        self.assertIn("padding: 2px 6px;", source_title)
         title = re.findall(r"\.scheme-head > h3 \{([^}]+)\}", css)[-1]
+        self.assertIn("background: var(--sarawak-black);", title)
+        self.assertIn("color: #fff;", title)
         self.assertIn("font-size: 18px;", title)
         self.assertIn("font-weight: 800;", title)
         self.assertIn("padding: 2px 6px;", title)
