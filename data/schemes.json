@@ -25,7 +25,7 @@
     "group": "household",
     "level": "STATE",
     "short": "Electricity",
-    "title": "Domestic electricity discount",
+    "title": "Domestic Electricity Discount",
     "amount_basis": "page",
     "amounts": [
       "25% for domestic users, April to December 2026"
@@ -44,7 +44,7 @@
     "group": "student",
     "level": "STATE",
     "short": "BKK IPT",
-    "title": "Bantuan Kewangan Khas (BKK) for IPT students",
+    "title": "Bantuan Kewangan Khas (BKK) for IPT Students",
     "amount_basis": "page",
     "amounts": [
       "RM1,200 a year",
@@ -64,7 +64,7 @@
     "group": "student",
     "level": "STATE",
     "short": "Laptop",
-    "title": "Free laptop",
+    "title": "Free Laptop",
     "amount_basis": "none",
     "unspecified": "A laptop is given in kind. The page does not state a cash amount.",
     "paragraphs": [
@@ -80,7 +80,7 @@
     "group": "student",
     "level": "STATE",
     "short": "Books",
-    "title": "Book voucher",
+    "title": "Book Voucher",
     "amount_basis": "page",
     "amounts": [
       "RM500 through S Pay Global"
@@ -139,7 +139,7 @@
     "group": "student",
     "level": "STATE",
     "short": "FTES",
-    "title": "Selected-course tuition waiver at four institutions",
+    "title": "Selected-Course Tuition Waiver at Four Institutions",
     "amount_basis": "page",
     "amounts": [
       "RM15,000 a year, only if income per person is RM1,500 or below"
@@ -158,7 +158,7 @@
     "group": "housing",
     "level": "STATE",
     "short": "HDAS",
-    "title": "HDAS deposit assistance",
+    "title": "HDAS Deposit Assistance",
     "amount_basis": "page",
     "amounts": [
       "Deposit of 10%, or a maximum of RM10,000"
@@ -176,7 +176,7 @@
     "group": "housing",
     "level": "STATE",
     "short": "SRAS",
-    "title": "SRAS rent assistance",
+    "title": "SRAS Rent Assistance",
     "amount_basis": "page",
     "amounts": [
       "RM200 a month for students"
@@ -364,7 +364,7 @@
     "group": "business",
     "level": "STATE",
     "short": "Geran Pelancaran",
-    "title": "Geran Pelancaran / modal mikro",
+    "title": "Geran Pelancaran / Modal Mikro",
     "amount_basis": "page",
     "amounts": [
       "Up to RM5,000, one-off"
