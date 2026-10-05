@@ -579,7 +579,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
 
 .scheme-title-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
 }
 
@@ -587,7 +587,6 @@ html[data-theme="dark"] .category-filter-button.is-active {
   flex: 0 0 auto;
   width: 28px;
   height: 28px;
-  margin-top: 1px;
   border: 1px solid var(--sarawak-black);
   border-radius: 6px;
   display: flex;
