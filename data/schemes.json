@@ -257,7 +257,7 @@
       "Cashless outpatient treatment at panel clinics."
     ],
     "links": [
-      {"label": "Service Sarawak — SCHB", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/742/"}
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/742/"}
     ]
   },
   {
@@ -274,7 +274,7 @@
       "Activate online. Virtual card is in SarawakPass."
     ],
     "links": [
-      {"label": "Service Sarawak — KGC", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/822"}
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/822"}
     ]
   },
   {
@@ -294,7 +294,7 @@
       "Apply on Service Sarawak within 4 months of the death."
     ],
     "links": [
-      {"label": "Service Sarawak — BIK", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/847/"}
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/847/"}
     ]
   },
   {
@@ -313,7 +313,7 @@
       "Apply within 3 months on iSarawakCare. Needs SarawakPass and S Pay Global."
     ],
     "links": [
-      {"label": "Service Sarawak — BIB", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/383/"}
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/383/"}
     ]
   },
   {
@@ -333,7 +333,7 @@
       "Child born overseas without MyKid: manual form to efs@sarawak.gov.my."
     ],
     "links": [
-      {"label": "Service Sarawak — EFS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/846"},
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/846"},
       {"label": "KPWK", "url": "https://kpwk.sarawak.gov.my/web/subpage/webpage_view/100"}
     ]
   },
@@ -355,7 +355,7 @@
       "Service Sarawak and JWKS both state RM1,000. Income tests differ — use the page you apply on."
     ],
     "links": [
-      {"label": "Service Sarawak — KIRWaS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/729"},
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/729"},
       {"label": "JWKS — KIRWaS", "url": "https://jwks.sarawak.gov.my/web/subpage/webpage_view/182"}
     ]
   },
@@ -377,7 +377,7 @@
       "Type 1 is for B40 borrowers. Agriculture is excluded."
     ],
     "links": [
-      {"label": "Service Sarawak — SMCS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/259/390"}
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/259/390"}
     ]
   },
   {
