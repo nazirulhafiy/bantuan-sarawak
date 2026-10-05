@@ -62,8 +62,7 @@
       "Paid twice a year through S Pay Global."
     ],
     "links": [
-      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
+      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
     ]
   },
   {
@@ -73,13 +72,13 @@
     "short": "Laptop",
     "title": "Free Laptop",
     "amount_basis": "none",
-    "unspecified": "A laptop is given in kind. The page does not state a cash amount.",
+    "copy_ordered": true,
     "paragraphs": [
+      "A laptop is given in kind.",
       "For a first-year diploma or bachelor student. Family income per person must be RM1,500 or below."
     ],
     "links": [
-      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
+      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
     ]
   },
   {
@@ -98,7 +97,6 @@
       "Foundation through PhD. No income cap."
     ],
     "links": [
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
       {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
     ]
   },
@@ -161,7 +159,44 @@
       "Stipend: RM5,000 lodging and RM10,000 through S Pay Global."
     ],
     "links": [
-      {"label": "MEITD", "url": "https://meitd.sarawak.gov.my/web/subpage/webpage_view/156"}
+      {"label": "Ministry of Education, Innovation and Talent Development", "url": "https://meitd.sarawak.gov.my/web/subpage/webpage_view/156"}
+    ]
+  },
+  {
+    "id": "school-uniform",
+    "group": "student",
+    "level": "STATE",
+    "short": "Uniform",
+    "title": "School Uniform Assistance Programme",
+    "amount_basis": "page",
+    "amounts": [
+      "RM200 voucher"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "For school uniform, shoes and a bag at participating shops.",
+      "Pupils who qualify on e-Kasih data: Year 1, Form 1, special-needs pupils, or Penan pupils.",
+      "Confirmed by the District Focus Group. The school identifies pupils. The list goes through the District Education Office and the Resident's Office for Yayasan Sarawak."
+    ],
+    "links": [
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
+    ]
+  },
+  {
+    "id": "school-transport",
+    "group": "student",
+    "level": "STATE",
+    "short": "School bus",
+    "title": "Free School Transportation Service for Students",
+    "amount_basis": "none",
+    "copy_ordered": true,
+    "paragraphs": [
+      "Pilot free school bus service for B40 pupils. Household income below RM3,720 a month.",
+      "Eligible pupils receive a QR card. Scan it when boarding and leaving the bus.",
+      "The school applies and registers eligible pupils."
+    ],
+    "links": [
+      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
     ]
   },
   {
@@ -404,7 +439,7 @@
     "level": "STATE",
     "short": "BA",
     "title": "Bantuan Am (BA)",
-    "amount_basis": "attachment",
+    "amount_basis": "page",
     "amounts": [
       "RM200 to RM300 a month"
     ],
@@ -421,7 +456,7 @@
     "level": "STATE",
     "short": "BBB",
     "title": "Bantuan Belia-Beliawanis (BBB)",
-    "amount_basis": "attachment",
+    "amount_basis": "page",
     "amounts": [
       "RM200 a month"
     ],

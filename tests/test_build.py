@@ -42,6 +42,7 @@ ALLOWED_RM = {
     "200000",
     "300000",
     "2618",
+    "3720",
 }
 
 BANNED = ("wellbest", "spta", "siba", "gptp", "15 may", "48 months", "i-gps")
@@ -181,10 +182,13 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("webpage_view/117", self.home)
         self.assertNotIn("sla_view/319/757", self.home)
         self.assertIn("sla_view/0/821/", article(self.home, "skas"))
+        ftes = article(self.home, "ftes")
         self.assertIn(
             "https://meitd.sarawak.gov.my/web/subpage/webpage_view/156",
-            article(self.home, "ftes"),
+            ftes,
         )
+        self.assertIn("Ministry of Education, Innovation and Talent Development", ftes)
+        self.assertNotIn(">MEITD</a>", ftes)
         self.assertNotIn("meitd.sarawak.gov.my/web/subpage/news_view", self.home)
         self.assertNotIn("sarawakenergy.com/media-info/media-releases", self.home)
         self.assertNotRegex(self.home, r'href="https://hdc\.sarawak\.gov\.my/?"')
@@ -247,7 +251,7 @@ class BuildTests(unittest.TestCase):
         self.assertIn("selected courses", article(self.home, "ftes").casefold())
 
     def test_published_directory_is_state_only(self):
-        self.assertEqual(len(self.schemes), 22)
+        self.assertEqual(len(self.schemes), 24)
         self.assertTrue(all(scheme["level"] == "STATE" for scheme in self.schemes))
         updated = re.search(r'<p class="updated">(.*?)</p>', self.home).group(1)
         self.assertIn(">Last updated</span>", updated)
@@ -265,7 +269,7 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn('data-category-filter hidden', self.home)
         self.assertNotRegex(self.home, r'<section class="category-filter"[^>]*\shidden')
         self.assertIn('data-section-filter="all"', self.home)
-        self.assertIn("Showing all 22 schemes", self.home)
+        self.assertIn("Showing all 24 schemes", self.home)
         self.assertNotIn("jump-links", self.home)
         self.assertNotIn("Household, senior and single adult", self.home + self.about)
         household = next(group for group in self.site["groups"] if group["id"] == "household")
@@ -445,6 +449,33 @@ class BuildTests(unittest.TestCase):
         self.assertIn('class="scheme-rank" aria-label="Item 1 in Household">1</span>', household)
         self.assertIn('class="scheme-rank" aria-label="Item 2 in Household">2</span>', electricity)
         self.assertIn('class="scheme-rank" aria-label="Item 1 in Students">1</span>', bkk)
+        self.assertIn("https://myys.yayasansarawak.org.my/", bkk)
+        self.assertNotIn("bantuan-pelajar-ke-ipt2", bkk)
+        self.assertEqual(bkk.count("<li><a "), 1)
+        laptop = article(self.home, "laptop")
+        self.assertIn('<ol class="scheme-copy">', laptop)
+        self.assertIn("A laptop is given in kind.", laptop)
+        self.assertIn(
+            "For a first-year diploma or bachelor student. Family income per person must be RM1,500 or below.",
+            laptop,
+        )
+        self.assertNotIn("The page does not state a cash amount.", laptop)
+        self.assertNotIn('class="unspecified"', laptop)
+        self.assertIn("https://myys.yayasansarawak.org.my/", laptop)
+        self.assertNotIn("bantuan-pelajar-ke-ipt2", laptop)
+        self.assertEqual(laptop.count("<li><a "), 1)
+        books = article(self.home, "book-voucher")
+        self.assertIn("https://myys.yayasansarawak.org.my/", books)
+        self.assertNotIn("bantuan-pelajar-ke-ipt2", books)
+        self.assertEqual(books.count("<li><a "), 1)
+        uniform = article(self.home, "school-uniform")
+        self.assertIn("RM200 voucher", uniform)
+        self.assertIn('<ol class="scheme-copy">', uniform)
+        transport = article(self.home, "school-transport")
+        self.assertIn("RM3,720", transport)
+        self.assertIn('<ol class="scheme-copy">', transport)
+        self.assertNotIn('class="amount-list"', transport)
+        self.assertNotIn('class="unspecified"', transport)
         federal = {
             "id": "sample",
             "level": "FEDERAL",
