@@ -132,17 +132,14 @@ def check_official_url(url: str, owner: str) -> None:
         raise SystemExit(f"Unofficial or invalid URL for {owner}: {url}")
 
 
-def render_links(links: list[dict], class_name: str = "sources") -> str:
+def render_links(links: list[dict], class_name: str = "sources", indent: str = "      ") -> str:
     items = "\n".join(
-        "        <li><a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">{label}</a></li>".format(
-            url=esc(link["url"]),
-            label=esc(link["label"]),
-        )
+        f'{indent}  <li><a href="{esc(link["url"])}" target="_blank" rel="noopener noreferrer">{esc(link["label"])}</a></li>'
         for link in links
     )
-    return f"""      <ul class="{class_name}">
+    return f"""{indent}<ul class="{class_name}">
 {items}
-      </ul>"""
+{indent}</ul>"""
 
 
 def render_scheme(
@@ -153,45 +150,46 @@ def render_scheme(
 ) -> str:
     level = scheme["level"]
     basis = scheme["amount_basis"]
-    header = ["      <header class=\"scheme-head\">"]
+    # Rank is a left column of the card. Title, amounts, copy, and Source
+    # sit in the column beside it, the same way a story card indents its body.
+    body = ["        <header class=\"scheme-head\">"]
     if show_level:
         level_word = "State" if level == "STATE" else "Federal"
-        header.append(
-            "        <p class=\"scheme-kicker\">\n"
-            f"          <span class=\"level level-{level.lower()}\">{level_word}</span>\n"
-            "        </p>"
+        body.append(
+            "          <p class=\"scheme-kicker\">\n"
+            f"            <span class=\"level level-{level.lower()}\">{level_word}</span>\n"
+            "          </p>"
         )
-    if rank is not None and category_title:
-        header.append(
-            "        <div class=\"scheme-title-row\">\n"
-            f'          <div class="scheme-rank" aria-label="Item {rank} in {esc(category_title)}">{rank}</div>\n'
-            f"          <h3>{esc(scheme['title'])}</h3>\n"
-            "        </div>"
-        )
-    else:
-        header.append(f"        <h3>{esc(scheme['title'])}</h3>")
-    header.append("      </header>")
-    parts = [
-        f"""    <article class="scheme" id="{esc(scheme['id'])}" data-level="{level.lower()}" data-amount-basis="{esc(basis)}">
-{chr(10).join(header)}"""
-    ]
+    body.append(f"          <h3>{esc(scheme['title'])}</h3>")
+    body.append("        </header>")
     if basis == "attachment":
-        parts.append('      <p class="basis">On an attachment</p>')
+        body.append('        <p class="basis">On an attachment</p>')
     if basis == "none":
-        parts.append(f'      <p class="unspecified">{esc(scheme["unspecified"])}</p>')
+        body.append(f'        <p class="unspecified">{esc(scheme["unspecified"])}</p>')
     else:
         many = " many" if len(scheme["amounts"]) > 1 else ""
-        amounts = "\n".join(f"        <li>{esc(amount)}</li>" for amount in scheme["amounts"])
-        parts.append(f'      <ul class="amount-list{many}">\n{amounts}\n      </ul>')
+        amounts = "\n".join(f"          <li>{esc(amount)}</li>" for amount in scheme["amounts"])
+        body.append(f'        <ul class="amount-list{many}">\n{amounts}\n        </ul>')
     if scheme.get("amount_note"):
-        parts.append(f'      <p class="amount-note">{esc(scheme["amount_note"])}</p>')
-    paragraphs = "\n".join(f"        <p>{esc(paragraph)}</p>" for paragraph in scheme["paragraphs"])
-    parts.append(f"      <div class=\"scheme-copy\">\n{paragraphs}\n      </div>")
+        body.append(f'        <p class="amount-note">{esc(scheme["amount_note"])}</p>')
+    paragraphs = "\n".join(f"          <p>{esc(paragraph)}</p>" for paragraph in scheme["paragraphs"])
+    body.append(f"        <div class=\"scheme-copy\">\n{paragraphs}\n        </div>")
     if scheme["links"]:
-        parts.append('      <h4 class="sources-title">Source</h4>')
-        parts.append(render_links(scheme["links"]))
-    parts.append("    </article>")
-    return "\n".join(parts)
+        body.append('        <h4 class="sources-title">Source</h4>')
+        body.append(render_links(scheme["links"], indent="        "))
+    rank_markup = ""
+    if rank is not None and category_title:
+        rank_markup = (
+            f'      <div class="scheme-rank" aria-label="Item {rank} in {esc(category_title)}">{rank}</div>\n'
+        )
+    return (
+        f'    <article class="scheme" id="{esc(scheme["id"])}" data-level="{level.lower()}" data-amount-basis="{esc(basis)}">\n'
+        f"{rank_markup}"
+        f'      <div class="scheme-body">\n'
+        f"{chr(10).join(body)}\n"
+        f"      </div>\n"
+        f"    </article>"
+    )
 
 
 # Stroke glyphs for category headings. Each one is a different shape so the
