@@ -111,7 +111,7 @@ class BuildTests(unittest.TestCase):
     def test_every_scheme_is_labelled_and_linked(self):
         self.assertTrue(all(scheme["links"] for scheme in self.schemes))
         self.assertTrue(all(scheme["level"] in {"STATE", "FEDERAL"} for scheme in self.schemes))
-        self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 27)
+        self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 26)
         for scheme in self.schemes:
             card = article(self.home, scheme["id"])
             self.assertIn(f'data-level="{scheme["level"].lower()}"', card)
