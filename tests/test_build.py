@@ -119,6 +119,8 @@ class BuildTests(unittest.TestCase):
             self.assertNotIn(">State</span>", card)
             self.assertNotIn(">Federal</span>", card)
             self.assertIn(scheme["title"], card)
+            self.assertIn('class="scheme-rank"', card)
+            self.assertIn('class="scheme-title-row"', card)
             self.assertIn('class="sources-title">Source</h4>', card)
             self.assertIn('class="sources"', card)
             for link in scheme["links"]:
@@ -342,8 +344,12 @@ class BuildTests(unittest.TestCase):
             css,
         ).group(1)
         self.assertIn("font-size: 16px;", page_amount)
-        title = re.search(r"\.scheme h3 \{([^}]+)\}", css).group(1)
+        title = re.search(r"\.scheme-title-row h3,\s*\n\.scheme-head > h3 \{([^}]+)\}", css).group(1)
         self.assertIn("font-size: 18px;", title)
+        self.assertIn(".scheme-rank {", css)
+        rank = re.search(r"\.scheme-rank \{([^}]+)\}", css).group(1)
+        self.assertIn("width: 28px;", rank)
+        self.assertIn("height: 28px;", rank)
         self.assertIn('content: "•";', css)
         options = re.search(r"\.category-filter-options \{([^}]+)\}", css).group(1)
         self.assertIn("gap: 3px;", options)
@@ -352,6 +358,25 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("levelFilter", script)
         self.assertIn("data-category-filter", script)
         self.assertIn("Showing all ${visibleCount} schemes", script)
+
+    def test_scheme_ranks_reset_per_category(self):
+        household = article(self.home, "skas")
+        electricity = article(self.home, "electricity")
+        bkk = article(self.home, "bkk-ipt")
+        self.assertIn('class="scheme-rank" aria-label="Item 1 in Household">1</div>', household)
+        self.assertIn('class="scheme-rank" aria-label="Item 2 in Household">2</div>', electricity)
+        self.assertIn('class="scheme-rank" aria-label="Item 1 in Students">1</div>', bkk)
+        federal = {
+            "id": "sample",
+            "level": "FEDERAL",
+            "title": "Sample federal scheme",
+            "amount_basis": "none",
+            "unspecified": "None.",
+            "paragraphs": ["A federal payment."],
+            "links": [{"label": "Example", "url": "https://www.jkm.gov.my/"}],
+        }
+        shown = build.render_scheme(federal, show_level=True)
+        self.assertNotIn("scheme-rank", shown)
 
     def test_ringgit_figures_are_on_the_allowlist(self):
         found = {value.replace(",", "") for value in re.findall(r"RM\s*([0-9][0-9,]*)", self.home + self.about)}

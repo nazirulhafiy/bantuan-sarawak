@@ -145,7 +145,12 @@ def render_links(links: list[dict], class_name: str = "sources") -> str:
       </ul>"""
 
 
-def render_scheme(scheme: dict, show_level: bool = False) -> str:
+def render_scheme(
+    scheme: dict,
+    show_level: bool = False,
+    rank: int | None = None,
+    category_title: str | None = None,
+) -> str:
     level = scheme["level"]
     basis = scheme["amount_basis"]
     header = ["      <header class=\"scheme-head\">"]
@@ -156,7 +161,15 @@ def render_scheme(scheme: dict, show_level: bool = False) -> str:
             f"          <span class=\"level level-{level.lower()}\">{level_word}</span>\n"
             "        </p>"
         )
-    header.append(f"        <h3>{esc(scheme['title'])}</h3>")
+    if rank is not None and category_title:
+        header.append(
+            "        <div class=\"scheme-title-row\">\n"
+            f'          <div class="scheme-rank" aria-label="Item {rank} in {esc(category_title)}">{rank}</div>\n'
+            f"          <h3>{esc(scheme['title'])}</h3>\n"
+            "        </div>"
+        )
+    else:
+        header.append(f"        <h3>{esc(scheme['title'])}</h3>")
     header.append("      </header>")
     parts = [
         f"""    <article class="scheme" id="{esc(scheme['id'])}" data-level="{level.lower()}" data-amount-basis="{esc(basis)}">
@@ -239,7 +252,10 @@ def render_groups(site: dict, schemes: list[dict]) -> str:
     blocks = []
     for group in site["groups"]:
         grouped = [scheme for scheme in schemes if scheme["group"] == group["id"]]
-        cards = "\n".join(render_scheme(scheme, show_level) for scheme in grouped)
+        cards = "\n".join(
+            render_scheme(scheme, show_level, index, group["title"])
+            for index, scheme in enumerate(grouped, 1)
+        )
         blocks.append(
             f"""    <section class="group" id="{esc(group['id'])}" aria-labelledby="group-{esc(group['id'])}">
       <header class="group-head">
