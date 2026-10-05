@@ -227,6 +227,8 @@ class BuildTests(unittest.TestCase):
         self.assertIn('<ol class="scheme-copy">', skas)
         self.assertNotIn('class="amount-note"', skas)
         self.assertIn("Paid through S Pay Global for essential food.", skas)
+        self.assertIn("single person with a disability", skas)
+        self.assertNotIn("PWD", skas)
         electricity = article(self.home, "electricity")
         self.assertRegex(
             electricity,
