@@ -44,7 +44,7 @@ python3 -m unittest discover -s tests -v
 - `site/style.css` and `site/app.js` — visual design, dark mode and the menu
 - `site/social-card.png` — Open Graph image, 1200×630
 
-`scripts/render_social_card.py` can redraw the card when Pillow and Noto Sans are installed. The site build only copies the PNG.
+`scripts/render_social_card.py` can redraw the card when Pillow and Geist are installed. The site build only copies the PNG.
 
 ## GitHub Pages
 
