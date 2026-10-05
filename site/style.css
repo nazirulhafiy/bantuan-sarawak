@@ -341,23 +341,19 @@ html[data-theme="dark"] .brief-deck { color: #d2d8df; }
   color: var(--muted);
 }
 
-.sources-title,
-.scheme-head > h3 {
+.sources-title {
   display: inline-block;
   max-width: 100%;
   box-sizing: border-box;
-  border-radius: 2px;
-  line-height: 1.4;
-}
-
-.sources-title {
   margin: 0 0 8px;
   padding: 2px 6px;
+  border-radius: 2px;
   background: var(--sarawak-yellow);
   color: var(--sarawak-black);
   font-size: 14px;
   font-weight: 900;
   letter-spacing: .055em;
+  line-height: 1.4;
   text-transform: uppercase;
 }
 
@@ -542,21 +538,27 @@ html[data-theme="dark"] .category-filter-button.is-active {
 }
 
 .scheme {
-  padding: 16px 16px 12px;
+  padding: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--card);
   scroll-margin-top: 16px;
+  overflow: hidden;
 }
 
-.scheme:has(.scheme-rank) {
-  display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
-  column-gap: 14px;
-  align-items: start;
+.scheme-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+  padding: 10px 16px;
+  background: var(--sarawak-black);
 }
 
-.scheme-body { min-width: 0; }
+.scheme-body {
+  min-width: 0;
+  padding: 16px 16px 12px;
+}
 
 .scheme-kicker {
   display: flex;
@@ -597,36 +599,30 @@ html[data-theme="dark"] .category-filter-button.is-active {
 }
 
 .scheme-rank {
-  justify-self: start;
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--sarawak-black);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 0 0 auto;
   color: #fff;
-  background: var(--sarawak-black);
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.4;
 }
 
-html[data-theme="dark"] .scheme-rank {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--page);
+.scheme-rank::after {
+  content: " ·";
+  font-weight: 800;
 }
 
 .scheme-head > h3 {
   margin: 0;
   min-width: 0;
-  padding: 2px 6px;
-  background: var(--sarawak-black);
+  flex: 1 1 auto;
+  padding: 0;
+  background: transparent;
   color: #fff;
   font-size: 18px;
   font-weight: 800;
   letter-spacing: -.02em;
+  line-height: 1.4;
 }
 
 .basis {
@@ -956,9 +952,8 @@ html[data-theme="dark"] .site-footer {
   .group-head h2,
   .about-section h2 { font-size: 23px; }
 
-  .scheme:has(.scheme-rank) {
-    grid-template-columns: 30px minmax(0, 1fr);
-    column-gap: 12px;
+  .scheme-head {
+    padding: 10px 14px;
   }
 
   .site-footer-main { grid-template-columns: 1fr; }

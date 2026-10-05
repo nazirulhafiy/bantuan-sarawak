@@ -150,18 +150,24 @@ def render_scheme(
 ) -> str:
     level = scheme["level"]
     basis = scheme["amount_basis"]
-    # Rank is a left column of the card. Title, amounts, copy, and Source
-    # sit in the column beside it, the same way a story card indents its body.
-    body = ["        <header class=\"scheme-head\">"]
+    # Full-width title bar: optional rank and title share one black header strip;
+    # amounts, copy, and Source sit in the body below on the card surface.
+    head = ["      <header class=\"scheme-head\">"]
+    if rank is not None and category_title:
+        head.append(
+            "        <span class=\"scheme-rank\""
+            f' aria-label="Item {rank} in {esc(category_title)}">{rank}</span>'
+        )
     if show_level:
         level_word = "State" if level == "STATE" else "Federal"
-        body.append(
+        head.append(
             "          <p class=\"scheme-kicker\">\n"
             f"            <span class=\"level level-{level.lower()}\">{level_word}</span>\n"
             "          </p>"
         )
-    body.append(f"          <h3>{esc(scheme['title'])}</h3>")
-    body.append("        </header>")
+    head.append(f"        <h3>{esc(scheme['title'])}</h3>")
+    head.append("      </header>")
+    body = []
     if basis == "attachment":
         body.append('        <p class="basis">On an attachment</p>')
     if basis == "none":
@@ -177,14 +183,9 @@ def render_scheme(
     if scheme["links"]:
         body.append('        <h4 class="sources-title">Source</h4>')
         body.append(render_links(scheme["links"], indent="        "))
-    rank_markup = ""
-    if rank is not None and category_title:
-        rank_markup = (
-            f'      <div class="scheme-rank" aria-label="Item {rank} in {esc(category_title)}">{rank}</div>\n'
-        )
     return (
         f'    <article class="scheme" id="{esc(scheme["id"])}" data-level="{level.lower()}" data-amount-basis="{esc(basis)}">\n'
-        f"{rank_markup}"
+        f"{chr(10).join(head)}\n"
         f'      <div class="scheme-body">\n'
         f"{chr(10).join(body)}\n"
         f"      </div>\n"
