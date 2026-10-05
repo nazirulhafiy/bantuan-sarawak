@@ -1,10 +1,10 @@
-# Weekly update
+# Weekly pass
+
+There is no bot and no schedule yet. Do not add either until Nazirul says the site is complete. A person does this pass.
 
 Schemes change. Phases end, due dates move, and amounts go stale. Once a week, open the official page already linked on each scheme in `data/schemes.json` and update that card so it matches the page. If the page and the card already match, leave the card.
 
 Do not invent a figure, a date, or an eligibility line. If the page does not state it, it does not go on the card.
-
-This is a person doing the pass. The site is still in development. Do not hand it to a maintainer bot, and do not add a schedule that publishes scheme changes, until Nazirul says the site is complete.
 
 ## Pages to re-check
 
