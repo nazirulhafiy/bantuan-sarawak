@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Regenerate site/social-card.png. Requires Pillow. The build does not."""
+"""Regenerate site/social-card.png in the approved Design Bot layout.
+
+Matches the live AI.Sarawak.News card: white ground, black site name,
+two-line black headline, one gray subtitle, full-width Sarawak flag bar.
+No left red bar, no short stripe under the name, no date, no URL.
+Requires Pillow and the Geist variable font.
+"""
 
 from __future__ import annotations
 
@@ -12,38 +18,42 @@ except ImportError as error:
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "site" / "social-card.png"
-REGULAR = "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf"
-BOLD = "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf"
+GEIST = "/usr/share/fonts/truetype/sand-box/google/Geist/Geist-VariableFont_wght.ttf"
 
-RED = (210, 38, 48)
-YELLOW = (247, 201, 72)
-BLACK = (17, 17, 17)
-INK = (17, 24, 39)
-MUTED = (107, 114, 128)
+SITE_NAME = "Bantuan.Sarawak.News"
+HEADLINE = ("Sarawak government assistance,", "in one directory.")
+SUBTITLE = "Each scheme links to its source."
+
 WHITE = (255, 255, 255)
+INK = (0, 0, 0)
+GRAY = (78, 82, 91)
+RED = (203, 29, 37)
+YELLOW = (243, 195, 38)
+BLACK = (0, 0, 0)
+
+
+def font(size: int, weight: int) -> ImageFont.FreeTypeFont:
+    face = ImageFont.truetype(GEIST, size)
+    face.set_variation_by_axes([weight])
+    return face
 
 
 def main() -> None:
     image = Image.new("RGB", (1200, 630), WHITE)
     draw = ImageDraw.Draw(image)
-    draw.rectangle((0, 0, 16, 630), fill=RED)
-    bold = ImageFont.truetype(BOLD, 28)
-    title = ImageFont.truetype(BOLD, 72)
-    body = ImageFont.truetype(REGULAR, 28)
-    small = ImageFont.truetype(BOLD, 26)
 
-    draw.text((88, 78), "BANTUAN.SARAWAK.NEWS", font=bold, fill=RED)
-    draw.rectangle((88, 128, 176, 136), fill=RED)
-    draw.rectangle((176, 128, 264, 136), fill=YELLOW)
-    draw.rectangle((264, 128, 352, 136), fill=BLACK)
+    draw.text((56, 58), SITE_NAME, font=font(32, 800), fill=INK)
+    draw.text((56, 160), HEADLINE[0], font=font(64, 900), fill=INK)
+    draw.text((56, 244), HEADLINE[1], font=font(64, 900), fill=INK)
+    draw.text((56, 348), SUBTITLE, font=font(32, 400), fill=GRAY)
 
-    y = 196
-    for line in ("Sarawak government", "assistance, in one", "directory."):
-        draw.text((88, y), line, font=title, fill=INK)
-        y += 84
+    x0, x1, y0, y1 = 56, 1142, 568, 576
+    seg = (x1 - x0) // 3
+    draw.rectangle((x0, y0, x0 + seg, y1), fill=RED)
+    draw.rectangle((x0 + seg, y0, x0 + 2 * seg, y1), fill=YELLOW)
+    draw.rectangle((x0 + 2 * seg, y0, x1, y1), fill=BLACK)
 
-    draw.text((88, 500), "State schemes  ·  Checked 4 October 2026", font=body, fill=MUTED)
-    draw.text((88, 556), "bantuan.sarawak.news", font=small, fill=BLACK)
+    OUT.parent.mkdir(parents=True, exist_ok=True)
     image.save(OUT, "PNG")
     print(f"Wrote {OUT}")
 
