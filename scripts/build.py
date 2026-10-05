@@ -176,10 +176,14 @@ def render_scheme(
         many = " many" if len(scheme["amounts"]) > 1 else ""
         amounts = "\n".join(f"          <li>{esc(amount)}</li>" for amount in scheme["amounts"])
         body.append(f'        <ul class="amount-list{many}">\n{amounts}\n        </ul>')
+    if scheme.get("copy_ordered"):
+        items = "\n".join(f"          <li>{esc(paragraph)}</li>" for paragraph in scheme["paragraphs"])
+        body.append(f'        <ol class="scheme-copy">\n{items}\n        </ol>')
+    else:
+        paragraphs = "\n".join(f"          <p>{esc(paragraph)}</p>" for paragraph in scheme["paragraphs"])
+        body.append(f'        <div class="scheme-copy">\n{paragraphs}\n        </div>')
     if scheme.get("amount_note"):
         body.append(f'        <p class="amount-note">{esc(scheme["amount_note"])}</p>')
-    paragraphs = "\n".join(f"          <p>{esc(paragraph)}</p>" for paragraph in scheme["paragraphs"])
-    body.append(f"        <div class=\"scheme-copy\">\n{paragraphs}\n        </div>")
     if scheme["links"]:
         body.append('        <h4 class="sources-title">Source</h4>')
         body.append(render_links(scheme["links"], indent="        "))

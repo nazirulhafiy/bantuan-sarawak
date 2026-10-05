@@ -12,9 +12,14 @@
       "RM375 for a single adult"
     ],
     "amount_note": "Paid through S Pay Global for essential food.",
+    "copy_ordered": true,
     "paragraphs": [
-      "For an Anak Sarawak with identity-card status K who lives in Sarawak. A household with income of RM5,000 or below. A single adult aged 21 to 59, or a single person with a disability aged 19 to 59, with income of RM2,500 or below. A senior aged 60 or older, without a spouse or eligible children, with income of RM5,000 or below.",
-      "You are included automatically from Sumbangan Tunai Rahmah (STR) 2026. There is no new application. Activate S Pay Global and acknowledge the claim before mid-December 2026. The next payment is 10 November 2026."
+      "An Anak Sarawak with identity-card status K who lives in Sarawak.",
+      "Recipient information is based on data from Sumbangan Tunai Rahmah (STR) 2026.",
+      "A household with income of RM5,000 or below.",
+      "A single adult aged 21 to 59, or a single person with a disability aged 19 to 59, with income of RM2,500 or below.",
+      "A senior aged 60 or older, without a spouse or eligible children, with income of RM5,000 or below.",
+      "There is no new application. Activate S Pay Global and acknowledge the claim before mid-December 2026. The next payment is 10 November 2026."
     ],
     "links": [
       {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/821/"}
