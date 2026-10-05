@@ -276,7 +276,7 @@ class BuildTests(unittest.TestCase):
         )
         self.assertNotIn("Health and seniors", self.home + self.about)
         baby_heading = re.search(
-            r'<h2 id="group-baby">(<svg class="group-icon"[\s\S]*?</svg>)<span>New baby</span></h2>',
+            r'<h2 id="group-baby">(<svg class="group-icon"[\s\S]*?</svg>)<span>New Baby</span></h2>',
             self.home,
         )
         self.assertIsNotNone(baby_heading)
@@ -287,7 +287,7 @@ class BuildTests(unittest.TestCase):
         self.assertIn('width="22"', baby_icon)
         self.assertIn('height="22"', baby_icon)
         business_heading = re.search(
-            r'<h2 id="group-business">(<svg class="group-icon"[\s\S]*?</svg>)<span>Small business</span></h2>',
+            r'<h2 id="group-business">(<svg class="group-icon"[\s\S]*?</svg>)<span>Small Business</span></h2>',
             self.home,
         )
         self.assertIsNotNone(business_heading)
