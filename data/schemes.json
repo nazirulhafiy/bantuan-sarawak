@@ -267,9 +267,9 @@
     "short": "KGC",
     "title": "Kenyalang Gold Card (KGC)",
     "amount_basis": "none",
-    "unspecified": "Participating merchants give discounts. The rates are not listed here.",
     "copy_ordered": true,
     "paragraphs": [
+      "Participating merchants give discounts.",
       "Status K, aged 60+, living in Sarawak. Included automatically.",
       "Activate online. Virtual card is in SarawakPass."
     ],

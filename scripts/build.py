@@ -106,7 +106,7 @@ def validate(site: dict, schemes: list[dict]) -> None:
         if basis == "none":
             if amounts:
                 raise SystemExit(f"{scheme_id} is amount_basis none but has amounts")
-            if not scheme.get("unspecified"):
+            if not scheme.get("copy_ordered") and not scheme.get("unspecified"):
                 raise SystemExit(f"{scheme_id} needs an unspecified note")
         elif not amounts:
             raise SystemExit(f"{scheme_id} needs at least one amount")
@@ -170,9 +170,9 @@ def render_scheme(
     body = []
     if basis == "attachment":
         body.append('        <p class="basis">On an attachment</p>')
-    if basis == "none":
+    if basis == "none" and not scheme.get("copy_ordered"):
         body.append(f'        <p class="unspecified">{esc(scheme["unspecified"])}</p>')
-    else:
+    elif basis != "none":
         many = " many" if len(scheme["amounts"]) > 1 else ""
         amounts = "\n".join(f"          <li>{esc(amount)}</li>" for amount in scheme["amounts"])
         body.append(f'        <ul class="amount-list{many}">\n{amounts}\n        </ul>')
