@@ -342,12 +342,16 @@ html[data-theme="dark"] .brief-deck { color: #d2d8df; }
 }
 
 .sources-title {
+  display: inline-block;
   margin: 0 0 8px;
-  color: var(--muted);
+  padding: 1px 4px;
+  border-radius: 2px;
+  background: var(--sarawak-yellow);
+  color: var(--sarawak-black);
   font-size: 10px;
-  font-weight: 850;
-  letter-spacing: .075em;
+  font-weight: 900;
   line-height: 1.4;
+  letter-spacing: .055em;
   text-transform: uppercase;
 }
 
@@ -668,7 +672,7 @@ html[data-theme="dark"] .scheme-rank {
 
 .scheme-copy p:first-child { margin-top: 10px; }
 
-.sources-title { margin-top: 14px; }
+.sources-title { margin-top: 14px; margin-bottom: 8px; }
 
 .scheme .sources { margin-bottom: 4px; }
 
