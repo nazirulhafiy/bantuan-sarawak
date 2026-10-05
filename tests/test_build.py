@@ -111,7 +111,7 @@ class BuildTests(unittest.TestCase):
     def test_every_scheme_is_labelled_and_linked(self):
         self.assertTrue(all(scheme["links"] for scheme in self.schemes))
         self.assertTrue(all(scheme["level"] in {"STATE", "FEDERAL"} for scheme in self.schemes))
-        self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 29)
+        self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 27)
         for scheme in self.schemes:
             card = article(self.home, scheme["id"])
             self.assertIn(f'data-level="{scheme["level"].lower()}"', card)
@@ -461,6 +461,13 @@ class BuildTests(unittest.TestCase):
         )
         self.assertNotIn("The page does not state a cash amount.", laptop)
         self.assertNotIn('class="unspecified"', laptop)
+        self.assertIn("https://myys.yayasansarawak.org.my/", laptop)
+        self.assertNotIn("bantuan-pelajar-ke-ipt2", laptop)
+        self.assertEqual(laptop.count("<li><a "), 1)
+        books = article(self.home, "book-voucher")
+        self.assertIn("https://myys.yayasansarawak.org.my/", books)
+        self.assertNotIn("bantuan-pelajar-ke-ipt2", books)
+        self.assertEqual(books.count("<li><a "), 1)
         uniform = article(self.home, "school-uniform")
         self.assertIn("RM200 voucher", uniform)
         self.assertIn('<ol class="scheme-copy">', uniform)
