@@ -78,8 +78,7 @@
       "For a first-year diploma or bachelor student. Family income per person must be RM1,500 or below."
     ],
     "links": [
-      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
+      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
     ]
   },
   {
@@ -98,7 +97,6 @@
       "Foundation through PhD. No income cap."
     ],
     "links": [
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
       {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
     ]
   },
