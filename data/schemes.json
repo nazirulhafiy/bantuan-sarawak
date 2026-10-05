@@ -11,15 +11,15 @@
       "RM600 for a senior",
       "RM375 for a single adult"
     ],
-    "amount_note": "Paid through S Pay Global for essential food.",
     "copy_ordered": true,
     "paragraphs": [
-      "An Anak Sarawak with identity-card status K who lives in Sarawak.",
-      "Recipient information is based on data from Sumbangan Tunai Rahmah (STR) 2026.",
-      "A household with income of RM5,000 or below.",
-      "A single adult aged 21 to 59, or a single person with a disability aged 19 to 59, with income of RM2,500 or below.",
-      "A senior aged 60 or older, without a spouse or eligible children, with income of RM5,000 or below.",
-      "There is no new application. Activate S Pay Global and acknowledge the claim before mid-December 2026. The next payment is 10 November 2026."
+      "Anak Sarawak with identity-card status K, living in Sarawak.",
+      "Recipient list comes from Sumbangan Tunai Rahmah (STR) 2026. No new application.",
+      "Household: income RM5,000 or below.",
+      "Single adult aged 21 to 59, or PWD aged 19 to 59: income RM2,500 or below.",
+      "Senior aged 60 or older, without a spouse or eligible children: income RM5,000 or below.",
+      "Activate S Pay Global and acknowledge before mid-December 2026. Next payment 10 November 2026.",
+      "Paid through S Pay Global for essential food."
     ],
     "links": [
       {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/821/"}
@@ -35,10 +35,11 @@
     "amounts": [
       "25% for domestic users, April to December 2026"
     ],
+    "copy_ordered": true,
     "paragraphs": [
-      "For a Sarawak Energy domestic customer on Tariff D. It does not cover a commercial property.",
-      "The discount applies to electricity used from April to December 2026. It is applied on the bill. No application is needed.",
-      "If a bill needs correcting, ask Sarawak Energy by 28 February 2027."
+      "Sarawak Energy domestic customer on Tariff D. Not for commercial use.",
+      "Discount on April–December 2026 usage, applied on the bill. No application.",
+      "Bill corrections: contact Sarawak Energy by 28 February 2027."
     ],
     "links": [
       {"label": "Sarawak Energy", "url": "https://www.sarawakenergy.com/media-info/announcements-publications/extension-of-electricity-discounts-for-sarawak-energy-account-holders-until-december-2026"}
@@ -55,9 +56,10 @@
       "RM1,200 a year",
       "RM600 each semester"
     ],
-    "amount_note": "Paid twice a year through S Pay Global.",
+    "copy_ordered": true,
     "paragraphs": [
-      "For a diploma or first-degree student at IPTA or IPTS. There is no income cap."
+      "Diploma or first-degree student at IPTA or IPTS. No income cap.",
+      "Paid twice a year through S Pay Global."
     ],
     "links": [
       {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"},
@@ -90,9 +92,10 @@
     "amounts": [
       "RM500 through S Pay Global"
     ],
-    "amount_note": "For Foundation through PhD. There is no income cap.",
+    "copy_ordered": true,
     "paragraphs": [
-      "Book aid for an IPT student, paid through S Pay Global."
+      "Book aid for an IPT student, paid through S Pay Global.",
+      "Foundation through PhD. No income cap."
     ],
     "links": [
       {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"},
@@ -110,10 +113,11 @@
       "Up to RM300 a trip",
       "Up to 2 trips a year"
     ],
-    "amount_note": "Claim within 60 days of the flight.",
+    "copy_ordered": true,
     "paragraphs": [
-      "A flight subsidy back to Sarawak for a full-time student aged 18 or older who is studying outside Sarawak. At least one parent must be Sarawakian.",
-      "Apply online to Yayasan Sarawak. Applications stay open through the year."
+      "Flight subsidy home to Sarawak for a full-time student aged 18+ studying outside Sarawak. At least one Sarawakian parent.",
+      "Apply online to Yayasan Sarawak. Open all year.",
+      "Claim within 60 days of the flight."
     ],
     "links": [
       {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/biasiswa-2/"}
@@ -130,10 +134,11 @@
       "RM1,000 for study in Sarawak",
       "RM1,500 for study outside Sarawak"
     ],
-    "amount_note": "Family income per person must be RM1,500 or below.",
+    "copy_ordered": true,
     "paragraphs": [
-      "A grant for the first semester of a certificate, matriculation, foundation, pre-diploma, diploma or bachelor programme. At least one parent must be Sarawakian.",
-      "Apply online to Yayasan Sarawak. Applications stay open through the year."
+      "First semester of certificate, matriculation, foundation, pre-diploma, diploma or bachelor. At least one Sarawakian parent.",
+      "Family income per person RM1,500 or below.",
+      "Apply online to Yayasan Sarawak. Open all year."
     ],
     "links": [
       {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/biasiswa-2/"}
@@ -149,10 +154,11 @@
     "amounts": [
       "RM15,000 a year, only if income per person is RM1,500 or below"
     ],
-    "amount_note": "The stipend is RM5,000 for lodging and RM10,000 through S Pay Global.",
+    "copy_ordered": true,
     "paragraphs": [
-      "A tuition waiver for selected courses at Swinburne, Curtin, UTS and i-CATS.",
-      "There is no separate application. The university forwards the names."
+      "Tuition waiver for selected courses at Swinburne, Curtin, UTS and i-CATS.",
+      "No separate application. The university forwards names.",
+      "Stipend: RM5,000 lodging and RM10,000 through S Pay Global."
     ],
     "links": [
       {"label": "MEITD", "url": "https://meitd.sarawak.gov.my/web/subpage/webpage_view/156"}
@@ -168,8 +174,9 @@
     "amounts": [
       "Deposit of 10%, or a maximum of RM10,000"
     ],
+    "copy_ordered": true,
     "paragraphs": [
-      "A deposit for a first home, for a B40 or M40 buyer. Buy an affordable home from a registered developer, or build on SPK or SPS land.",
+      "First-home deposit for a B40 or M40 buyer. Registered developer home or build on SPK or SPS land.",
       "Apply through Mutiara on 082-313035."
     ],
     "links": [
@@ -186,9 +193,10 @@
     "amounts": [
       "RM200 a month for students"
     ],
+    "copy_ordered": true,
     "paragraphs": [
-      "For an IPTA or IPTS student renting in Kuching, Samarahan, Sibu, Bintulu or Miri.",
-      "The form also covers a PPR tenant with identity-card status K and income of RM4,556 or below.",
+      "IPTA or IPTS student renting in Kuching, Samarahan, Sibu, Bintulu or Miri.",
+      "Also covers a PPR tenant with status K and income RM4,556 or below.",
       "Apply online."
     ],
     "links": [
@@ -207,10 +215,11 @@
       "Selling price below RM200,000",
       "Household income RM1,500 to RM6,000"
     ],
-    "amount_note": "This is the price and the income band, not a cash grant.",
+    "copy_ordered": true,
     "paragraphs": [
-      "An affordable home for a married applicant or a single parent aged 18 to 65 who does not already own a house or land.",
-      "Financing is through Mutiara Mortgage & Credit."
+      "Affordable home for a married applicant or single parent aged 18 to 65 without an existing house or land.",
+      "Financing through Mutiara Mortgage & Credit.",
+      "Amounts above are price and income band, not a cash grant."
     ],
     "links": [
       {"label": "HDC — Spektra Permata", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/127"}
@@ -241,10 +250,11 @@
     "amounts": [
       "Up to RM500 a person a year"
     ],
-    "amount_note": "Cashless outpatient treatment at panel clinics.",
+    "copy_ordered": true,
     "paragraphs": [
-      "For a person with identity-card status K, aged 60 or older, with household income of RM7,000 or below, and no other outpatient cover.",
-      "Apply online on Service Sarawak."
+      "Status K, aged 60+, household income RM7,000 or below, no other outpatient cover.",
+      "Apply online on Service Sarawak.",
+      "Cashless outpatient treatment at panel clinics."
     ],
     "links": [
       {"label": "Service Sarawak — SCHB", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/742/"}
@@ -258,9 +268,10 @@
     "title": "Kenyalang Gold Card (KGC)",
     "amount_basis": "none",
     "unspecified": "Participating merchants give discounts. The rates are not listed here.",
+    "copy_ordered": true,
     "paragraphs": [
-      "For a person with identity-card status K, aged 60 or older, who lives in Sarawak. You are included automatically.",
-      "Activate the card online. The virtual card is in SarawakPass."
+      "Status K, aged 60+, living in Sarawak. Included automatically.",
+      "Activate online. Virtual card is in SarawakPass."
     ],
     "links": [
       {"label": "Service Sarawak — KGC", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/822"}
@@ -276,10 +287,11 @@
     "amounts": [
       "RM1,800 to the next of kin"
     ],
-    "amount_note": "For the family of a Kenyalang Gold Card holder who has died.",
+    "copy_ordered": true,
     "paragraphs": [
-      "For the registered next of kin. The person who died must not have received a JPA death benefit, and must not have lived in a government institution.",
-      "Apply online through Service Sarawak within 4 months of the death."
+      "Registered next of kin of a Kenyalang Gold Card holder who has died.",
+      "No JPA death benefit and not living in a government institution.",
+      "Apply on Service Sarawak within 4 months of the death."
     ],
     "links": [
       {"label": "Service Sarawak — BIK", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/847/"}
@@ -295,9 +307,10 @@
     "amounts": [
       "RM450 cash"
     ],
+    "copy_ordered": true,
     "paragraphs": [
-      "For a Malaysian mother with identity-card status K, or the wife of a Malaysian with status K. The birth can be in or outside Sarawak. Gestation of at least 22 weeks.",
-      "Apply within 3 months of the delivery. You need SarawakPass and S Pay Global. Apply on iSarawakCare."
+      "Malaysian mother with status K, or wife of a Malaysian with status K. Birth in or outside Sarawak. At least 22 weeks gestation.",
+      "Apply within 3 months on iSarawakCare. Needs SarawakPass and S Pay Global."
     ],
     "links": [
       {"label": "Service Sarawak — BIB", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/383/"}
@@ -313,10 +326,11 @@
     "amounts": [
       "RM1,000 in trust savings"
     ],
-    "amount_note": "Apply online within 1 year of the birth. A child born overseas who has no MyKid yet must use the manual form and email it to efs@sarawak.gov.my.",
+    "copy_ordered": true,
     "paragraphs": [
-      "For a birth or adopted child. A parent must be Malaysian with identity-card status K. The child can be born in or outside Sarawak.",
-      "Apply on Service Sarawak. The money can be withdrawn at age 18 with MyKad at the bank."
+      "Birth or adopted child. Parent Malaysian with status K. Child born in or outside Sarawak.",
+      "Apply on Service Sarawak within 1 year. Withdraw at 18 with MyKad at the bank.",
+      "Child born overseas without MyKid: manual form to efs@sarawak.gov.my."
     ],
     "links": [
       {"label": "Service Sarawak — EFS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/846"},
@@ -333,11 +347,12 @@
     "amounts": [
       "RM1,000 one-off"
     ],
-    "amount_note": "Service Sarawak and JWKS both state RM1,000. Their income tests differ. Use the page you apply on.",
+    "copy_ordered": true,
     "paragraphs": [
-      "For a Sarawakian woman aged 18 or older with identity-card status K, or the wife of a status K holder. She is a single mother or the female head of the household, and she is not already on welfare aid.",
-      "Service Sarawak: household income from RM1,169 to RM4,849. Apply on iSarawakCare, or submit the form to JWKS.",
-      "JWKS: a woman already in business, with household income of RM2,618 or below. Apply through JWKS."
+      "Sarawakian woman 18+ with status K (or wife of status K). Single mother or female head of household, not on welfare aid.",
+      "Service Sarawak: household income RM1,169 to RM4,849. Apply on iSarawakCare or submit to JWKS.",
+      "JWKS: woman in business, household income RM2,618 or below. Apply through JWKS.",
+      "Service Sarawak and JWKS both state RM1,000. Income tests differ — use the page you apply on."
     ],
     "links": [
       {"label": "Service Sarawak — KIRWaS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/729"},
@@ -355,10 +370,11 @@
       "Type 1: RM1,000 to RM10,000 at 0%",
       "Type 2: RM5,001 to RM50,000 at 4%"
     ],
-    "amount_note": "Type 1 is for B40 borrowers. Agriculture is excluded.",
+    "copy_ordered": true,
     "paragraphs": [
-      "A micro-credit loan for a Sarawakian whose business has run in Sarawak for at least 6 months. It can be used for working capital, renovating a premises, or buying machinery.",
-      "Apply online, or at SEDC or Agrobank."
+      "Sarawakian business operating in Sarawak at least 6 months. Working capital, premises, or machinery.",
+      "Apply online, or at SEDC or Agrobank.",
+      "Type 1 is for B40 borrowers. Agriculture is excluded."
     ],
     "links": [
       {"label": "Service Sarawak — SMCS", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/259/390"}
@@ -374,9 +390,10 @@
     "amounts": [
       "Up to RM5,000, one-off"
     ],
-    "amount_note": "One-off startup capital for a JKMS client.",
+    "copy_ordered": true,
     "paragraphs": [
-      "For a JKMS client who is still able to work, with income at or below the current poverty line. Apply on iSarawakCare or at a JKMS office."
+      "JKMS client who can still work, income at or below the poverty line.",
+      "One-off startup capital. Apply on iSarawakCare or at a JKMS office."
     ],
     "links": [
       {"label": "JKMS — Geran Pelancaran", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"}

@@ -551,7 +551,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0;
+  gap: 0.35em;
   padding: 10px 16px;
   background: var(--sarawak-black);
 }
@@ -609,7 +609,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
 }
 
 .scheme-rank::after {
-  content: ". ";
+  content: ".";
   font-weight: 700;
 }
 
@@ -639,12 +639,12 @@ html[data-theme="dark"] .category-filter-button.is-active {
   list-style: none;
 }
 
-.amount-list.many li {
+.amount-list li {
   position: relative;
   padding-left: 0.95em;
 }
 
-.amount-list.many li::before {
+.amount-list li::before {
   content: "•";
   position: absolute;
   left: 0;
