@@ -42,7 +42,7 @@ def main() -> None:
         draw.text((88, y), line, font=title, fill=INK)
         y += 84
 
-    draw.text((88, 500), "State schemes  ·  Checked 4 October 2026", font=body, fill=MUTED)
+    draw.text((88, 468), "Each scheme links to its source.", font=body, fill=MUTED)
     draw.text((88, 556), "bantuan.sarawak.news", font=small, fill=BLACK)
     image.save(OUT, "PNG")
     print(f"Wrote {OUT}")
