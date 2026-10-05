@@ -28,6 +28,13 @@ Checks:
 python3 -m unittest discover -s tests -v
 ```
 
+## Preview
+
+- **Live site:** [bantuan.sarawak.news](https://bantuan.sarawak.news) updates only when changes merge to `main` (GitHub Pages).
+- **Pull requests:** CI runs tests and the build; it does not publish a preview URL.
+- **Local:** Run `python3 scripts/build.py`, then serve `dist/` (for example `cd dist && python3 -m http.server 8080`) and open http://localhost:8080.
+- **Branch preview:** Check out a PR branch before building to preview that branch locally.
+
 ## Data
 
 - `data/site.json` — titles, the “what changed” list, audience groups, about copy
