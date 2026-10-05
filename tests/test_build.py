@@ -302,9 +302,12 @@ class BuildTests(unittest.TestCase):
         )
         self.assertIsNotNone(business_heading)
         business_icon = business_heading.group(1)
-        self.assertNotIn("q", business_icon)
-        self.assertIn('M2 9.4h20', business_icon)
-        self.assertIn('M8.3 12.8h7.4v5.6H8.3z', business_icon)
+        self.assertIn('M3.5 5.5h17', business_icon)
+        self.assertIn("M3.5 9.8Q5.2 7.5 6.9 9.8", business_icon)
+        self.assertIn('M5.5 21v-8.8h4.6V21', business_icon)
+        self.assertIn('cx="6.5" cy="16.2"', business_icon)
+        self.assertIn('M14.5 11.6H19.5V16.2H14.5z', business_icon)
+        self.assertNotIn('M2 9.4h20', business_icon)
         housing_heading = re.search(
             r'<h2 id="group-housing">(<svg class="group-icon"[\s\S]*?</svg>)<span>Housing</span></h2>',
             self.home,
