@@ -34,6 +34,7 @@ python3 -m unittest discover -s tests -v
 - **Pull requests:** CI runs tests and the build; it does not publish a preview URL.
 - **Local:** Run `python3 scripts/build.py`, then serve `dist/` (for example `cd dist && python3 -m http.server 8080`) and open http://localhost:8080.
 - **Branch preview:** Check out a PR branch before building to preview that branch locally.
+- **Fastest UI check:** Before merge or deploy, use a local preview (`python3 scripts/build.py`, then serve `dist/`). That only works on a machine with the repo checked out (for example a laptop). Hosted PR preview URLs are not set up; they would be for viewing a branch without a local checkout.
 
 ## Data
 
