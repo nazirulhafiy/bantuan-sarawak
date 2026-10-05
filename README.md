@@ -2,9 +2,9 @@
 
 Independent directory of Sarawak government assistance, for [bantuan.sarawak.news](https://bantuan.sarawak.news/).
 
-This is not a news feed and not a government website. It lists state schemes, with the amount and the official page each figure came from. The figures were checked on 4 October 2026. If a ringgit amount was not on an official page, it is not shown.
+This is not a news feed and not a government website. It lists state schemes. Each card links to the official page its figure came from. The site does not take applications. The figures were checked on 4 October 2026. If a ringgit amount was not on an official page, it is not shown.
 
-Applications are made on the official pages linked from each scheme.
+The site is still in development. Do not hand it to a maintainer bot until Nazirul says it is complete. There is no scheduled publisher. A person re-checks the official pages once a week and updates schemes that are already listed. That pass is [docs/weekly-update.md](docs/weekly-update.md).
 
 ## Build
 
@@ -38,8 +38,11 @@ python3 -m unittest discover -s tests -v
 
 ## Data
 
-- `data/site.json` — titles, the “what changed” list, audience groups, about copy
+- `data/site.json` — titles, the check date, audience groups, about copy
 - `data/schemes.json` — state schemes, amounts, official URLs
+- `scripts/build.py` — turns that JSON into `dist/`. It also refuses unofficial URLs and a short list of rejected phrases
+- `tests/test_build.py` — checks the built pages, including claims that must stay unpublished
+- `docs/weekly-update.md` — the weekly re-check: which official pages to open, how to edit a card, and the content rules the build already enforces
 - `docs/federal-assistance-backlog.md` — federal schemes taken out of the directory, with the fields needed to add them back
 - `site/style.css` and `site/app.js` — visual design, dark mode and the menu
 - `site/social-card.png` — Open Graph image, 1200×630
@@ -60,4 +63,4 @@ These are not done in this repository:
 
 ## What the directory leaves out
 
-A scheme with no direct official page is left out. So is a payment that was not on the page checked on 4 October 2026.
+A scheme with no direct official page is left out. So is a payment that was not on the page checked on 4 October 2026. Federal schemes are not in the published directory. The ones removed are in `docs/federal-assistance-backlog.md`.

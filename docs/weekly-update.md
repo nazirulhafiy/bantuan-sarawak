@@ -1,0 +1,140 @@
+# Weekly update
+
+Schemes change. Phases end, due dates move, and amounts go stale. Once a week, open the official page already linked on each scheme in `data/schemes.json` and update that card so it matches the page. If the page and the card already match, leave the card.
+
+Do not invent a figure, a date, or an eligibility line. If the page does not state it, it does not go on the card.
+
+This is a person doing the pass. The site is still in development. Do not hand it to a maintainer bot, and do not add a schedule that publishes scheme changes, until Nazirul says the site is complete.
+
+## Pages to re-check
+
+Re-open the URL stored on the card. Do not replace it with a news post, an announcement index, or a different host.
+
+### Household
+
+- Sumbangan Keperluan Asas Sarawak (SKAS) 2026 — https://service.sarawak.gov.my/web/web/home/sla_view/0/821/
+- Domestic Electricity Discount — https://www.sarawakenergy.com/media-info/announcements-publications/extension-of-electricity-discounts-for-sarawak-energy-account-holders-until-december-2026
+
+### Students
+
+- Bantuan Kewangan Khas (BKK) for IPT Students, Free Laptop, and Book Voucher — https://myys.yayasansarawak.org.my/
+- Inisiatif Graduan Pulang Sarawak (IGPS) and Geran Kemasukan IPT — https://yayasansarawak.org.my/en/biasiswa-2/
+- Selected-Course Tuition Waiver at Four Institutions — https://meitd.sarawak.gov.my/web/subpage/webpage_view/156
+- School Uniform Assistance Programme and Free School Transportation Service for Students — https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/
+
+### Housing
+
+- HDAS Deposit Assistance — https://hdc.sarawak.gov.my/web/subpage/webpage_view/163
+- SRAS Rent Assistance — https://hdc.sarawak.gov.my/web/subpage/webpage_view/139
+- Rumah Spektra Permata — https://hdc.sarawak.gov.my/web/subpage/webpage_view/127
+- Sri Pertiwi — https://mudenr.sarawak.gov.my/web/attachment/show/?docid=U2JnN2NtQmNWZi9DWkhaYUlUMnhsdz09OjrhxKX9m6xObBhS-XQMz_Kf
+
+### Senior Citizen
+
+- Senior Citizen Health Benefit (SCHB) — https://service.sarawak.gov.my/web/web/home/sla_view/0/742/
+- Kenyalang Gold Card (KGC) — https://service.sarawak.gov.my/web/web/home/sla_view/211/822
+- Bantuan Ihsan Kematian (BIK) — https://service.sarawak.gov.my/web/web/home/sla_view/211/847/
+
+### New Baby
+
+- Bantuan Ibu Bersalin (BIB) — https://service.sarawak.gov.my/web/web/home/sla_view/211/383/
+- Endowment Fund Sarawak (EFS) — https://service.sarawak.gov.my/web/web/home/sla_view/211/846 and https://kpwk.sarawak.gov.my/web/subpage/webpage_view/100
+
+### Small Business
+
+- Bantuan Ketua Isi Rumah Wanita (KIRWaS) — https://service.sarawak.gov.my/web/web/home/sla_view/211/729 and https://jwks.sarawak.gov.my/web/subpage/webpage_view/182
+- Sarawak Micro Credit Scheme (SMCS) — https://service.sarawak.gov.my/web/web/home/sla_view/259/390
+- Geran Pelancaran / Modal Mikro — https://welfare.sarawak.gov.my/web/subpage/webpage_view/159
+
+### Welfare
+
+- Bantuan Am (BA) and Bantuan Belia-Beliawanis (BBB) — https://welfare.sarawak.gov.my/web/subpage/webpage_view/130
+
+Read the date lines on SKAS (next payment, S Pay Global acknowledgement), the electricity discount window and bill-correction date, the IGPS claim window, BIK, BIB, and EFS. Those are the lines that go stale first.
+
+## Change a listed scheme
+
+Edit the object in `data/schemes.json`.
+
+- **Amount.** Put only what that official page states into `amounts`. If the page no longer states a ringgit figure, do not keep the old one.
+- **Eligibility.** Edit `paragraphs`. That array is the eligibility and description. There is no separate eligibility field.
+- **Phase, due date, deadline.** Edit the paragraph that states it. Use the page’s wording. If a phase has ended, update the card to what the page says now, or retire the scheme if it is closed.
+- **Check date.** Set `checked` in `data/site.json` to the day you re-read the pages (`YYYY-MM-DD`). That value is the “Last updated” line. Also update the check-date sentences in `data/site.json` (`about_description` and the figures section) and the about lede in `scripts/build.py`. `tests/test_build.py` expects the same date string, including `SUNDAY, 4 OCT 2026` while the check date is 4 October 2026, so update the test in the same change.
+- **New ringgit figure.** If the built page shows a ringgit amount the tests do not already allow, add the digits without commas to `ALLOWED_RM` in `tests/test_build.py`.
+
+## Add a scheme
+
+Add a scheme only when all of these are true:
+
+- It is a Sarawak state scheme. The published directory is state only. Federal schemes stay in `docs/federal-assistance-backlog.md`.
+- It has its own official `https` page. A news view, an announcement index, or a page that only mentions the scheme is not enough.
+- Any amount you show is on that page, or on an official attachment that page points to.
+
+Give it a new `id`, `level` set to `STATE`, and a `group` that already exists in `data/site.json`. A new group also needs a heading icon in `scripts/build.py`. The tests expect 24 state schemes and 26 source links. Update those counts when you add or remove a scheme or a link.
+
+## Retire a scheme
+
+Remove the object when the official page is gone or the scheme is closed. Do not leave its title or a stale amount in site copy. Do not put `rental`, `hdras`, or `spektra-lite` back.
+
+## Source links
+
+Every `links` URL must be `https`, and the host must be in `OFFICIAL_HOSTS` in `scripts/build.py`. Add a host there only when it is the agency that publishes the scheme.
+
+The label is a short agency name, with no scheme suffix. “Service Sarawak” and “Housing Development Corporation” are the pattern. “JKMS — Geran Pelancaran”, “JWKS — KIRWaS”, “Sri Pertiwi guidelines”, and “Yayasan IPT page” are not. When you edit a card, use the agency name only. The tuition-waiver label stays the full “Ministry of Education, Innovation and Talent Development”, not “MEITD”. Link the scheme’s own page, not the agency homepage, when the scheme has one. SRAS keeps the Housing Development Corporation page only.
+
+The build allowlist is not the whole rule. The tests also reject these fragments on the public pages, even when the host is listed: `news_view`, `announcement_view`, `faq_view`, `isarawakcare.sarawak.gov.my`, `Bantuan-IPT-ENG.pdf`, `article_view/0/380`, `webpage_view/117`, `sla_view/319/757`, `meitd.sarawak.gov.my/web/subpage/news_view`, `sarawakenergy.com/media-info/media-releases`, and a bare `https://hdc.sarawak.gov.my/` link. SKAS stays on `sla_view/0/821/`. BKK, Free Laptop, and Book Voucher stay on my-Yayasan, not the Yayasan IPT page.
+
+Hosts the build already accepts:
+
+- `ukas.sarawak.gov.my`
+- `www.sarawak.gov.my`
+- `service.sarawak.gov.my`
+- `welfare.sarawak.gov.my`
+- `www.jkm.gov.my`
+- `myys.yayasansarawak.org.my`
+- `yayasansarawak.org.my`
+- `meitd.sarawak.gov.my`
+- `hdc.sarawak.gov.my`
+- `mudenr.sarawak.gov.my`
+- `www.sarawakenergy.com`
+- `apply-sras.ireka.my`
+- `kpwk.sarawak.gov.my`
+- `isarawakcare.sarawak.gov.my`
+- `jwks.sarawak.gov.my`
+- `mficord.sarawak.gov.my`
+- `www.kpkm.gov.my`
+- `app-egam.kpkm.gov.my`
+- `talikhidmat.sarawak.gov.my`
+
+## Amount basis
+
+`amount_basis` is `page`, `attachment`, or `none`.
+
+- `page` — the amount is on the official HTML page. `amounts` is required, and the card shows that list. Bantuan Am and Bantuan Belia-Beliawanis use `page`.
+- `attachment` — the amount is only on a rate-sheet attachment, not the main HTML page. The card says “On an attachment” and still requires `amounts`. Do not use this when the figure is already on the page.
+- `none` — there is no ringgit payment to show. Do not set `amounts`. Free Laptop, the school bus, and Kenyalang Gold Card use `none` with `copy_ordered`, and the numbered lines say what the person receives. Sri Pertiwi uses `none` without `copy_ordered`, so it needs `unspecified`. The build rejects `none` with amounts, and it rejects `none` when both `copy_ordered` and `unspecified` are missing.
+
+## Numbered card bodies
+
+A card with `"copy_ordered": true` renders `paragraphs` as a numbered list. If that card also has `amount_note`, the note is the last numbered item, not a separate paragraph. Keep `copy_ordered` on every card that already has it. Bantuan Am, Bantuan Belia-Beliawanis, and Sri Pertiwi use ordinary paragraphs.
+
+## Do not publish rejected claims
+
+`scripts/build.py` stops if the built pages contain any of these phrases: `wellbest`, `spta`, `siba`, `gptp`, `15 may`, `48 months`, `rm200 x` (and the × variants), `i-gps`. The tests refuse the same set.
+
+Also leave out:
+
+- Scheme ids `rental`, `hdras`, and `spektra-lite`.
+- A SKAS amount list other than the three figures on the current card. That includes RM800. Also leave out “10 March”, “25 May”, “dedicated live page”, and “PWD”.
+- “1 January 2026” and “JPN” on EFS. The application window on that card is within 1 year.
+- “Use RM600”, “not the SKAS payment”, “state and federal”, “marked State”, “older rates”, and HDRAS in the about copy.
+
+## Check the change
+
+```bash
+python3 scripts/build.py
+python3 -m http.server 43123 --directory dist
+python3 -m unittest discover -s tests -v
+```
+
+Open `http://127.0.0.1:43123/`. GitHub Pages publishes only after the change merges to `main`.
