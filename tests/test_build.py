@@ -280,6 +280,29 @@ class BuildTests(unittest.TestCase):
         self.assertIn('viewBox="0 0 24 24"', baby_icon)
         self.assertIn('width="22"', baby_icon)
         self.assertIn('height="22"', baby_icon)
+        business_heading = re.search(
+            r'<h2 id="group-business">(<svg class="group-icon"[\s\S]*?</svg>)<span>Small business</span></h2>',
+            self.home,
+        )
+        self.assertIsNotNone(business_heading)
+        business_icon = business_heading.group(1)
+        self.assertNotIn("q", business_icon)
+        self.assertIn('M2 9.4h20', business_icon)
+        self.assertIn('M8.3 12.8h7.4v5.6H8.3z', business_icon)
+        housing_heading = re.search(
+            r'<h2 id="group-housing">(<svg class="group-icon"[\s\S]*?</svg>)<span>Housing</span></h2>',
+            self.home,
+        )
+        self.assertIsNotNone(housing_heading)
+        housing_icon = housing_heading.group(1)
+        self.assertNotIn("M16.2 5.2", housing_icon)
+        self.assertIn("M1.2 12 7.9 4.4 12 12 16.1 4.4 22.8 12", housing_icon)
+        household_icon = re.search(
+            r'<h2 id="group-household">(<svg class="group-icon"[\s\S]*?</svg>)<span>Household</span></h2>',
+            self.home,
+        ).group(1)
+        self.assertNotEqual(housing_icon, household_icon)
+        self.assertIn("M3.5 11 12 3.2 20.5 11", household_icon)
         self.assertEqual(self.home.count('class="group-icon"'), len(self.site["groups"]))
         self.assertNotIn("group-icon", self.about)
         filter_row = re.search(
