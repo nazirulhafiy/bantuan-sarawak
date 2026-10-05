@@ -551,7 +551,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.5em;
+  gap: 0;
   padding: 10px 16px;
   background: var(--sarawak-black);
 }
@@ -601,7 +601,6 @@ html[data-theme="dark"] .category-filter-button.is-active {
 
 .scheme-rank {
   flex: 0 0 auto;
-  margin-right: 0.35em;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
