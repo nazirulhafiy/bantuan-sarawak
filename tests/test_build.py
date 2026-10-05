@@ -371,8 +371,20 @@ class BuildTests(unittest.TestCase):
             css,
         ).group(1)
         self.assertIn("font-size: 16px;", page_amount)
-        title = re.search(r"\.scheme-head > h3 \{([^}]+)\}", css).group(1)
-        self.assertIn("font-size: 18px;", title)
+        scheme_title_pill = re.search(
+            r"\.sources-title,\s*\n\.scheme-head > h3 \{([^}]+)\}",
+            css,
+        ).group(1)
+        self.assertIn("background: var(--sarawak-yellow);", scheme_title_pill)
+        self.assertIn("text-transform: uppercase;", scheme_title_pill)
+        self.assertIn("font-size: 10px;", scheme_title_pill)
+        self.assertIn("font-weight: 900;", scheme_title_pill)
+        self.assertIn("max-width: 100%;", scheme_title_pill)
+        title_overrides = re.search(
+            r"\.scheme-head > h3 \{\n  margin: 0;\n  min-width: 0;\n  padding: 2px 6px;\n\}",
+            css,
+        )
+        self.assertIsNotNone(title_overrides)
         self.assertNotIn("scheme-title-row", css)
         self.assertIn(".scheme-rank {", css)
         rank = re.search(r"\.scheme-rank \{([^}]+)\}", css).group(1)
