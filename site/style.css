@@ -500,7 +500,8 @@ html[data-theme="dark"] .category-filter-button.is-active {
   align-items: center;
   gap: 0.38em;
   margin: 0 0 8px;
-  font-size: 28px;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .group-head h2 > span {
@@ -601,15 +602,15 @@ html[data-theme="dark"] .category-filter-button.is-active {
 .scheme-rank {
   flex: 0 0 auto;
   color: #fff;
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 700;
   letter-spacing: -.02em;
   line-height: 1.4;
 }
 
 .scheme-rank::after {
   content: " ·";
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .scheme-head > h3 {
@@ -619,8 +620,8 @@ html[data-theme="dark"] .category-filter-button.is-active {
   padding: 0;
   background: transparent;
   color: #fff;
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 700;
   letter-spacing: -.02em;
   line-height: 1.4;
 }
@@ -949,7 +950,8 @@ html[data-theme="dark"] .site-footer {
 
   .brief-deck { font-size: 17px; }
 
-  .group-head h2,
+  .group-head h2 { font-size: 20px; }
+
   .about-section h2 { font-size: 23px; }
 
   .scheme-head {
