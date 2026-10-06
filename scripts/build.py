@@ -350,7 +350,7 @@ def render_footer(site: dict, active: str) -> str:
           <li><a class="site-footer-link" href="/"{home_current}>Home</a></li>
           <li><a class="site-footer-link" href="about.html"{about_current}>About</a></li>
         </ul>
-        <h2 class="site-footer-categories-title">On this page</h2>
+        <h2 class="site-footer-categories-title">Categories</h2>
         <ul>
 {group_links}
         </ul>

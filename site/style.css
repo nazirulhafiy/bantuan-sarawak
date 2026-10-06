@@ -858,6 +858,10 @@ html[data-theme="dark"] .site-footer {
   list-style: none;
 }
 
+.site-footer-nav > ul:first-of-type {
+  margin-bottom: 14px;
+}
+
 .site-footer-link {
   color: var(--muted);
   font-size: 13px;
