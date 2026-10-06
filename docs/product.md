@@ -26,7 +26,7 @@ Each object in `data/schemes.json` needs:
 - `title` — the scheme name shown on the card.
 - `amount_basis` — `page`, `attachment`, or `none`. See `docs/automation.md`.
 - `paragraphs` — eligibility and description. There is no separate eligibility field.
-- `links` — exactly one official `https` source. The label is the full name of the agency in charge, as printed on that page. It is not the scheme name, and it is not a portal brand when the agency is known.
+- `links` — exactly one official `https` source. The label is the full agency name from that page. **Exception:** when that sole URL is on `service.sarawak.gov.my`, label it **Service Sarawak** (not the ministry or department named on the portal page). Other hosts keep the full name (Yayasan Sarawak, Housing Development Corporation, `welfare.sarawak.gov.my` → Jabatan Kebajikan Masyarakat Sarawak, `meitd.sarawak.gov.my` → ministry name, and so on).
 - `due` — optional. A date phrase from that page, or a list of them when the card has more than one. The build wraps each phrase in the red due-date label. The phrase must already appear once in `paragraphs` or `amount_note`. Do not put HTML in the JSON.
 
 When `amount_basis` is `page` or `attachment`, `amounts` is required. When it is `none`, do not set `amounts`. A `none` card needs `copy_ordered` or `unspecified`.
