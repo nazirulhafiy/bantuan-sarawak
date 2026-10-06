@@ -111,7 +111,8 @@ class BuildTests(unittest.TestCase):
     def test_every_scheme_is_labelled_and_linked(self):
         self.assertTrue(all(scheme["links"] for scheme in self.schemes))
         self.assertTrue(all(scheme["level"] in {"STATE", "FEDERAL"} for scheme in self.schemes))
-        self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 26)
+        self.assertEqual(sum(len(scheme["links"]) for scheme in self.schemes), 24)
+        self.assertTrue(all(len(scheme["links"]) == 1 for scheme in self.schemes))
         for scheme in self.schemes:
             card = article(self.home, scheme["id"])
             self.assertIn(f'data-level="{scheme["level"].lower()}"', card)
@@ -170,7 +171,13 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("group-sources-title", self.home)
         self.assertNotIn("Pages checked for this group", self.home)
         self.assertNotIn("sources group-sources", self.home)
-        self.assertIn("my-Yayasan", self.home)
+        self.assertNotIn(">my-Yayasan</a>", self.home)
+        self.assertNotIn(">Service Sarawak</a>", self.home)
+        self.assertNotIn("Yayasan IPT", self.home)
+        self.assertNotIn("Sri Pertiwi guidelines", self.home)
+        self.assertNotIn("JWKS —", self.home)
+        self.assertNotIn("JKMS —", self.home)
+        self.assertNotIn(">KPWK</a>", self.home)
         self.assertIn('class="sources-title">Source</h4>', self.home)
         self.assertNotIn("Official pages", self.home)
         self.assertNotIn("news_view", self.home)
@@ -193,7 +200,8 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("sarawakenergy.com/media-info/media-releases", self.home)
         self.assertNotRegex(self.home, r'href="https://hdc\.sarawak\.gov\.my/?"')
         self.assertIn("independent", self.about.casefold())
-        self.assertIn("4 October 2026", self.about)
+        self.assertIn("6 October 2026", self.about)
+        self.assertNotIn("4 October 2026", self.about)
         self.assertIn("does not run", self.about)
         footer_bottom = (
             '<div class="site-footer-bottom">\n'
@@ -255,7 +263,7 @@ class BuildTests(unittest.TestCase):
         self.assertTrue(all(scheme["level"] == "STATE" for scheme in self.schemes))
         updated = re.search(r'<p class="updated">(.*?)</p>', self.home).group(1)
         self.assertIn(">Last updated</span>", updated)
-        self.assertIn(">SUNDAY, 4 OCT 2026</time>", updated)
+        self.assertIn(">TUESDAY, 6 OCT 2026</time>", updated)
         self.assertNotIn("Checked", updated)
         self.assertNotIn("schemes", updated.casefold())
         self.assertNotIn("updated-count", self.home)
@@ -492,6 +500,115 @@ class BuildTests(unittest.TestCase):
         found = {value.replace(",", "") for value in re.findall(r"RM\s*([0-9][0-9,]*)", self.home + self.about)}
         self.assertTrue(found)
         self.assertEqual(found - ALLOWED_RM, set())
+
+    def test_one_source_full_agency_name_and_due_label(self):
+        labels = {
+            "skas": "Economic Planning Unit Sarawak",
+            "electricity": "Sarawak Energy",
+            "bkk-ipt": "Yayasan Sarawak",
+            "laptop": "Yayasan Sarawak",
+            "book-voucher": "Yayasan Sarawak",
+            "igps": "Yayasan Sarawak",
+            "ipt-entry": "Yayasan Sarawak",
+            "ftes": "Ministry of Education, Innovation and Talent Development",
+            "school-uniform": "Yayasan Sarawak",
+            "school-transport": "Yayasan Sarawak",
+            "hdas": "Housing Development Corporation",
+            "sras": "Housing Development Corporation",
+            "spektra-permata": "Housing Development Corporation",
+            "sri-pertiwi": "Ministry of Urban Development and Natural Resources",
+            "schb": "Social Welfare Department of Sarawak",
+            "kgc": "Social Welfare Department of Sarawak",
+            "bik": "Social Welfare Department of Sarawak",
+            "bib": "Ministry of Women, Early Childhood and Community Wellbeing Development",
+            "efs": "Kementerian Pembangunan Wanita, Kanak-Kanak dan Kesejahteraan Komuniti",
+            "kirwas": "Jabatan Wanita dan Keluarga Sarawak",
+            "smcs": "Ministry of International Trade, Industry and Investment Sarawak",
+            "geran-pelancaran": "Jabatan Kebajikan Masyarakat Sarawak",
+            "ba": "Jabatan Kebajikan Masyarakat Sarawak",
+            "bbb": "Jabatan Kebajikan Masyarakat Sarawak",
+        }
+        self.assertEqual({scheme["id"] for scheme in self.schemes}, set(labels))
+        for scheme in self.schemes:
+            card = article(self.home, scheme["id"])
+            self.assertEqual(len(scheme["links"]), 1)
+            self.assertEqual(scheme["links"][0]["label"], labels[scheme["id"]])
+            self.assertEqual(card.count("<li><a "), 1)
+            self.assertIn(f'>{labels[scheme["id"]]}</a>', card)
+        self.assertNotIn("sla_view/211/846", self.home)
+        self.assertNotIn("sla_view/211/729", self.home)
+        self.assertIn("https://kpwk.sarawak.gov.my/web/subpage/webpage_view/100", article(self.home, "efs"))
+        self.assertIn("https://jwks.sarawak.gov.my/web/subpage/webpage_view/182", article(self.home, "kirwas"))
+        self.assertIn("https://myys.yayasansarawak.org.my/", article(self.home, "bkk-ipt"))
+        self.assertIn("https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/", article(self.home, "school-uniform"))
+
+        due_cards = {
+            "skas": ["10 November 2026", "mid-December 2026"],
+            "electricity": ["28 February 2027"],
+            "bkk-ipt": ["30 October 2026"],
+            "laptop": ["30 October 2026"],
+            "book-voucher": ["30 October 2026"],
+        }
+        for scheme_id, phrases in due_cards.items():
+            card = article(self.home, scheme_id)
+            for phrase in phrases:
+                pill = f'<span class="due-date">{phrase}</span>'
+                self.assertIn(pill, card)
+                self.assertEqual(card.count(phrase), 1)
+            self.assertIn('<ol class="scheme-copy">', card)
+            self.assertLess(card.index("<li>"), card.index('class="due-date"'))
+        skas = article(self.home, "skas")
+        self.assertIn("The current phase is the payment on <span class=\"due-date\">10 November 2026</span>", skas)
+        self.assertNotIn("10 March", skas)
+        electricity = article(self.home, "electricity")
+        self.assertIn("April–December 2026", electricity)
+        self.assertIn("The current phase is the discount", electricity)
+        books = article(self.home, "book-voucher")
+        self.assertIn("Book Voucher Programme Phase 2, 2026", books)
+        self.assertIn("RM1,500", books)
+        self.assertNotIn("No income cap", books)
+        laptop = article(self.home, "laptop")
+        self.assertIn("Free Laptop Programme Phase 2, 2026", laptop)
+        self.assertNotIn('class="due-date"', article(self.home, "igps"))
+        self.assertNotIn('class="due-date"', article(self.home, "ba"))
+
+        css = (self.dist / "style.css").read_text(encoding="utf-8")
+        due = re.search(r"\.due-date \{([^}]+)\}", css).group(1)
+        self.assertIn("display: inline;", due)
+        self.assertIn("background: #d22630;", due)
+        self.assertIn("color: #fff;", due)
+        self.assertIn("font-size: 11px;", due)
+        self.assertIn("font-weight: 900;", due)
+
+        with self.assertRaises(SystemExit):
+            build.check_scheme_source(
+                {
+                    "id": "two-links",
+                    "links": [
+                        {"label": "One", "url": "https://www.jkm.gov.my/"},
+                        {"label": "Two", "url": "https://www.jkm.gov.my/"},
+                    ],
+                    "paragraphs": ["A line."],
+                }
+            )
+        with self.assertRaises(SystemExit):
+            build.check_scheme_source(
+                {
+                    "id": "html-due",
+                    "links": [{"label": "One", "url": "https://www.jkm.gov.my/"}],
+                    "paragraphs": ["Closes <b>soon</b>."],
+                    "due": "<b>soon</b>",
+                }
+            )
+        with self.assertRaises(SystemExit):
+            build.check_scheme_source(
+                {
+                    "id": "missing-due",
+                    "links": [{"label": "One", "url": "https://www.jkm.gov.my/"}],
+                    "paragraphs": ["No date here."],
+                    "due": "30 October 2026",
+                }
+            )
 
 
 if __name__ == "__main__":

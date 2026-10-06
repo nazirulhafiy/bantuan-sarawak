@@ -69,6 +69,75 @@ def esc(value: object) -> str:
     return html.escape(str(value), quote=True)
 
 
+def due_phrases(scheme: dict) -> list[str]:
+    """Date phrases the builder wraps. A string, or a list when a card has more than one."""
+    due = scheme.get("due")
+    if due is None:
+        return []
+    scheme_id = scheme.get("id", "scheme")
+    if isinstance(due, str):
+        phrases = [due]
+    elif isinstance(due, list):
+        phrases = list(due)
+    else:
+        raise SystemExit(f"{scheme_id} due must be a date phrase or a list of them")
+    if not phrases or any(not isinstance(phrase, str) or not phrase.strip() for phrase in phrases):
+        raise SystemExit(f"{scheme_id} due must be a non-empty date phrase")
+    if len(phrases) != len(set(phrases)):
+        raise SystemExit(f"{scheme_id} repeats a due phrase")
+    for phrase in phrases:
+        if "<" in phrase or ">" in phrase:
+            raise SystemExit(f"{scheme_id} due phrase cannot contain HTML")
+    return phrases
+
+
+def copy_blocks(scheme: dict) -> list[str]:
+    blocks = list(scheme.get("paragraphs") or [])
+    if scheme.get("amount_note"):
+        blocks.append(scheme["amount_note"])
+    return blocks
+
+
+def render_text_with_due(text: str, phrases: list[str]) -> str:
+    """Escape text and wrap each due phrase that appears in this block. One pill per phrase."""
+    hits = []
+    for phrase in phrases:
+        start = text.find(phrase)
+        if start < 0:
+            continue
+        if text.find(phrase, start + len(phrase)) >= 0:
+            raise SystemExit(f"Due phrase appears more than once in one block: {phrase}")
+        hits.append((start, phrase))
+    hits.sort()
+    parts = []
+    cursor = 0
+    for start, phrase in hits:
+        if start < cursor:
+            raise SystemExit(f"Due phrases overlap: {phrase}")
+        parts.append(esc(text[cursor:start]))
+        parts.append(f'<span class="due-date">{esc(phrase)}</span>')
+        cursor = start + len(phrase)
+    parts.append(esc(text[cursor:]))
+    return "".join(parts)
+
+
+def check_scheme_source(scheme: dict) -> None:
+    scheme_id = scheme["id"]
+    links = scheme.get("links")
+    if not isinstance(links, list) or len(links) != 1:
+        raise SystemExit(f"{scheme_id} needs exactly one source link")
+    check_official_url(links[0]["url"], scheme_id)
+    phrases = due_phrases(scheme)
+    blocks = copy_blocks(scheme)
+    for phrase in phrases:
+        found = sum(block.count(phrase) for block in blocks)
+        if found != 1:
+            raise SystemExit(f"{scheme_id} due phrase must appear once in the copy: {phrase}")
+        for amount in scheme.get("amounts") or []:
+            if phrase in amount:
+                raise SystemExit(f"{scheme_id} due phrase is also in an amount: {phrase}")
+
+
 def render_analytics_script(token: str = CLOUDFLARE_WEB_ANALYTICS_TOKEN) -> str:
     token = token.strip()
     if not token:
@@ -112,11 +181,7 @@ def validate(site: dict, schemes: list[dict]) -> None:
             raise SystemExit(f"{scheme_id} needs at least one amount")
         if not scheme.get("paragraphs"):
             raise SystemExit(f"{scheme_id} needs paragraphs")
-        links = scheme.get("links")
-        if not isinstance(links, list) or not links:
-            raise SystemExit(f"{scheme_id} needs a source link")
-        for link in links:
-            check_official_url(link["url"], scheme_id)
+        check_scheme_source(scheme)
     for group in site["groups"]:
         if group["id"] not in GROUP_ICONS:
             raise SystemExit(f"No heading icon for group {group['id']}")
@@ -176,17 +241,24 @@ def render_scheme(
         many = " many" if len(scheme["amounts"]) > 1 else ""
         amounts = "\n".join(f"          <li>{esc(amount)}</li>" for amount in scheme["amounts"])
         body.append(f'        <ul class="amount-list{many}">\n{amounts}\n        </ul>')
+    phrases = due_phrases(scheme)
     if scheme.get("copy_ordered"):
         copy_items = list(scheme["paragraphs"])
         if scheme.get("amount_note"):
             copy_items.append(scheme["amount_note"])
-        items = "\n".join(f"          <li>{esc(paragraph)}</li>" for paragraph in copy_items)
+        items = "\n".join(
+            f"          <li>{render_text_with_due(paragraph, phrases)}</li>" for paragraph in copy_items
+        )
         body.append(f'        <ol class="scheme-copy">\n{items}\n        </ol>')
     else:
-        paragraphs = "\n".join(f"          <p>{esc(paragraph)}</p>" for paragraph in scheme["paragraphs"])
+        paragraphs = "\n".join(
+            f"          <p>{render_text_with_due(paragraph, phrases)}</p>" for paragraph in scheme["paragraphs"]
+        )
         body.append(f'        <div class="scheme-copy">\n{paragraphs}\n        </div>')
         if scheme.get("amount_note"):
-            body.append(f'        <p class="amount-note">{esc(scheme["amount_note"])}</p>')
+            body.append(
+                f'        <p class="amount-note">{render_text_with_due(scheme["amount_note"], phrases)}</p>'
+            )
     if scheme["links"]:
         body.append('        <h4 class="sources-title">Source</h4>')
         body.append(render_links(scheme["links"], indent="        "))
@@ -507,7 +579,7 @@ def render_about(site: dict) -> str:
     <header class="about-hero">
       <p class="about-eyebrow">About the directory</p>
       <h1>About Bantuan Sarawak</h1>
-      <p class="about-lede">An independent list of state assistance, with official links only. Amounts were checked on 4 October 2026.</p>
+      <p class="about-lede">An independent list of state assistance, with official links only. Amounts were checked on 6 October 2026.</p>
     </header>
 {chr(10).join(sections)}
     <section class="about-section" aria-labelledby="about-desks">

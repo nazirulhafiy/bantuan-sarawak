@@ -18,11 +18,12 @@
       "A household with income of RM5,000 or below.",
       "A single adult aged 21 to 59, or a single person with a disability aged 19 to 59, with income of RM2,500 or below.",
       "A senior aged 60 or older, without a spouse or eligible children, with income of RM5,000 or below.",
-      "Activate S Pay Global and acknowledge the claim before mid-December 2026. The next payment is 10 November 2026.",
+      "The current phase is the payment on 10 November 2026. Acknowledge the claim in S Pay Global before mid-December 2026.",
       "Paid through S Pay Global for essential food."
     ],
+    "due": ["10 November 2026", "mid-December 2026"],
     "links": [
-      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/821/"}
+      {"label": "Economic Planning Unit Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/821/"}
     ]
   },
   {
@@ -38,9 +39,10 @@
     "copy_ordered": true,
     "paragraphs": [
       "Sarawak Energy domestic customer on Tariff D. Not for commercial use.",
-      "Discount on April–December 2026 usage, applied on the bill. No application.",
+      "The current phase is the discount on April–December 2026 usage, applied on the bill. No application.",
       "Bill corrections: contact Sarawak Energy by 28 February 2027."
     ],
+    "due": "28 February 2027",
     "links": [
       {"label": "Sarawak Energy", "url": "https://www.sarawakenergy.com/media-info/announcements-publications/extension-of-electricity-discounts-for-sarawak-energy-account-holders-until-december-2026"}
     ]
@@ -59,10 +61,12 @@
     "copy_ordered": true,
     "paragraphs": [
       "Diploma or first-degree student at IPTA or IPTS. No income cap.",
-      "Paid twice a year through S Pay Global."
+      "Paid twice a year through S Pay Global.",
+      "The current phase is Special Financial Assistance 2026. Applications close on 30 October 2026."
     ],
+    "due": "30 October 2026",
     "links": [
-      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
+      {"label": "Yayasan Sarawak", "url": "https://myys.yayasansarawak.org.my/"}
     ]
   },
   {
@@ -75,10 +79,12 @@
     "copy_ordered": true,
     "paragraphs": [
       "A laptop is given in kind.",
-      "For a first-year diploma or bachelor student. Family income per person must be RM1,500 or below."
+      "For a first-year diploma or bachelor student. Family income per person must be RM1,500 or below.",
+      "The current phase is Free Laptop Programme Phase 2, 2026. Applications close on 30 October 2026."
     ],
+    "due": "30 October 2026",
     "links": [
-      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
+      {"label": "Yayasan Sarawak", "url": "https://myys.yayasansarawak.org.my/"}
     ]
   },
   {
@@ -93,11 +99,13 @@
     ],
     "copy_ordered": true,
     "paragraphs": [
-      "Book aid for an IPT student.",
-      "Foundation through PhD. No income cap."
+      "Book aid for a full-time IPTA or IPTS student. At least one parent or guardian is Sarawakian.",
+      "Household income per person RM1,500 or below.",
+      "The current phase is Book Voucher Programme Phase 2, 2026. Applications close on 30 October 2026."
     ],
+    "due": "30 October 2026",
     "links": [
-      {"label": "my-Yayasan", "url": "https://myys.yayasansarawak.org.my/"}
+      {"label": "Yayasan Sarawak", "url": "https://myys.yayasansarawak.org.my/"}
     ]
   },
   {
@@ -179,7 +187,7 @@
       "Confirmed by the District Focus Group. The school identifies pupils. The list goes through the District Education Office and the Resident's Office for Yayasan Sarawak."
     ],
     "links": [
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
+      {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
     ]
   },
   {
@@ -196,7 +204,7 @@
       "The school applies and registers eligible pupils."
     ],
     "links": [
-      {"label": "Yayasan IPT page", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
+      {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
     ]
   },
   {
@@ -271,7 +279,7 @@
       "Household income up to RM10,000."
     ],
     "links": [
-      {"label": "Sri Pertiwi guidelines", "url": "https://mudenr.sarawak.gov.my/web/attachment/show/?docid=U2JnN2NtQmNWZi9DWkhaYUlUMnhsdz09OjrhxKX9m6xObBhS-XQMz_Kf"}
+      {"label": "Ministry of Urban Development and Natural Resources", "url": "https://mudenr.sarawak.gov.my/web/attachment/show/?docid=U2JnN2NtQmNWZi9DWkhaYUlUMnhsdz09OjrhxKX9m6xObBhS-XQMz_Kf"}
     ]
   },
   {
@@ -291,7 +299,7 @@
       "Cashless outpatient treatment at panel clinics."
     ],
     "links": [
-      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/742/"}
+      {"label": "Social Welfare Department of Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/742/"}
     ]
   },
   {
@@ -308,7 +316,7 @@
       "Activate online. Virtual card is in SarawakPass."
     ],
     "links": [
-      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/822"}
+      {"label": "Social Welfare Department of Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/822"}
     ]
   },
   {
@@ -328,7 +336,7 @@
       "Apply on Service Sarawak within 4 months of the death."
     ],
     "links": [
-      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/847/"}
+      {"label": "Social Welfare Department of Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/847/"}
     ]
   },
   {
@@ -347,7 +355,7 @@
       "Apply within 3 months on iSarawakCare. Needs SarawakPass and S Pay Global."
     ],
     "links": [
-      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/383/"}
+      {"label": "Ministry of Women, Early Childhood and Community Wellbeing Development", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/383/"}
     ]
   },
   {
@@ -367,8 +375,7 @@
       "Child born overseas without MyKid: manual form to efs@sarawak.gov.my."
     ],
     "links": [
-      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/846"},
-      {"label": "KPWK", "url": "https://kpwk.sarawak.gov.my/web/subpage/webpage_view/100"}
+      {"label": "Kementerian Pembangunan Wanita, Kanak-Kanak dan Kesejahteraan Komuniti", "url": "https://kpwk.sarawak.gov.my/web/subpage/webpage_view/100"}
     ]
   },
   {
@@ -383,14 +390,12 @@
     ],
     "copy_ordered": true,
     "paragraphs": [
-      "Sarawakian woman 18+ with status K (or wife of status K). Single mother or female head of household, not on welfare aid.",
-      "Service Sarawak: household income RM1,169 to RM4,849. Apply on iSarawakCare or submit to JWKS.",
-      "JWKS: woman in business, household income RM2,618 or below. Apply through JWKS.",
-      "Service Sarawak and JWKS both state RM1,000. Income tests differ — use the page you apply on."
+      "Sarawakian woman aged 18 or older with status K, or the wife of a status K holder. Single mother or female head of household, and not on welfare aid.",
+      "For a woman in business. Household income RM2,618 or below.",
+      "Apply by submitting the form to Jabatan Wanita dan Keluarga Sarawak."
     ],
     "links": [
-      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/729"},
-      {"label": "JWKS — KIRWaS", "url": "https://jwks.sarawak.gov.my/web/subpage/webpage_view/182"}
+      {"label": "Jabatan Wanita dan Keluarga Sarawak", "url": "https://jwks.sarawak.gov.my/web/subpage/webpage_view/182"}
     ]
   },
   {
@@ -411,7 +416,7 @@
       "Type 1 is for B40 borrowers. Agriculture is excluded."
     ],
     "links": [
-      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/259/390"}
+      {"label": "Ministry of International Trade, Industry and Investment Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/259/390"}
     ]
   },
   {
@@ -430,7 +435,7 @@
       "One-off startup capital. Apply on iSarawakCare or at a JKMS office."
     ],
     "links": [
-      {"label": "JKMS — Geran Pelancaran", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"}
+      {"label": "Jabatan Kebajikan Masyarakat Sarawak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"}
     ]
   },
   {
