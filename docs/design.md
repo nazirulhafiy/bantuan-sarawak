@@ -16,6 +16,10 @@ Under the bar, the body is padded 16px on the sides and 16px on top. Amounts, wh
 
 The word Source is a yellow pill: background `#f7c948`, text `#111111`, 12px, weight 900, uppercase, padding 2px 6px. The links under it are 12px in Sarawak red ink. The pill is the card’s source label, not a second heading style.
 
+## Due date
+
+A due date inside scheme copy is a red label with white text: `span.due-date`. Background `#d22630`, text `#fff`, 11px, weight 900, inline, padding `0 5px`. It is smaller than the yellow Source pill so it sits in the sentence or numbered item. One label per date. The same date is not also shown as plain text.
+
 ## Numbered copy
 
 Cards that set `copy_ordered` render eligibility and description as `ol.scheme-copy`: 15px, muted, with 6px between items. An `amount_note` on that card is the last item in the same list.
@@ -39,6 +43,7 @@ Category headings are 24px, weight 700. The filter buttons are separate: 9px, up
 - Scheme rank and title: 16px.
 - Amounts: 16px.
 - Scheme copy, including `ol.scheme-copy`: 15px.
+- Due-date label: 11px, weight 900, white on `#d22630`.
 - Source pill and source links: 12px.
 - “Last updated”: 10px, uppercase.
 - Category filter buttons: 9px, uppercase.
