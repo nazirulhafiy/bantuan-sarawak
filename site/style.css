@@ -859,8 +859,18 @@ html[data-theme="dark"] .site-footer {
 }
 
 .site-footer-categories-title {
+  position: relative;
   margin-top: 34px;
   padding-top: 18px;
+  border-top: 0;
+}
+
+.site-footer-categories-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -28px;
+  left: -28px;
   border-top: 1px solid var(--line);
 }
 
@@ -1016,6 +1026,11 @@ html[data-theme="dark"] .site-footer {
     padding: 22px 18px;
     border-top: 1px solid var(--line);
     border-left: 0;
+  }
+
+  .site-footer-categories-title::before {
+    right: -18px;
+    left: -18px;
   }
 
   .site-footer-bottom { padding: 14px 18px; }
