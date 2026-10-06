@@ -985,7 +985,17 @@ html[data-theme="dark"] .site-footer {
   .about-section h2 { font-size: 23px; }
 
   .scheme-head {
-    padding: 10px 14px;
+    align-items: flex-start;
+    gap: 0.35em;
+    padding: 14px 16px;
+  }
+
+  .scheme-rank {
+    line-height: 1.5;
+  }
+
+  .scheme-head h3 {
+    line-height: 1.5;
   }
 
   .site-footer-main { grid-template-columns: 1fr; }

@@ -8,7 +8,7 @@ Type is Geist, then the system sans-serif stack. The page is white, ink is near-
 
 The card is a full-width block inside the category list: no inner page padding, a 1px border, and the corners clipped.
 
-The title bar is black (`#111111`) and runs the full width of the card. On it, the rank and the title share one line. Both are white, 16px, weight 700. The rank is the number in that category, then a period. The title is not uppercased and has no extra letter-spacing. Ranks restart at 1 in the next category.
+The title bar is black (`#111111`) and runs the full width of the card. On it, the rank and the title share one line. Both are white, 16px, weight 700. The rank is the number in that category, then a period. The title is not uppercased and has no extra letter-spacing. Ranks restart at 1 in the next category. Below 560px width, the bar has more padding (`14px 16px`), a small gap between rank and title, top-aligned flex so wrapped titles breathe, and `line-height: 1.5` on the title (and rank) for readability.
 
 Under the bar, the body is padded 16px on the sides and 16px on top. Amounts, when shown, are 16px. A page amount is weight 750. Each amount is a bullet (`•`), not a number.
 
