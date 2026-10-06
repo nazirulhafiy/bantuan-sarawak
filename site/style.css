@@ -696,10 +696,10 @@ html[data-theme="dark"] .category-filter-button.is-active {
   border-radius: 2px;
   background: #d22630;
   color: #fff;
-  font-size: 11px;
+  font-size: inherit;
   font-weight: 900;
   letter-spacing: .02em;
-  line-height: 1.35;
+  line-height: inherit;
   white-space: nowrap;
 }
 

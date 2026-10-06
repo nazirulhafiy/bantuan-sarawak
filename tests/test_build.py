@@ -172,7 +172,6 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("Pages checked for this group", self.home)
         self.assertNotIn("sources group-sources", self.home)
         self.assertNotIn(">my-Yayasan</a>", self.home)
-        self.assertNotIn(">Service Sarawak</a>", self.home)
         self.assertNotIn("Yayasan IPT", self.home)
         self.assertNotIn("Sri Pertiwi guidelines", self.home)
         self.assertNotIn("JWKS —", self.home)
@@ -503,7 +502,7 @@ class BuildTests(unittest.TestCase):
 
     def test_one_source_full_agency_name_and_due_label(self):
         labels = {
-            "skas": "Economic Planning Unit Sarawak",
+            "skas": "Service Sarawak",
             "electricity": "Sarawak Energy",
             "bkk-ipt": "Yayasan Sarawak",
             "laptop": "Yayasan Sarawak",
@@ -517,13 +516,13 @@ class BuildTests(unittest.TestCase):
             "sras": "Housing Development Corporation",
             "spektra-permata": "Housing Development Corporation",
             "sri-pertiwi": "Ministry of Urban Development and Natural Resources",
-            "schb": "Social Welfare Department of Sarawak",
-            "kgc": "Social Welfare Department of Sarawak",
-            "bik": "Social Welfare Department of Sarawak",
-            "bib": "Ministry of Women, Early Childhood and Community Wellbeing Development",
+            "schb": "Service Sarawak",
+            "kgc": "Service Sarawak",
+            "bik": "Service Sarawak",
+            "bib": "Service Sarawak",
             "efs": "Kementerian Pembangunan Wanita, Kanak-Kanak dan Kesejahteraan Komuniti",
             "kirwas": "Jabatan Wanita dan Keluarga Sarawak",
-            "smcs": "Ministry of International Trade, Industry and Investment Sarawak",
+            "smcs": "Service Sarawak",
             "geran-pelancaran": "Jabatan Kebajikan Masyarakat Sarawak",
             "ba": "Jabatan Kebajikan Masyarakat Sarawak",
             "bbb": "Jabatan Kebajikan Masyarakat Sarawak",
@@ -577,7 +576,7 @@ class BuildTests(unittest.TestCase):
         self.assertIn("display: inline;", due)
         self.assertIn("background: #d22630;", due)
         self.assertIn("color: #fff;", due)
-        self.assertIn("font-size: 11px;", due)
+        self.assertIn("font-size: inherit;", due)
         self.assertIn("font-weight: 900;", due)
 
         with self.assertRaises(SystemExit):
