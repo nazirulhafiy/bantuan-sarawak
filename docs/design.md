@@ -18,7 +18,7 @@ The word Source is a yellow pill: background `#f7c948`, text `#111111`, 12px, we
 
 ## Due date
 
-A due date inside scheme copy is a red label with white text: `span.due-date`. Background `#d22630`, text `#fff`, weight 900, inline, padding `0 5px`. It uses the same font size and line height as the surrounding scheme copy (`ol.scheme-copy` list items, 15px), not a smaller pill. One label per date. The same date is not also shown as plain text.
+A due date inside scheme copy is a red label with white text: `span.due-date`. Background `#d22630`, text `#fff`, inline, padding `0 5px`. It uses the same font size, line height, and weight as the surrounding scheme copy (`ol.scheme-copy` list items, 15px), not a smaller pill. One label per date. The same date is not also shown as plain text.
 
 ## Numbered copy
 
@@ -43,7 +43,7 @@ Category headings are 24px, weight 700. The filter buttons are separate: 9px, up
 - Scheme rank and title: 16px.
 - Amounts: 16px.
 - Scheme copy, including `ol.scheme-copy`: 15px.
-- Due-date label: same size as scheme copy (15px), weight 900, white on `#d22630`.
+- Due-date label: same size and weight as scheme copy (15px), white on `#d22630`.
 - Source pill and source links: 12px.
 - “Last updated”: 10px, uppercase.
 - Category filter buttons: 9px, uppercase.

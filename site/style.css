@@ -697,7 +697,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
   background: #d22630;
   color: #fff;
   font-size: inherit;
-  font-weight: 900;
+  font-weight: inherit;
   letter-spacing: .02em;
   line-height: inherit;
   white-space: nowrap;

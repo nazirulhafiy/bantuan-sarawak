@@ -577,7 +577,7 @@ class BuildTests(unittest.TestCase):
         self.assertIn("background: #d22630;", due)
         self.assertIn("color: #fff;", due)
         self.assertIn("font-size: inherit;", due)
-        self.assertIn("font-weight: 900;", due)
+        self.assertIn("font-weight: inherit;", due)
 
         with self.assertRaises(SystemExit):
             build.check_scheme_source(
