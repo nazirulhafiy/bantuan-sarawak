@@ -8,7 +8,7 @@ Type is Geist, then the system sans-serif stack. The page is white, ink is near-
 
 The card is a full-width block inside the category list: no inner page padding, a 1px border, and the corners clipped.
 
-The title bar is black (`#111111`) and runs the full width of the card. On it, the rank and the title share one line. Both are white, 16px, weight 700. The rank is the number in that category, then a period. The title is not uppercased and has no extra letter-spacing. Ranks restart at 1 in the next category. Below 560px width, the bar has more padding (`14px 16px`), a small gap between rank and title, top-aligned flex so wrapped titles breathe, and `line-height: 1.5` on the title (and rank) for readability.
+The title bar is black (`#111111`) and runs the full width of the card. On it, the rank and the title share one line. Both are white, 16px, weight 700. The rank is the number in that category, then a period. The title is not uppercased and has no extra letter-spacing. Ranks restart at 1 in the next category. Below 560px, `.scheme-head` is a two-column grid (`auto 1fr`) so the rank stays on the first line with the title start, wrapped title lines hang under the title text (not the number), and rank/title use `line-height: 1.5`.
 
 Under the bar, the body is padded 16px on the sides and 16px on top. Amounts, when shown, are 16px. A page amount is weight 750. Each amount is a bullet (`•`), not a number.
 
@@ -22,7 +22,7 @@ A due date inside scheme copy is a red label with white text: `span.due-date`. B
 
 ## Numbered copy
 
-Cards that set `copy_ordered` render eligibility and description as `ol.scheme-copy`: 15px, muted, with 6px between items. An `amount_note` on that card is the last item in the same list.
+Cards that set `copy_ordered` render eligibility and description as `ol.scheme-copy`: 15px, muted, with 6px between items. An `amount_note` on that card is the last item in the same list. Below 560px, list markers sit outside the text block so wrapped lines align with the first line of copy, not under the number.
 
 Cards without `copy_ordered` use ordinary 15px paragraphs in `.scheme-copy`. Bantuan Am, Bantuan Belia-Beliawanis, and Sri Pertiwi are the ones that do this.
 
