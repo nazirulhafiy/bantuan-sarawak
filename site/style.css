@@ -54,7 +54,6 @@ body {
   font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  transition: background-color .22s ease, color .22s ease;
 }
 
 button { font: inherit; }
@@ -163,11 +162,13 @@ html[data-theme="dark"] .bar-rule-tail::after {
   background: transparent;
   color: var(--muted);
   cursor: pointer;
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-@media (hover: hover) {
+.theme-toggle:active { transform: scale(0.97); }
+
+@media (hover: hover) and (pointer: fine) {
   .theme-toggle:hover {
-    transform: translateY(-1px);
     color: var(--ink);
   }
 }
@@ -238,7 +239,12 @@ html[data-theme="dark"] .theme-icon-rays {
   transform: translateY(-50%);
 }
 
-.nav-toggle { display: none; }
+.nav-toggle {
+  display: none;
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.nav-toggle:active { transform: scale(0.97); }
 
 .site-nav-link {
   padding: 5px 9px;
@@ -250,23 +256,28 @@ html[data-theme="dark"] .theme-icon-rays {
   letter-spacing: .02em;
   line-height: 1.6;
   text-decoration: none;
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
 }
+
+.site-nav-link:active { transform: scale(0.97); }
 
 .site-nav-link.is-active {
   color: var(--ink);
   text-decoration: none;
 }
 
-.site-nav-link:hover {
-  border-color: var(--sarawak-black);
-  background: var(--sarawak-black);
-  color: #fff;
-}
+@media (hover: hover) and (pointer: fine) {
+  .site-nav-link:hover {
+    border-color: var(--sarawak-black);
+    background: var(--sarawak-black);
+    color: #fff;
+  }
 
-html[data-theme="dark"] .site-nav-link:hover {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--page);
+  html[data-theme="dark"] .site-nav-link:hover {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--page);
+  }
 }
 
 .brief {
@@ -274,7 +285,7 @@ html[data-theme="dark"] .site-nav-link:hover {
   margin: 32px auto 8px;
   padding: 42px 8px 28px;
   text-align: center;
-  animation: rise .7s cubic-bezier(.22, 1, .36, 1) both;
+  animation: rise 240ms cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 h1 {
@@ -401,8 +412,10 @@ html[data-theme="dark"] .brief-deck { color: #d2d8df; }
   letter-spacing: .02em;
   line-height: 1.4;
   text-transform: uppercase;
-  transition: background-color .22s ease, border-color .22s ease, color .22s ease;
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
 }
+
+.category-filter-button:active { transform: scale(0.97); }
 
 html[data-theme="dark"] .category-filter-button { color: #c5cdd6; }
 
@@ -434,7 +447,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
   opacity: 1;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .category-filter-button:hover {
     border-color: var(--sarawak-black);
     background: var(--sarawak-black);
@@ -710,6 +723,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
 .about-hero {
   padding: 48px 0 28px;
   border-bottom: 1px solid var(--line);
+  animation: rise 240ms cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 .about-eyebrow {
@@ -789,7 +803,10 @@ html[data-theme="dark"] .category-filter-button.is-active {
   font-weight: 850;
   line-height: 1;
   box-shadow: 0 4px 14px rgb(17 24 39 / 10%);
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
 }
+
+.back-to-top:active { transform: scale(0.97); }
 
 .back-to-top-label { display: none; }
 
@@ -908,7 +925,7 @@ html[data-theme="dark"] .site-footer {
 .about-hero { scroll-margin-top: 12px; }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -1026,5 +1043,19 @@ html[data-theme="dark"] .site-footer {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
-  .brief { animation: none; }
+  .brief,
+  .about-hero { animation: none; }
+
+  .theme-toggle,
+  .nav-toggle,
+  .category-filter-button,
+  .back-to-top,
+  .site-nav-link,
+  .theme-toggle:active,
+  .nav-toggle:active,
+  .category-filter-button:active,
+  .back-to-top:active,
+  .site-nav-link:active {
+    transform: none;
+  }
 }
