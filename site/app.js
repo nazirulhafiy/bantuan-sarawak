@@ -98,8 +98,7 @@
       backToTop.hidden = window.scrollY < 600;
     }
     backToTop.addEventListener("click", () => {
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      window.scrollTo({ top: 0, behavior: "auto" });
     });
     window.addEventListener("scroll", updateBackToTop, { passive: true });
     updateBackToTop();
