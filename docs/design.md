@@ -62,4 +62,4 @@ Category headings are 24px, weight 700. The filter buttons are separate: 9px, up
 
 ## Footer
 
-The explore column lists Home and About, then a heading that reads Categories. `.site-footer-categories-title` draws a top border. Space between About and that divider comes from `margin-bottom: 14px` on the first link list and `margin-top: 34px` on the heading.
+The explore column lists Home and About, then a heading that reads Categories. The Categories divider runs the full width of the footer nav panel: a `::before` on `.site-footer-categories-title` extends past the nav padding (`left`/`right: -28px` on desktop, `-18px` at max-width 560px) so the line meets the box edges. Space between About and that divider comes from `margin-bottom: 14px` on the first link list and `margin-top: 34px` on the heading.
