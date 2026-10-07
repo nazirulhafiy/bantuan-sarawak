@@ -98,11 +98,8 @@
       backToTop.hidden = window.scrollY < 600;
     }
     backToTop.addEventListener("click", () => {
-      const root = document.documentElement;
-      const previous = root.style.scrollBehavior;
-      root.style.scrollBehavior = "auto";
-      window.scrollTo({ top: 0, behavior: "auto" });
-      root.style.scrollBehavior = previous;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
     });
     window.addEventListener("scroll", updateBackToTop, { passive: true });
     updateBackToTop();
@@ -163,5 +160,18 @@
 
     const fromHash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
     applyFilter(buttons.some((button) => button.dataset.sectionFilter === fromHash) ? fromHash : "all");
+  }
+
+  const schemeCards = document.querySelectorAll(".scheme");
+  const reduceSchemeMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  if (schemeCards.length && !reduceSchemeMotion && "IntersectionObserver" in window) {
+    const schemeObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-revealed");
+        schemeObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px", threshold: 0 });
+    schemeCards.forEach((card) => schemeObserver.observe(card));
   }
 })();
