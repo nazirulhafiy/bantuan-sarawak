@@ -4,6 +4,18 @@ The live site is the static pages from `scripts/build.py`, styled by `site/style
 
 Type is Geist, then the system sans-serif stack. The page is white, ink is near-black, and the accents are Sarawak red `#d22630`, yellow `#f7c948`, and black `#111111`. The body is at most 840px wide. The brief, category list, and cards sit on a 760px rail. Dark mode uses the same hierarchy on a near-black canvas. Cards stay 8px radius or less.
 
+## Motion
+
+Motion follows [ai.sarawak.news](https://ai.sarawak.news).
+
+The home brief and the About hero use `hero-reveal`: a rise of 18px over 0.85s, easing `cubic-bezier(.22, 1, .36, 1)`. The lines inside the brief, and each About section, use `hero-content-reveal`: a rise of 10px over 0.7s with the same easing.
+
+Each scheme card uses `story-reveal` once: a rise of 12px over 0.7s with the same easing. `site/app.js` adds `is-revealed` when an IntersectionObserver sees the card enter the viewport, then unobserves that card. The reveal runs once. It does not use CSS `animation-timeline: view()`.
+
+Hover lifts a card with `translateY(-3px)` and a slight rotation (`-.25deg`, or `.25deg` on an even card).
+
+`prefers-reduced-motion: reduce` removes transform motion and keeps the cards visible.
+
 ## Scheme card
 
 The card is a full-width block inside the category list: no inner page padding, a 1px border, and the corners clipped.
@@ -47,3 +59,7 @@ Category headings are 24px, weight 700. The filter buttons are separate: 9px, up
 - Source pill and source links: 12px.
 - “Last updated”: 10px, uppercase.
 - Category filter buttons: 9px, uppercase.
+
+## Footer
+
+The explore column lists Home and About, then a heading that reads Categories. `.site-footer-categories-title` draws a top border. Space between About and that divider comes from `margin-bottom: 14px` on the first link list and `margin-top: 34px` on the heading.
