@@ -436,6 +436,7 @@ def render_footer(site: dict, active: str) -> str:
 
 def theme_boot() -> str:
     return """  <script>
+    document.documentElement.classList.add("js");
     try {
       const storedTheme = localStorage.getItem("sarawak-theme");
       if (storedTheme === "dark" || (storedTheme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
