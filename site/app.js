@@ -171,7 +171,7 @@
         entry.target.classList.add("is-revealed");
         schemeObserver.unobserve(entry.target);
       });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0 });
+    }, { rootMargin: "0px", threshold: 0 });
     schemeCards.forEach((card) => schemeObserver.observe(card));
   }
 })();
