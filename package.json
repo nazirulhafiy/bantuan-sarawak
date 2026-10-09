@@ -1,0 +1,8 @@
+{
+  "name": "bantuan-sarawak",
+  "private": true,
+  "description": "Dev tooling for the Bantuan Sarawak site",
+  "devDependencies": {
+    "playwright-core": "^1.51.0"
+  }
+}
