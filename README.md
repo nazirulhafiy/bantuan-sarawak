@@ -63,7 +63,7 @@ python3 -m unittest discover -s tests -v
 These are not done in this repository:
 
 1. **Custom domain.** On the `sarawak.news` zone, point `bantuan.sarawak.news` at GitHub Pages and set that hostname as the Pages custom domain. The published `CNAME` file is the Pages side of that setup. This project does not change DNS or the Cloudflare zone.
-2. **Cloudflare Web Analytics.** Create a new Web Analytics site for `bantuan.sarawak.news`. Put its token in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py`. An empty token means the beacon is left out. Do not reuse the token from ai.sarawak.news.
+2. **Cloudflare Web Analytics.** Create a new Web Analytics site for `bantuan.sarawak.news`. Put its token in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py`, or set the same name as a repository secret and pass it into the build workflow as an env var (env wins over the constant). An empty token means the beacon is left out. Do not reuse the token from ai.sarawak.news. See `docs/design.md` (Analytics).
 3. **Favicon.** The current mark is a provisional 🫶 emoji.
 
 ## What the directory leaves out

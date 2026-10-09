@@ -74,6 +74,14 @@ When the buttons overflow, the row scrolls sideways with a 48px fade (`--categor
 - “Last updated”: 10px, uppercase.
 - Category filter buttons: 9px, uppercase.
 
+## Analytics
+
+[Bantuan Sarawak](https://bantuan.sarawak.news) uses [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) for privacy-friendly, cookie-less traffic measurement. There is no visible change on the page: the build adds a deferred `beacon.min.js` script at the end of `<body>` on the home and About pages when a site token is configured.
+
+The token lives in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py`, or in the `CLOUDFLARE_WEB_ANALYTICS_TOKEN` environment variable at build time (env overrides the constant). Leave the constant empty in git until Cloudflare issues a token for `bantuan.sarawak.news`. An empty token omits the beacon entirely. Do not reuse tokens from ai.sarawak.news or other sites.
+
+The beacon matches the sister site pattern: `https://static.cloudflareinsights.com/beacon.min.js` with `defer` and `data-cf-beacon` JSON `{"token":"…","spa":true}`. This repository does not ship a Content-Security-Policy meta tag; if one is added later, extend it for `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect) only when analytics is enabled.
+
 ## Footer
 
 The explore column lists Home and About, then a heading that reads Categories. The Categories divider runs the full width of the footer nav panel: a `::before` on `.site-footer-categories-title` extends past the nav padding (`left`/`right: -28px` on desktop, `-18px` at max-width 560px) so the line meets the box edges. Space between About and that divider comes from `margin-bottom: 14px` on the first link list and `margin-top: 34px` on the heading.

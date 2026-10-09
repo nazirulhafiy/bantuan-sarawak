@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -19,7 +20,12 @@ ICON_DIR = ROOT / "assets" / "phosphor"
 # New Cloudflare Web Analytics site for bantuan.sarawak.news.
 # Leave this empty until that site has its own token. The beacon is
 # emitted only when the token is non-empty. Do not reuse ai.sarawak.news.
+# GitHub Actions may set CLOUDFLARE_WEB_ANALYTICS_TOKEN instead; env wins.
 CLOUDFLARE_WEB_ANALYTICS_TOKEN = ""
+
+
+def web_analytics_token() -> str:
+    return (os.environ.get("CLOUDFLARE_WEB_ANALYTICS_TOKEN") or CLOUDFLARE_WEB_ANALYTICS_TOKEN).strip()
 
 OFFICIAL_HOSTS = {
     "ukas.sarawak.gov.my",
@@ -139,8 +145,8 @@ def check_scheme_source(scheme: dict) -> None:
                 raise SystemExit(f"{scheme_id} due phrase is also in an amount: {phrase}")
 
 
-def render_analytics_script(token: str = CLOUDFLARE_WEB_ANALYTICS_TOKEN) -> str:
-    token = token.strip()
+def render_analytics_script(token: str | None = None) -> str:
+    token = (token if token is not None else web_analytics_token()).strip()
     if not token:
         return ""
     beacon = json.dumps({"token": token, "spa": True}, separators=(",", ":"))

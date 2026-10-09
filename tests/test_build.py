@@ -1,6 +1,7 @@
 import re
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import scripts.build as build
 
@@ -157,10 +158,27 @@ class BuildTests(unittest.TestCase):
         self.assertIn('CLOUDFLARE_WEB_ANALYTICS_TOKEN = ""', source)
         self.assertNotIn("cloudflareinsights", self.home)
         self.assertNotIn("cloudflareinsights", self.about)
+        self.assertNotIn("data-cf-beacon", self.home)
+        self.assertNotIn("data-cf-beacon", self.about)
+        self.assertEqual(build.web_analytics_token(), "")
         sample = build.render_analytics_script("example-token")
         self.assertIn("example-token", sample)
-        self.assertIn("cloudflareinsights", sample)
+        self.assertIn("https://static.cloudflareinsights.com/beacon.min.js", sample)
+        self.assertIn('defer src="https://static.cloudflareinsights.com/beacon.min.js"', sample)
+        self.assertIn('"spa":true', sample)
         self.assertEqual(build.render_analytics_script(""), "")
+        self.assertEqual(build.render_analytics_script("   "), "")
+
+    def test_analytics_beacon_once_per_page_when_token_set(self):
+        token = "bantuan-test-token-only"
+        beacon = build.render_analytics_script(token)
+        with mock.patch.object(build, "web_analytics_token", return_value=token):
+            home = build.render_home(self.site, self.schemes)
+            about = build.render_about(self.site)
+        for page in (home, about):
+            self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
+            self.assertEqual(page.count("data-cf-beacon"), 1)
+            self.assertIn(beacon, page)
 
     def test_every_scheme_is_labelled_and_linked(self):
         self.assertTrue(all(scheme["links"] for scheme in self.schemes))
