@@ -321,8 +321,8 @@ html[data-theme="dark"] .site-nav-link:hover {
 }
 
 html[data-theme="dark"] .brief-net {
-  color: rgba(247, 201, 72, 0.4);
-  opacity: 1;
+  color: rgba(247, 201, 72, 0.2);
+  opacity: 0.62;
 }
 
 .brief-net-tile {
@@ -332,17 +332,17 @@ html[data-theme="dark"] .brief-net {
 }
 
 html[data-theme="dark"] .brief-net-tile {
-  fill: rgba(247, 201, 72, 0.12);
-  stroke: rgba(247, 201, 72, 0.55);
+  fill: rgba(247, 201, 72, 0.08);
+  stroke: rgba(247, 201, 72, 0.26);
 }
 
 .brief-net-icon { color: var(--ink); }
 
-html[data-theme="dark"] .brief-net-icon { color: rgba(247, 201, 72, 0.58); }
+html[data-theme="dark"] .brief-net-icon { color: rgba(247, 201, 72, 0.3); }
 
 .brief-net-fill { fill: var(--sarawak-yellow); }
 
-html[data-theme="dark"] .brief-net-fill { opacity: 0.4; }
+html[data-theme="dark"] .brief-net-fill { opacity: 0.26; }
 
 h1 {
   max-width: 680px;

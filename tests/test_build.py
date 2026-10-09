@@ -377,8 +377,8 @@ class BuildTests(unittest.TestCase):
             r'html\[data-theme="dark"\] \.brief-net-tile \{([^}]+)\}',
             css_source,
         ).group(1)
-        self.assertIn("rgba(247, 201, 72, 0.12)", dark_net_tile)
-        self.assertIn("rgba(247, 201, 72, 0.55)", dark_net_tile)
+        self.assertIn("rgba(247, 201, 72, 0.08)", dark_net_tile)
+        self.assertIn("rgba(247, 201, 72, 0.26)", dark_net_tile)
         self.assertNotIn("group-icon", self.about)
         self.assertNotIn("phosphoricons.com", self.home)
         self.assertNotIn("unpkg.com", self.home)
