@@ -541,7 +541,7 @@ html[data-theme="dark"] .category-filter-button.is-active {
   border: 1px solid var(--group-icon-border);
   border-radius: 8px;
   background: var(--group-icon-tile);
-  color: var(--sarawak-yellow);
+  color: var(--ink);
 }
 
 .group-icon {
@@ -549,6 +549,19 @@ html[data-theme="dark"] .category-filter-button.is-active {
   height: 24px;
   flex: 0 0 auto;
   display: block;
+}
+
+.group-icon-fill {
+  fill: var(--sarawak-yellow);
+  opacity: 1;
+}
+
+html[data-theme="dark"] .group-icon-tile {
+  color: var(--sarawak-yellow);
+}
+
+html[data-theme="dark"] .group-icon-fill {
+  opacity: 0.2;
 }
 
 .sources {

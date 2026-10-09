@@ -302,6 +302,10 @@ def render_group_icon(group_id: str) -> str:
     if start == -1 or end == -1 or 'opacity="0.2"' not in raw:
         raise SystemExit(f"Phosphor icon {name} is not a duotone SVG")
     inner = raw[start + 1 : end].strip()
+    marker = 'opacity="0.2"'
+    if inner.count(marker) != 1:
+        raise SystemExit(f"Phosphor icon {name} should have one duotone fill")
+    inner = inner.replace(marker, 'class="group-icon-fill" opacity="0.2"', 1)
     return (
         '<span class="group-icon-tile">'
         f'<svg class="group-icon" data-icon="{esc(name)}" viewBox="0 0 256 256" '

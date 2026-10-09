@@ -40,7 +40,7 @@ Cards without `copy_ordered` use ordinary 15px paragraphs in `.scheme-copy`. Ban
 
 ## Category icons
 
-Each category heading has one Phosphor duotone icon (MIT), inlined at build time from `assets/phosphor`. The glyph is Sarawak yellow (`#f7c948`) on a 36px pale-yellow tile with an 8px radius and a 1px yellow border. The icon is `aria-hidden`. The heading text is the accessible name. The icons are not repeated in the category filter.
+Each category heading has one Phosphor duotone icon (MIT), inlined at build time from `assets/phosphor`. It sits on a 36px pale-yellow tile with an 8px radius and a 1px yellow border. In light mode the outline is the heading ink (`--ink`) and the duotone fill is Sarawak yellow (`#f7c948`). The icon is `aria-hidden`. The heading text is the accessible name. The icons are not repeated in the category filter.
 
 The marks are Basket (Household), GraduationCap (Students), House (Housing), Heartbeat (Senior Citizen), Baby (New Baby), Storefront (Small Business), and HandHeart (Welfare).
 
