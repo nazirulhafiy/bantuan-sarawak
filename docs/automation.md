@@ -1,3 +1,9 @@
+# CI: docs check
+
+On every pull request (open, sync, reopen, and when labels change), the **docs check** workflow compares the PR diff to a narrow watch list of design and behaviour files: `site/*.css`, `site/*.js`, and `scripts/build.py` (the builder that generates `index.html` and `about.html`). Content under `data/`, routine markdown, and generated `dist/` are not watched.
+
+If the PR changes any watched file and changes nothing under `docs/`, the check fails. Update `docs/design.md` or another file under `docs/` in the same PR, or add the **`no-docs-needed`** label when no documentation update is required. The label is defined in the repository; agents and contributors should use it only when the visual or behavioural change truly needs no doc sync.
+
 # Weekly pass
 
 There is no bot and no schedule. Do not add either until Nazirul says the site is complete. A person does this pass.
