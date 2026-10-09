@@ -105,6 +105,28 @@
     updateBackToTop();
   }
 
+  function bindCategoryScrollHint(filter) {
+    const wrap = filter.querySelector("[data-category-scroll]");
+    const scroller = wrap?.querySelector(".category-filter-options");
+    if (!wrap || !scroller) return;
+
+    const update = () => {
+      const overflow = scroller.scrollWidth - scroller.clientWidth;
+      const overflows = overflow > 1;
+      wrap.classList.toggle("can-scroll-start", overflows && scroller.scrollLeft > 1);
+      wrap.classList.toggle("can-scroll-end", overflows && scroller.scrollLeft < overflow - 1);
+    };
+
+    scroller.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    if (typeof ResizeObserver !== "undefined") {
+      const observer = new ResizeObserver(update);
+      observer.observe(scroller);
+    }
+    update();
+    document.fonts?.ready?.then(update);
+  }
+
   const filter = document.querySelector("[data-category-filter]");
   if (filter) {
     const buttons = Array.from(filter.querySelectorAll("[data-section-filter]"));
@@ -160,6 +182,7 @@
 
     const fromHash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
     applyFilter(buttons.some((button) => button.dataset.sectionFilter === fromHash) ? fromHash : "all");
+    bindCategoryScrollHint(filter);
   }
 
   const schemeCards = document.querySelectorAll(".scheme");

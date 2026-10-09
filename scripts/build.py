@@ -353,8 +353,12 @@ def render_category_filter(site: dict, schemes: list[dict]) -> str:
         )
     return f"""    <section class="category-filter" aria-labelledby="category-filter-title" data-category-filter>
       <p class="category-filter-title" id="category-filter-title">Browse by category</p>
-      <div class="category-filter-options">
-        {' '.join(buttons)}
+      <div class="category-filter-scroll" data-category-scroll>
+        <div class="category-filter-options">
+          {' '.join(buttons)}
+        </div>
+        <span class="category-filter-hint category-filter-hint-start" aria-hidden="true"><span class="category-filter-chevron"></span></span>
+        <span class="category-filter-hint category-filter-hint-end" aria-hidden="true"><span class="category-filter-chevron"></span></span>
       </div>
       <p class="visually-hidden" data-filter-status aria-live="polite">Showing all {len(schemes)} schemes</p>
     </section>"""
@@ -598,6 +602,18 @@ def assert_safe(pages: list[str]) -> None:
             raise SystemExit(f"Banned phrase in build output: {phrase}")
 
 
+def copy_site_fonts() -> None:
+    source = SITE_DIR / "fonts"
+    woff = source / "Geist-Variable.woff2"
+    license_file = source / "OFL.txt"
+    if not woff.is_file() or not license_file.is_file():
+        raise SystemExit("site/fonts must contain Geist-Variable.woff2 and OFL.txt")
+    target = DIST / "fonts"
+    target.mkdir()
+    shutil.copy2(woff, target / woff.name)
+    shutil.copy2(license_file, target / license_file.name)
+
+
 def build() -> None:
     site = load_json(DATA / "site.json")
     schemes = load_json(DATA / "schemes.json")
@@ -614,6 +630,7 @@ def build() -> None:
     (DIST / "style.css").write_text((SITE_DIR / "style.css").read_text(encoding="utf-8"), encoding="utf-8")
     (DIST / "app.js").write_text((SITE_DIR / "app.js").read_text(encoding="utf-8"), encoding="utf-8")
     shutil.copy2(SITE_DIR / "social-card.png", DIST / "social-card.png")
+    copy_site_fonts()
     (DIST / "schemes.json").write_text(json.dumps(schemes, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     (DIST / "CNAME").write_text((ROOT / "CNAME").read_text(encoding="utf-8"), encoding="utf-8")
     (DIST / "robots.txt").write_text(

@@ -78,6 +78,60 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(int.from_bytes(card[16:20], "big"), 1200)
         self.assertEqual(int.from_bytes(card[20:24], "big"), 630)
 
+    def test_geist_font_is_self_hosted(self):
+        source = ROOT / "site" / "fonts" / "Geist-Variable.woff2"
+        license_source = ROOT / "site" / "fonts" / "OFL.txt"
+        font = self.dist / "fonts" / "Geist-Variable.woff2"
+        license_file = self.dist / "fonts" / "OFL.txt"
+        self.assertTrue(source.is_file())
+        self.assertEqual(font.read_bytes()[:4], b"wOF2")
+        self.assertEqual(font.read_bytes(), source.read_bytes())
+        self.assertGreater(font.stat().st_size, 1000)
+        self.assertIn("SIL OPEN FONT LICENSE", license_file.read_text(encoding="utf-8"))
+        self.assertEqual(license_file.read_text(encoding="utf-8"), license_source.read_text(encoding="utf-8"))
+        css = (self.dist / "style.css").read_text(encoding="utf-8")
+        self.assertNotIn("shadcn.io", css)
+        face = re.search(r"@font-face \{([^}]+)\}", css).group(1)
+        self.assertIn('font-family: "Geist"', face)
+        self.assertIn('url("fonts/Geist-Variable.woff2")', face)
+        self.assertIn("font-display: swap", face)
+        self.assertIn("font-weight: 100 900", face)
+        body = re.search(r"body \{([^}]+)\}", css).group(1)
+        self.assertIn('"Geist"', body)
+        self.assertIn("ui-sans-serif", body)
+        self.assertIn("system-ui", body)
+        self.assertIn("-apple-system", body)
+        self.assertIn("sans-serif", body)
+
+    def test_category_scroll_hint_does_not_cover_buttons(self):
+        self.assertIn('data-category-scroll', self.home)
+        self.assertIn('class="category-filter-hint category-filter-hint-end"', self.home)
+        self.assertIn('class="category-filter-hint category-filter-hint-start"', self.home)
+        filter_row = re.search(
+            r'<section class="category-filter"[\s\S]*?</section>',
+            self.home,
+        ).group(0)
+        self.assertNotIn("<svg", filter_row)
+        self.assertEqual(filter_row.count("category-filter-count"), 8)
+        self.assertEqual(
+            filter_row.count('aria-hidden="true"'),
+            filter_row.count("category-filter-count") + 2,
+        )
+        css = (self.dist / "style.css").read_text(encoding="utf-8")
+        hint = re.search(r"\.category-filter-hint \{([^}]+)\}", css).group(1)
+        self.assertIn("pointer-events: none", hint)
+        self.assertIn("width: var(--category-fade);", hint)
+        end = re.search(r"\.category-filter-hint-end \{([^}]+)\}", css).group(1)
+        self.assertIn("var(--page)", end)
+        self.assertIn("rgb(from var(--page) r g b / 0)", end)
+        self.assertNotIn("color-mix", css)
+        options = re.search(r"\.category-filter-options \{([^}]+)\}", css).group(1)
+        self.assertIn("padding: 4px var(--category-fade) 6px 0;", options)
+        self.assertIn("--category-fade: 48px;", css)
+        script = (self.dist / "app.js").read_text(encoding="utf-8")
+        self.assertIn("can-scroll-end", script)
+        self.assertIn("can-scroll-start", script)
+
     def test_seo(self):
         for page, canonical in (
             (self.home, "https://bantuan.sarawak.news/"),
