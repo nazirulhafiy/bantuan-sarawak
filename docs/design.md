@@ -8,13 +8,21 @@ Type is Geist, then ui-sans-serif, system-ui, and the system sans-serif stack. G
 
 Motion follows [ai.sarawak.news](https://ai.sarawak.news).
 
-The home brief and the About hero use `hero-reveal`: a rise of 18px over 0.85s, easing `cubic-bezier(.22, 1, .36, 1)`. The lines inside the brief, and each About section, use `hero-content-reveal`: a rise of 10px over 0.7s with the same easing.
+The home brief and the About hero use `hero-reveal`: a rise of 18px over 0.85s, easing `cubic-bezier(.22, 1, .36, 1)`. The lines inside the brief, and each About section, use `hero-content-reveal`: a rise of 10px over 0.7s with the same easing. The brief network is not part of that content reveal.
 
 Each scheme card uses `story-reveal` once: a rise of 12px over 0.7s with the same easing. `site/app.js` adds `is-revealed` when an IntersectionObserver sees the card enter the viewport, then unobserves that card. The reveal runs once. It does not use CSS `animation-timeline: view()`.
 
 Hover lifts a card with `translateY(-3px)` and a slight rotation (`-.25deg`, or `.25deg` on an even card).
 
 `prefers-reduced-motion: reduce` removes transform motion and keeps the cards visible.
+
+## Hero network
+
+The home brief has one still drawing, `svg.brief-net`, in the top-right. It follows the hero network on [ai.sarawak.news](https://ai.sarawak.news): an inlined SVG, absolutely placed, faded with a left-to-right mask, and clipped by the brief. It is decorative. It is `aria-hidden`, it does not take clicks, and it has no animation of its own. It adds no words.
+
+The nodes are the seven category tiles: the same Phosphor duotone marks as the section headings, on a pale-yellow tile with an 8px radius. Thin lines join them. The drawing fades out before the headline and runs off the right edge. On a phone the same drawing is smaller and stays in the upper right.
+
+In light mode the whole drawing is very faint. In dark mode each tile is about 12% yellow with a border at about 55% yellow, and the icons stay faint.
 
 ## Scheme card
 

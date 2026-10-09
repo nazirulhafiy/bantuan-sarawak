@@ -356,6 +356,29 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("M1.2 12 7.9 4.4 12 12 16.1 4.4 22.8 12", self.home)
         self.assertEqual(self.home.count('class="group-icon"'), len(self.site["groups"]))
         self.assertEqual(self.home.count('class="group-icon-tile"'), len(self.site["groups"]))
+        brief = self.home.split('<header class="brief">', 1)[1].split("</header>", 1)[0]
+        net_end = brief.index("<h1>")
+        net = brief[:net_end]
+        self.assertIn('<svg class="brief-net"', net)
+        self.assertIn('role="presentation"', net)
+        self.assertIn('aria-hidden="true"', net)
+        self.assertNotIn("<text", net)
+        self.assertNotIn("<title", net)
+        self.assertNotIn("<a ", net)
+        self.assertNotIn("href=", net)
+        self.assertGreaterEqual(net.count("<line "), 8)
+        self.assertNotIn("brief-net", self.about)
+        css_source = (self.dist / "style.css").read_text(encoding="utf-8")
+        net_css = re.search(r"\.brief-net \{([^}]+)\}", css_source).group(1)
+        self.assertIn("pointer-events: none;", net_css)
+        self.assertIn("position: absolute;", net_css)
+        self.assertNotIn("animation", net_css)
+        dark_net_tile = re.search(
+            r'html\[data-theme="dark"\] \.brief-net-tile \{([^}]+)\}',
+            css_source,
+        ).group(1)
+        self.assertIn("rgba(247, 201, 72, 0.08)", dark_net_tile)
+        self.assertIn("rgba(247, 201, 72, 0.26)", dark_net_tile)
         self.assertNotIn("group-icon", self.about)
         self.assertNotIn("phosphoricons.com", self.home)
         self.assertNotIn("unpkg.com", self.home)
@@ -365,6 +388,16 @@ class BuildTests(unittest.TestCase):
         ).group(0)
         self.assertNotIn("<svg", filter_row)
         self.assertNotIn("group-icon", filter_row)
+        for icon_name in (
+            "basket",
+            "graduation-cap",
+            "house",
+            "heartbeat",
+            "baby",
+            "storefront",
+            "hand-heart",
+        ):
+            self.assertEqual(net.count(f'data-icon="{icon_name}"'), 1)
         icon_names = {
             "household": "basket",
             "student": "graduation-cap",
