@@ -2,7 +2,7 @@
 
 The live site is the static pages from `scripts/build.py`, styled by `site/style.css`. This note describes that system. It does not propose a redesign.
 
-Type is Geist, then the system sans-serif stack. The page is white, ink is near-black, and the accents are Sarawak red `#d22630`, yellow `#f7c948`, and black `#111111`. The body is at most 840px wide. The brief, category list, and cards sit on a 760px rail. Dark mode uses the same hierarchy on a near-black canvas. Cards stay 8px radius or less.
+Type is Geist, then ui-sans-serif, system-ui, and the system sans-serif stack. Geist is the official variable font (weights 100–900), self-hosted under the SIL Open Font License from the vercel/geist-font v1.7.2 release, with `font-display: swap`. The page is white, ink is near-black, and the accents are Sarawak red `#d22630`, yellow `#f7c948`, and black `#111111`. The body is at most 840px wide. The brief, category list, and cards sit on a 760px rail. Dark mode uses the same hierarchy on a near-black canvas. Cards stay 8px radius or less.
 
 ## Motion
 
@@ -46,7 +46,7 @@ The marks are Basket (Household), GraduationCap (Students), House (Housing), Hea
 
 In dark mode the tile is a translucent yellow (`rgba(247, 201, 72, 0.28)`) with a near-solid yellow border (`rgba(247, 201, 72, 0.95)`). The glyph stays `#f7c948`.
 
-Category headings are 24px, weight 700. The filter buttons are separate: 9px, uppercase, with the category name and a count. They do not use the icons.
+Category headings are 24px, weight 700. The filter buttons are separate: 9px, uppercase, with the category name and a count. They do not use the icons. When the buttons overflow, the row scrolls sideways. A fade and chevron sit in the empty gutter beside that edge, not over a label, and they hide once the row is scrolled to the edge. Trailing padding lets the last label clear the gutter. If every button fits, there is no hint.
 
 ## Type scale
 
