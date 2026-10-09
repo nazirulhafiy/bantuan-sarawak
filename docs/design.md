@@ -22,7 +22,9 @@ The home brief has one still drawing, `svg.brief-net`, in the top-right. It foll
 
 The nodes are the seven category tiles: the same Phosphor duotone marks as the section headings, on a pale-yellow tile with an 8px radius. Thin lines join them. The drawing fades out before the headline and runs off the right edge. On a phone the same drawing is smaller and stays in the upper right.
 
-In light mode the whole drawing is very faint. In dark mode each tile is about 12% yellow with a border at about 55% yellow, and the icons stay faint.
+In light mode the lines use `#4b5563` at `opacity: 0.3`, with a left-to-right mask so the drawing fades before the headline.
+
+In dark mode the whole graphic is quieter so the headline stays the focus. The lines use `color: rgba(247, 201, 72, 0.2)` at `opacity: 0.62`. Network tiles use `fill: rgba(247, 201, 72, 0.08)` and `stroke: rgba(247, 201, 72, 0.26)`. Icon strokes use `rgba(247, 201, 72, 0.3)`. The duotone fill inside each node uses `opacity: 0.26` on `.brief-net-fill`.
 
 ## Scheme card
 
@@ -52,9 +54,11 @@ Each category heading has one Phosphor duotone icon (MIT), inlined at build time
 
 The marks are Basket (Household), GraduationCap (Students), House (Housing), Heartbeat (Senior Citizen), Baby (New Baby), Storefront (Small Business), and HandHeart (Welfare).
 
-In dark mode the tile is a translucent yellow (`rgba(247, 201, 72, 0.28)`) with a near-solid yellow border (`rgba(247, 201, 72, 0.95)`). The glyph stays `#f7c948`.
+In dark mode the tile and border come from the theme tokens on `html[data-theme="dark"]`: `--group-icon-tile` is `rgba(247, 201, 72, 0.12)` and `--group-icon-border` is `rgba(247, 201, 72, 0.55)`. The tile text colour is Sarawak yellow. The duotone fill (`.group-icon-fill`) uses `opacity: 0.28`.
 
-Category headings are 24px, weight 700. The filter buttons are separate: 9px, uppercase, with the category name and a count. They do not use the icons. When the buttons overflow, the row scrolls sideways. A 48px fade from transparent to the page background, with a small chevron, sits on the overflowing edge. The next button stays partly visible under that fade. The hint does not take clicks. It hides once the row is scrolled to that edge, and trailing padding lets the last label scroll clear of it. If every button fits, there is no hint.
+Category headings are 24px, weight 700. The filter buttons are separate: 9px, uppercase, with the category name and a count. They do not use the icons. The active chip is black fill with white text; the count on an active chip is Sarawak yellow. In dark mode, `html[data-theme="dark"] .category-filter-button.is-active` keeps the black fill but uses `border-color: var(--sarawak-yellow)` so the selected chip (for example All) shows a Sarawak-yellow outline.
+
+When the buttons overflow, the row scrolls sideways with a 48px fade (`--category-fade`) on the edge that still has hidden chips. `site/app.js` toggles `can-scroll-start` and `can-scroll-end` on the scroll wrapper so a chevron and page-coloured gradient appear on the start edge, the end edge, or both. The hints are `pointer-events: none`. They hide on an edge once the row is scrolled flush there. Trailing inline padding matches the fade width so the last label can scroll clear of the end hint. If every button fits, neither hint appears.
 
 ## Type scale
 
