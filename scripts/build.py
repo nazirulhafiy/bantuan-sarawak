@@ -17,11 +17,10 @@ DIST = ROOT / "dist"
 SITE_DIR = ROOT / "site"
 ICON_DIR = ROOT / "assets" / "phosphor"
 
-# New Cloudflare Web Analytics site for bantuan.sarawak.news.
-# Leave this empty until that site has its own token. The beacon is
-# emitted only when the token is non-empty. Do not reuse ai.sarawak.news.
+# Cloudflare Web Analytics for bantuan.sarawak.news (site tag 97cc3bf5c9e4406b8c6ea160a1e81f6e).
+# Public beacon token. Do not reuse ai.sarawak.news or other sites.
 # GitHub Actions may set CLOUDFLARE_WEB_ANALYTICS_TOKEN instead; env wins.
-CLOUDFLARE_WEB_ANALYTICS_TOKEN = ""
+CLOUDFLARE_WEB_ANALYTICS_TOKEN = "bfba3801f65a489185b168a7446c7a62"
 
 
 def web_analytics_token() -> str:
