@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 DIST = ROOT / "dist"
 SITE_DIR = ROOT / "site"
+ICON_DIR = ROOT / "assets" / "phosphor"
 
 # New Cloudflare Web Analytics site for bantuan.sarawak.news.
 # Leave this empty until that site has its own token. The beacon is
@@ -272,56 +273,40 @@ def render_scheme(
     )
 
 
-# Stroke glyphs for category headings. Each one is a different shape so the
-# sections can be told apart. The heading text stays the accessible name.
+# Category headings use Phosphor Icons, duotone weight (MIT). The SVG files in
+# assets/phosphor are inlined here so the page does not fetch an icon CDN.
+# The heading text stays the accessible name; the glyph is decorative.
 GROUP_ICONS = {
-    "household": (
-        '<path d="M3.5 11 12 3.2 20.5 11"/>'
-        '<path d="M6.2 10.2V21h11.6V10.2"/>'
-        '<path d="M10 21v-6h4V21"/>'
-    ),
-    "student": (
-        '<path d="M12 6.2C10.2 4.4 7 3.5 3.2 3.5v14.2c3.8.3 6.8 1.1 8.8 2.8"/>'
-        '<path d="M12 6.2c1.8-1.8 5-2.7 8.8-2.7v14.2c-3.8.3-6.8 1.1-8.8 2.8"/>'
-        '<path d="M12 6.2v14.3"/>'
-    ),
-    "housing": (
-        '<path d="M1.2 12 7.9 4.4 12 12 16.1 4.4 22.8 12"/>'
-        '<path d="M2.2 11.8V21h19.6V11.8"/>'
-        '<path d="M5.4 21V15h5V21"/>'
-        '<path d="M13.6 21V15h5V21"/>'
-    ),
-    "health": (
-        '<circle cx="12" cy="12" r="9"/>'
-        '<path d="M12 7.5v9M7.5 12h9"/>'
-    ),
-    "baby": (
-        '<path d="M4.4 9.6C4.4 4.4 12 4.4 12 9.6"/>'
-        '<path d="M2.8 9.6h14a1.8 1.8 0 0 1 1.8 1.8V13.8H2.8z"/>'
-        '<path d="M17 10.4 21.2 4.2"/>'
-        '<circle cx="6.8" cy="19.9" r="1.65"/>'
-        '<circle cx="14.4" cy="19.9" r="1.65"/>'
-    ),
-    "business": (
-        '<path d="M6 4.6h12L21.2 8.4H2.8z"/>'
-        '<path d="M5.2 8.4V21h13.6V8.4"/>'
-        '<path d="M9.2 21V12.6h5.6V21"/>'
-    ),
-    "welfare": (
-        '<path d="M21 8.4c0-2.5-2.1-4.5-4.7-4.5-1.9 0-3.6 1.1-4.3 2.7C11.3 5 9.6 3.9 7.7 3.9 5.1 3.9 3 5.9 3 8.4 3 15.6 12 20.6 12 20.6S21 15.6 21 8.4z"/>'
-    ),
+    "household": "basket",
+    "student": "graduation-cap",
+    "housing": "house",
+    "health": "heartbeat",
+    "baby": "baby",
+    "business": "storefront",
+    "welfare": "hand-heart",
 }
 
 
 def render_group_icon(group_id: str) -> str:
     try:
-        body = GROUP_ICONS[group_id]
+        name = GROUP_ICONS[group_id]
     except KeyError:
         raise SystemExit(f"No heading icon for group {group_id}") from None
+    path = ICON_DIR / f"{name}-duotone.svg"
+    try:
+        raw = path.read_text(encoding="utf-8").strip()
+    except FileNotFoundError:
+        raise SystemExit(f"Missing Phosphor icon for group {group_id}: {path}") from None
+    start = raw.find(">")
+    end = raw.rfind("</svg>")
+    if start == -1 or end == -1 or 'opacity="0.2"' not in raw:
+        raise SystemExit(f"Phosphor icon {name} is not a duotone SVG")
+    inner = raw[start + 1 : end].strip()
     return (
-        '<svg class="group-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" '
-        'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
-        f'stroke-linejoin="round">{body}</svg>'
+        '<span class="group-icon-tile">'
+        f'<svg class="group-icon" data-icon="{esc(name)}" viewBox="0 0 256 256" '
+        'width="24" height="24" aria-hidden="true" focusable="false" fill="currentColor">'
+        f"{inner}</svg></span>"
     )
 
 

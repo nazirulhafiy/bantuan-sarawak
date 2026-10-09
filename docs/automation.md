@@ -73,7 +73,7 @@ Add a scheme only when all of these are true:
 - It has its own official `https` page. A news view, an announcement index, or a page that only mentions the scheme is not enough.
 - Any amount you show is on that page, or on an official attachment that page points to.
 
-Give it a new `id`, `level` set to `STATE`, and a `group` that already exists in `data/site.json`. A new group also needs a heading icon in `scripts/build.py`. The tests expect 24 state schemes and 24 source links, one link on each scheme. Update those counts when you add or remove a scheme or a link.
+Give it a new `id`, `level` set to `STATE`, and a `group` that already exists in `data/site.json`. A new group also needs a Phosphor duotone heading icon: add the SVG under `assets/phosphor` and map the group id in `scripts/build.py`. The tests expect 24 state schemes and 24 source links, one link on each scheme. Update those counts when you add or remove a scheme or a link.
 
 ## Retire a scheme
 
