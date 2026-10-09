@@ -47,6 +47,7 @@ html[data-theme="dark"] {
   --sarawak-black: #111111;
   --group-icon-tile: rgba(247, 201, 72, 0.12);
   --group-icon-border: rgba(247, 201, 72, 0.55);
+  --card-head: #222833;
 }
 
 body {
@@ -715,6 +716,11 @@ html[data-theme="dark"] .group-icon-fill {
     border-color: #4b5663;
     box-shadow: 0 8px 20px rgb(0 0 0 / 28%);
   }
+}
+
+html[data-theme="dark"] .scheme-head {
+  background: var(--card-head);
+  border-bottom: 1px solid var(--line);
 }
 
 .scheme-head {

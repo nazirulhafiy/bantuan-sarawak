@@ -536,7 +536,7 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("letter-spacing: -.02em;", title)
         self.assertNotIn("text-transform", title)
         self.assertNotIn("scheme-title-row", css)
-        scheme_head = re.search(r"\.scheme-head \{([^}]+)\}", css).group(1)
+        scheme_head = re.search(r"(?:^|\n)\.scheme-head \{([^}]+)\}", css).group(1)
         self.assertIn("display: flex;", scheme_head)
         self.assertIn("gap: 0;", scheme_head)
         self.assertNotIn("gap: 0.5em;", scheme_head)
