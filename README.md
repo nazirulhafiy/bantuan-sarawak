@@ -11,6 +11,7 @@ The site is still in development. Do not hand it to a maintainer bot until Nazir
 - `docs/product.md` — what the directory is, who it is for, what a scheme card must contain, and how freshness works.
 - `docs/design.md` — the live visual system.
 - `docs/automation.md` — the human weekly pass. There is no bot or schedule yet.
+- `docs/tools.md` — `tools/shots.mjs` for consistent UI screenshots (phone 3×, light/dark).
 
 ## Build
 
