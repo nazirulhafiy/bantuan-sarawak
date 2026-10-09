@@ -40,9 +40,11 @@ Cards without `copy_ordered` use ordinary 15px paragraphs in `.scheme-copy`. Ban
 
 ## Category icons
 
-Each category heading has one stroke icon, 22×22, `stroke-width: 2`, `currentColor`, `aria-hidden`. The heading text is the accessible name. The icons are not repeated in the category filter.
+Each category heading has one Phosphor duotone icon (MIT), inlined at build time from `assets/phosphor`. It sits on a 36px pale-yellow tile with an 8px radius and a 1px yellow border. In light mode the outline is the heading ink (`--ink`) and the duotone fill is Sarawak yellow (`#f7c948`). The icon is `aria-hidden`. The heading text is the accessible name. The icons are not repeated in the category filter.
 
-The shapes are distinct: a house (Household), an open book (Students), a terrace of roofs (Housing), a circle and cross (Senior Citizen), a pram (New Baby), a shopfront (Small Business), and a heart (Welfare).
+The marks are Basket (Household), GraduationCap (Students), House (Housing), Heartbeat (Senior Citizen), Baby (New Baby), Storefront (Small Business), and HandHeart (Welfare).
+
+In dark mode the tile is a translucent yellow (`rgba(247, 201, 72, 0.28)`) with a near-solid yellow border (`rgba(247, 201, 72, 0.95)`). The glyph stays `#f7c948`.
 
 Category headings are 24px, weight 700. The filter buttons are separate: 9px, uppercase, with the category name and a count. They do not use the icons.
 

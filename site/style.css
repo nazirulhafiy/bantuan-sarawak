@@ -19,6 +19,8 @@
   --sarawak-yellow: #f7c948;
   --sarawak-yellow-soft: #fffbea;
   --sarawak-black: #111111;
+  --group-icon-tile: #fff6d2;
+  --group-icon-border: #f7c948;
 }
 
 * { box-sizing: border-box; }
@@ -41,6 +43,8 @@ html[data-theme="dark"] {
   --sarawak-yellow: #f7c948;
   --sarawak-yellow-soft: #3a3110;
   --sarawak-black: #111111;
+  --group-icon-tile: rgba(247, 201, 72, 0.28);
+  --group-icon-border: rgba(247, 201, 72, 0.95);
 }
 
 body {
@@ -526,12 +530,38 @@ html[data-theme="dark"] .category-filter-button.is-active {
   min-width: 0;
 }
 
+.group-icon-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  padding: 5px;
+  border: 1px solid var(--group-icon-border);
+  border-radius: 8px;
+  background: var(--group-icon-tile);
+  color: var(--ink);
+}
+
 .group-icon {
-  width: 0.92em;
-  height: 0.92em;
+  width: 24px;
+  height: 24px;
   flex: 0 0 auto;
   display: block;
-  overflow: visible;
+}
+
+.group-icon-fill {
+  fill: var(--sarawak-yellow);
+  opacity: 1;
+}
+
+html[data-theme="dark"] .group-icon-tile {
+  color: var(--sarawak-yellow);
+}
+
+html[data-theme="dark"] .group-icon-fill {
+  opacity: 0.2;
 }
 
 .sources {

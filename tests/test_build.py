@@ -298,54 +298,37 @@ class BuildTests(unittest.TestCase):
             self.home,
         )
         self.assertNotIn("Health and seniors", self.home + self.about)
-        baby_heading = re.search(
-            r'<h2 id="group-baby">(<svg class="group-icon"[\s\S]*?</svg>)<span>New Baby</span></h2>',
-            self.home,
-        )
-        self.assertIsNotNone(baby_heading)
-        baby_icon = baby_heading.group(1)
-        self.assertNotIn("<rect", baby_icon)
-        self.assertEqual(baby_icon.count("<circle"), 2)
-        self.assertIn('viewBox="0 0 24 24"', baby_icon)
-        self.assertIn('width="22"', baby_icon)
-        self.assertIn('height="22"', baby_icon)
-        business_heading = re.search(
-            r'<h2 id="group-business">(<svg class="group-icon"[\s\S]*?</svg>)<span>Small Business</span></h2>',
-            self.home,
-        )
-        self.assertIsNotNone(business_heading)
-        business_icon = business_heading.group(1)
-        self.assertIn('M6 4.6h12L21.2 8.4H2.8z', business_icon)
-        self.assertIn('M5.2 8.4V21h13.6V8.4', business_icon)
-        self.assertIn('M9.2 21V12.6h5.6V21', business_icon)
-        self.assertIn('viewBox="0 0 24 24"', business_icon)
-        self.assertIn('stroke-width="2"', business_icon)
-        self.assertNotIn('<circle', business_icon)
-        self.assertNotIn('M3.5 5.5h17', business_icon)
-        self.assertNotIn('M14.5 11.6H19.5V16.2H14.5z', business_icon)
-        self.assertNotIn('M2 9.4h20', business_icon)
-        housing_heading = re.search(
-            r'<h2 id="group-housing">(<svg class="group-icon"[\s\S]*?</svg>)<span>Housing</span></h2>',
-            self.home,
-        )
-        self.assertIsNotNone(housing_heading)
-        housing_icon = housing_heading.group(1)
-        self.assertNotIn("M16.2 5.2", housing_icon)
-        self.assertIn("M1.2 12 7.9 4.4 12 12 16.1 4.4 22.8 12", housing_icon)
-        household_icon = re.search(
-            r'<h2 id="group-household">(<svg class="group-icon"[\s\S]*?</svg>)<span>Household</span></h2>',
-            self.home,
-        ).group(1)
-        self.assertNotEqual(housing_icon, household_icon)
-        self.assertIn("M3.5 11 12 3.2 20.5 11", household_icon)
+        self.assertNotIn("M3.5 11 12 3.2 20.5 11", self.home)
+        self.assertNotIn("M1.2 12 7.9 4.4 12 12 16.1 4.4 22.8 12", self.home)
         self.assertEqual(self.home.count('class="group-icon"'), len(self.site["groups"]))
+        self.assertEqual(self.home.count('class="group-icon-tile"'), len(self.site["groups"]))
         self.assertNotIn("group-icon", self.about)
+        self.assertNotIn("phosphoricons.com", self.home)
+        self.assertNotIn("unpkg.com", self.home)
         filter_row = re.search(
             r'<section class="category-filter"[\s\S]*?</section>',
             self.home,
         ).group(0)
         self.assertNotIn("<svg", filter_row)
         self.assertNotIn("group-icon", filter_row)
+        icon_names = {
+            "household": "basket",
+            "student": "graduation-cap",
+            "housing": "house",
+            "health": "heartbeat",
+            "baby": "baby",
+            "business": "storefront",
+            "welfare": "hand-heart",
+        }
+        icon_markers = {
+            "basket": "M232,88,216.93,201.06A8,8,0,0,1,209,208H47",
+            "graduation-cap": "M251.76,88.94l-120-64",
+            "house": "M219.31,108.68l-80-80",
+            "heartbeat": "M72,144H32a8,8,0,0,1,0-16H67.72",
+            "baby": "M92,140a12,12,0,1,1,12-12A12,12,0,0,1,92,140",
+            "storefront": "M231.69,93.81,217.35,43.6",
+            "hand-heart": "M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77",
+        }
         icons = []
         for group in self.site["groups"]:
             count = sum(scheme["group"] == group["id"] for scheme in self.schemes)
@@ -359,15 +342,24 @@ class BuildTests(unittest.TestCase):
                 self.home,
             )
             heading = re.search(
-                rf'<h2 id="group-{group["id"]}">(<svg class="group-icon"[\s\S]*?</svg>)<span>{re.escape(group["title"])}</span></h2>',
+                rf'<h2 id="group-{group["id"]}">(<span class="group-icon-tile"><svg class="group-icon"[\s\S]*?</svg></span>)<span>{re.escape(group["title"])}</span></h2>',
                 self.home,
             )
             self.assertIsNotNone(heading, group["id"])
             icon = heading.group(1)
+            name = icon_names[group["id"]]
+            self.assertIn(f'data-icon="{name}"', icon)
+            self.assertIn(icon_markers[name], icon)
+            self.assertEqual(icon.count('opacity="0.2"'), 1)
+            self.assertEqual(icon.count('class="group-icon-fill"'), 1)
             self.assertIn('aria-hidden="true"', icon)
-            self.assertIn('stroke="currentColor"', icon)
+            self.assertIn('fill="currentColor"', icon)
+            self.assertIn('viewBox="0 0 256 256"', icon)
+            self.assertIn('width="24"', icon)
+            self.assertIn('height="24"', icon)
             self.assertNotIn("<img", icon)
             self.assertNotIn("href=", icon)
+            self.assertNotIn("http", icon)
             icons.append(icon)
         self.assertEqual(len(icons), len(set(icons)))
         removed = {
@@ -388,6 +380,24 @@ class BuildTests(unittest.TestCase):
             self.assertIn(title, backlog)
             self.assertIn(f'"id": "{scheme_id}"', backlog)
         css = (self.dist / "style.css").read_text(encoding="utf-8")
+        tile = re.search(r"\.group-icon-tile \{([^}]+)\}", css).group(1)
+        self.assertIn("width: 36px;", tile)
+        self.assertIn("height: 36px;", tile)
+        self.assertIn("border-radius: 8px;", tile)
+        self.assertIn("background: var(--group-icon-tile);", tile)
+        self.assertIn("border: 1px solid var(--group-icon-border);", tile)
+        self.assertIn("color: var(--ink);", tile)
+        fill = re.search(r"\.group-icon-fill \{([^}]+)\}", css).group(1)
+        self.assertIn("fill: var(--sarawak-yellow);", fill)
+        self.assertIn("opacity: 1;", fill)
+        dark_tile = re.search(r'html\[data-theme="dark"\] \.group-icon-tile \{([^}]+)\}', css).group(1)
+        self.assertIn("color: var(--sarawak-yellow);", dark_tile)
+        dark_fill = re.search(r'html\[data-theme="dark"\] \.group-icon-fill \{([^}]+)\}', css).group(1)
+        self.assertIn("opacity: 0.2;", dark_fill)
+        self.assertIn("--group-icon-tile: #fff6d2;", css)
+        dark = re.search(r'html\[data-theme="dark"\] \{([^}]+)\}', css).group(1)
+        self.assertIn("--group-icon-tile: rgba(247, 201, 72, 0.28);", dark)
+        self.assertIn("--group-icon-border: rgba(247, 201, 72, 0.95);", dark)
         self.assertNotIn("level-filter", css)
         self.assertNotIn("jump-links", css)
         button = re.search(r"\.category-filter-button \{([^}]+)\}", css).group(1)
