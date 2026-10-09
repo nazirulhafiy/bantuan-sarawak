@@ -12,8 +12,10 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  # PRs: one group per PR so concurrent PR builds do not cancel each other.
+  # main: shared "pages" group without cancel-in-progress so deploys are never cut off mid-flight.
+  group: ${{ github.event_name == 'pull_request' && format('{0}-pr-{1}', github.workflow, github.event.pull_request.number) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   test-build:

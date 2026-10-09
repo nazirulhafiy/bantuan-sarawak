@@ -1,8 +1,19 @@
-# CI: docs check
+# CI
+
+## docs check
 
 On every pull request (open, sync, reopen, and when labels change), the **docs check** workflow compares the PR diff to a narrow watch list of design and behaviour files: `site/*.css`, `site/*.js`, and `scripts/build.py` (the builder that generates `index.html` and `about.html`). Content under `data/`, routine markdown, and generated `dist/` are not watched.
 
 If the PR changes any watched file and changes nothing under `docs/`, the check fails. Update `docs/design.md` or another file under `docs/` in the same PR, or add the **`no-docs-needed`** label when no documentation update is required. The workflow creates that label on first run if it is missing. Use the label only when the visual or behavioural change truly needs no doc sync.
+
+## build (test + GitHub Pages)
+
+The **build** workflow runs tests and uploads a Pages artifact on every push and pull request; it deploys to GitHub Pages only on pushes to `main`.
+
+Concurrency is split so PR runs do not stomp on each other or on production:
+
+- **Pull requests:** concurrency group `build-pr-<number>` with `cancel-in-progress` enabled, so a new push on the same PR cancels only that PR’s older run.
+- **`main`:** concurrency group `pages` with **no** cancel-in-progress, so a `main` deploy is never cancelled mid-way when another PR or push starts a build.
 
 # Weekly pass
 
