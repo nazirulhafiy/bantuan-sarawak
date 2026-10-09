@@ -8,6 +8,8 @@
   font-display: swap;
 }
 
+/* docs-check throwaway demo — harmless */
+
 :root {
   color-scheme: light;
   --canvas: #ffffff;
