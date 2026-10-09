@@ -1,6 +1,7 @@
 import re
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import scripts.build as build
 
@@ -152,15 +153,29 @@ class BuildTests(unittest.TestCase):
         self.assertIn("https://bantuan.sarawak.news/about.html", sitemap)
         self.assertNotIn("skas.html", sitemap)
 
-    def test_analytics_token_stays_empty(self):
-        source = (ROOT / "scripts" / "build.py").read_text(encoding="utf-8")
-        self.assertIn('CLOUDFLARE_WEB_ANALYTICS_TOKEN = ""', source)
-        self.assertNotIn("cloudflareinsights", self.home)
-        self.assertNotIn("cloudflareinsights", self.about)
-        sample = build.render_analytics_script("example-token")
-        self.assertIn("example-token", sample)
-        self.assertIn("cloudflareinsights", sample)
+    def test_analytics_beacon_in_dist_when_token_configured(self):
+        token = "bfba3801f65a489185b168a7446c7a62"
+        self.assertEqual(build.CLOUDFLARE_WEB_ANALYTICS_TOKEN, token)
+        self.assertEqual(build.web_analytics_token(), token)
+        beacon = build.render_analytics_script(token)
+        for page in (self.home, self.about):
+            self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
+            self.assertEqual(page.count("data-cf-beacon"), 1)
+            self.assertIn(beacon, page)
+            self.assertIn(token, page)
         self.assertEqual(build.render_analytics_script(""), "")
+        self.assertEqual(build.render_analytics_script("   "), "")
+
+    def test_analytics_beacon_once_per_page_when_token_set(self):
+        token = "bantuan-test-token-only"
+        beacon = build.render_analytics_script(token)
+        with mock.patch.object(build, "web_analytics_token", return_value=token):
+            home = build.render_home(self.site, self.schemes)
+            about = build.render_about(self.site)
+        for page in (home, about):
+            self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
+            self.assertEqual(page.count("data-cf-beacon"), 1)
+            self.assertIn(beacon, page)
 
     def test_every_scheme_is_labelled_and_linked(self):
         self.assertTrue(all(scheme["links"] for scheme in self.schemes))
