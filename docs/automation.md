@@ -1,3 +1,9 @@
+# CI: docs check
+
+On every pull request (open, sync, reopen, and when labels change), the **docs check** workflow compares the PR diff to a narrow watch list of design and behaviour files: `site/*.css`, `site/*.js`, and `scripts/build.py` (the builder that generates `index.html` and `about.html`). Content under `data/`, routine markdown, and generated `dist/` are not watched.
+
+If the PR changes any watched file and changes nothing under `docs/`, the check fails. Update `docs/design.md` or another file under `docs/` in the same PR, or add the **`no-docs-needed`** label when no documentation update is required. The workflow creates that label on first run if it is missing. Use the label only when the visual or behavioural change truly needs no doc sync.
+
 # Weekly pass
 
 There is no bot and no schedule. Do not add either until Nazirul says the site is complete. A person does this pass.
@@ -62,7 +68,7 @@ Edit the object in `data/schemes.json`.
 - **Amount.** Put only what that official page states into `amounts`. If the page no longer states a ringgit figure, do not keep the old one.
 - **Eligibility.** Edit `paragraphs`. That array is the eligibility and description. There is no separate eligibility field.
 - **Phase, due date, deadline.** Name the current phase in `paragraphs`. Put each calendar due date in `due` as well, using the page’s date phrase, so the build can wrap that same phrase in the red label. `due` is a string, or a list when the card has more than one date. The phrase must appear once in `paragraphs` or `amount_note`. The build does not append a second copy, and it does not accept HTML in the JSON. On a `copy_ordered` card the label sits inside the numbered item that already contains the phrase. If a phase has ended and a later phase is current, describe the current phase. If the scheme is wholly past due, retire it.
-- **Check date.** Set `checked` in `data/site.json` to the day you re-read the pages (`YYYY-MM-DD`). That value is the “Last updated” line. Also update the check-date sentences in `data/site.json` (`about_description` and the figures section) and the about lede in `scripts/build.py`. `tests/test_build.py` expects the same date string, including `TUESDAY, 6 OCT 2026` while the check date is 6 October 2026, so update the test in the same change.
+- **Check date.** Set `checked` in `data/site.json` to the day you re-read the pages (`YYYY-MM-DD`). That value is the “Last updated” line. Also update the check-date sentences in `data/site.json` (`about_description` and the figures section). The about lede is built from `checked`, so do not edit `scripts/build.py` for a date change. `tests/test_build.py` expects the same date string, including `TUESDAY, 6 OCT 2026` while the check date is 6 October 2026, so update the test in the same change.
 - **New ringgit figure.** If the built page shows a ringgit amount the tests do not already allow, add the digits without commas to `ALLOWED_RM` in `tests/test_build.py`.
 
 ## Add a scheme
