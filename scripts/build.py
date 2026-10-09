@@ -287,16 +287,12 @@ GROUP_ICONS = {
 }
 
 
-def render_group_icon(group_id: str) -> str:
-    try:
-        name = GROUP_ICONS[group_id]
-    except KeyError:
-        raise SystemExit(f"No heading icon for group {group_id}") from None
+def icon_inner(name: str, fill_class: str) -> str:
     path = ICON_DIR / f"{name}-duotone.svg"
     try:
         raw = path.read_text(encoding="utf-8").strip()
     except FileNotFoundError:
-        raise SystemExit(f"Missing Phosphor icon for group {group_id}: {path}") from None
+        raise SystemExit(f"Missing Phosphor icon {name}: {path}") from None
     start = raw.find(">")
     end = raw.rfind("</svg>")
     if start == -1 or end == -1 or 'opacity="0.2"' not in raw:
@@ -305,12 +301,79 @@ def render_group_icon(group_id: str) -> str:
     marker = 'opacity="0.2"'
     if inner.count(marker) != 1:
         raise SystemExit(f"Phosphor icon {name} should have one duotone fill")
-    inner = inner.replace(marker, 'class="group-icon-fill" opacity="0.2"', 1)
+    return inner.replace(marker, f'class="{fill_class}" opacity="0.2"', 1)
+
+
+def render_group_icon(group_id: str) -> str:
+    try:
+        name = GROUP_ICONS[group_id]
+    except KeyError:
+        raise SystemExit(f"No heading icon for group {group_id}") from None
+    inner = icon_inner(name, "group-icon-fill")
     return (
         '<span class="group-icon-tile">'
         f'<svg class="group-icon" data-icon="{esc(name)}" viewBox="0 0 256 256" '
         'width="24" height="24" aria-hidden="true" focusable="false" fill="currentColor">'
         f"{inner}</svg></span>"
+    )
+
+
+# Still decorative network in the home brief. Same inlining pattern as the
+# ai.sarawak.news hero: one aria-hidden SVG, positioned in CSS, not animated.
+# Nodes are the seven category tiles. Coordinates are the viewBox of that SVG.
+BRIEF_NET_NODES = (
+    ("housing", 48, 48),
+    ("household", 154, 75),
+    ("student", 206, 38),
+    ("health", 230, 112),
+    ("welfare", 240, 170),
+    ("baby", 330, 24),
+    ("business", 372, 112),
+)
+BRIEF_NET_EDGES = (
+    ("housing", "household"),
+    ("household", "student"),
+    ("household", "health"),
+    ("student", "health"),
+    ("student", "baby"),
+    ("health", "welfare"),
+    ("baby", "business"),
+    ("welfare", "business"),
+)
+BRIEF_NET_TAILS = (
+    ("baby", 412, 6),
+    ("business", 414, 156),
+    ("welfare", 404, 210),
+)
+
+
+def render_brief_net() -> str:
+    points = {group_id: (x, y) for group_id, x, y in BRIEF_NET_NODES}
+    lines = []
+    for left, right in BRIEF_NET_EDGES:
+        x1, y1 = points[left]
+        x2, y2 = points[right]
+        lines.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}"/>')
+    for group_id, x2, y2 in BRIEF_NET_TAILS:
+        x1, y1 = points[group_id]
+        lines.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}"/>')
+    nodes = []
+    for group_id, x, y in BRIEF_NET_NODES:
+        name = GROUP_ICONS[group_id]
+        inner = icon_inner(name, "brief-net-fill")
+        nodes.append(
+            f'<g transform="translate({x} {y})">'
+            '<rect class="brief-net-tile" x="-16" y="-16" width="32" height="32" rx="8"/>'
+            f'<svg class="brief-net-icon" data-icon="{esc(name)}" x="-11" y="-11" width="22" height="22" '
+            'viewBox="0 0 256 256" aria-hidden="true" focusable="false" fill="currentColor">'
+            f"{inner}</svg></g>"
+        )
+    return (
+        '<svg class="brief-net" role="presentation" viewBox="0 0 420 230" '
+        'xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+        '<g class="brief-net-lines" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round">'
+        f"{''.join(lines)}</g>"
+        f"{''.join(nodes)}</svg>"
     )
 
 
@@ -520,6 +583,7 @@ def render_home(site: dict, schemes: list[dict]) -> str:
 {render_header(site, "home")}
   <main id="content">
     <header class="brief">
+      {render_brief_net()}
       <h1>{esc(site['title'])}</h1>
       <p class="brief-deck">{esc(site['introduction'])}</p>
       <p class="updated"><span class="updated-label">Last updated</span> <time datetime="{esc(site['checked'])}">{esc(checked_label(site['checked']))}</time></p>
