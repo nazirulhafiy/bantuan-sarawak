@@ -46,7 +46,7 @@ The marks are Basket (Household), GraduationCap (Students), House (Housing), Hea
 
 In dark mode the tile is a translucent yellow (`rgba(247, 201, 72, 0.28)`) with a near-solid yellow border (`rgba(247, 201, 72, 0.95)`). The glyph stays `#f7c948`.
 
-Category headings are 24px, weight 700. The filter buttons are separate: 9px, uppercase, with the category name and a count. They do not use the icons. When the buttons overflow, the row scrolls sideways. A fade and chevron sit in the empty gutter beside that edge, not over a label, and they hide once the row is scrolled to the edge. Trailing padding lets the last label clear the gutter. If every button fits, there is no hint.
+Category headings are 24px, weight 700. The filter buttons are separate: 9px, uppercase, with the category name and a count. They do not use the icons. When the buttons overflow, the row scrolls sideways. A 48px fade from transparent to the page background, with a small chevron, sits on the overflowing edge. The next button stays partly visible under that fade. The hint does not take clicks. It hides once the row is scrolled to that edge, and trailing padding lets the last label scroll clear of it. If every button fits, there is no hint.
 
 ## Type scale
 

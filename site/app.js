@@ -109,96 +109,19 @@
     const wrap = filter.querySelector("[data-category-scroll]");
     const scroller = wrap?.querySelector(".category-filter-options");
     if (!wrap || !scroller) return;
-    const minHint = 32;
 
-    const metrics = () => {
-      const buttons = [...scroller.querySelectorAll(".category-filter-button")];
-      const padRight = parseFloat(getComputedStyle(scroller).paddingRight) || 0;
-      const origin = scroller.getBoundingClientRect().left;
-      const scrollLeft = scroller.scrollLeft;
-      const edges = buttons.map((button) => {
-        const box = button.getBoundingClientRect();
-        const left = box.left - origin + scrollLeft;
-        return { left, right: left + box.width };
-      });
-      const last = edges[edges.length - 1];
-      return {
-        edges,
-        content: last ? last.right + padRight : 0,
-      };
-    };
-
-    const apply = (start, end) => {
-      wrap.style.setProperty("--hint-start", `${Math.max(0, Math.round(start))}px`);
-      wrap.style.setProperty("--hint-end", `${Math.max(0, Math.round(end))}px`);
-      wrap.classList.toggle("can-scroll-start", start > 1);
-      wrap.classList.toggle("can-scroll-end", end > 1);
-    };
-
-    let depth = 0;
     const update = () => {
-      if (depth > 4) return;
-      depth += 1;
-      try {
-        const { edges, content } = metrics();
-        const wrapWidth = wrap.clientWidth;
-        if (!edges.length || content <= wrapWidth + 1) {
-          apply(0, 0);
-          return;
-        }
-
-        const scrollLeft = scroller.scrollLeft;
-        const atStart = scrollLeft <= 1;
-        let start = atStart ? 0 : minHint;
-        let end = minHint;
-        let alignTo = null;
-        const tailFits = (startGutter) => scrollLeft + (wrapWidth - startGutter) >= content - 1;
-
-        if (atStart) {
-          const maxView = wrapWidth - minHint;
-          let fitted = edges[0].left;
-          edges.forEach((edge) => {
-            if (edge.right <= maxView + 0.5) fitted = edge.right;
-          });
-          end = wrapWidth - fitted;
-        } else if (tailFits(minHint)) {
-          end = 0;
-          let chosen = null;
-          edges.forEach((edge) => {
-            const gutter = edge.left - content + wrapWidth;
-            if (gutter >= minHint - 0.5 && (chosen === null || gutter < chosen.gutter)) {
-              chosen = { gutter, left: edge.left };
-            }
-          });
-          start = chosen === null ? minHint : chosen.gutter;
-          alignTo = chosen === null ? null : chosen.left;
-        } else {
-          const maxView = wrapWidth - start - minHint;
-          let fitted = null;
-          edges.forEach((edge) => {
-            if (edge.left >= scrollLeft - 1 && edge.right <= scrollLeft + maxView + 0.5) fitted = edge;
-          });
-          end = fitted ? wrapWidth - start - (fitted.right - scrollLeft) : minHint;
-          const partial = edges.find((edge) => edge.left < scrollLeft - 1 && edge.right > scrollLeft + 1);
-          if (partial) {
-            const next = edges.find((edge) => edge.left >= partial.right - 0.5);
-            if (next) alignTo = next.left;
-          }
-        }
-        apply(start, end);
-        if (alignTo !== null && Math.abs(scroller.scrollLeft - alignTo) > 1) {
-          scroller.scrollLeft = alignTo;
-        }
-      } finally {
-        depth -= 1;
-      }
+      const overflow = scroller.scrollWidth - scroller.clientWidth;
+      const overflows = overflow > 1;
+      wrap.classList.toggle("can-scroll-start", overflows && scroller.scrollLeft > 1);
+      wrap.classList.toggle("can-scroll-end", overflows && scroller.scrollLeft < overflow - 1);
     };
 
     scroller.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     if (typeof ResizeObserver !== "undefined") {
       const observer = new ResizeObserver(update);
-      observer.observe(wrap);
+      observer.observe(scroller);
     }
     update();
     document.fonts?.ready?.then(update);
