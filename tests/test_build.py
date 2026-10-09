@@ -393,11 +393,16 @@ class BuildTests(unittest.TestCase):
         dark_tile = re.search(r'html\[data-theme="dark"\] \.group-icon-tile \{([^}]+)\}', css).group(1)
         self.assertIn("color: var(--sarawak-yellow);", dark_tile)
         dark_fill = re.search(r'html\[data-theme="dark"\] \.group-icon-fill \{([^}]+)\}', css).group(1)
-        self.assertIn("opacity: 0.2;", dark_fill)
+        self.assertIn("opacity: 0.28;", dark_fill)
         self.assertIn("--group-icon-tile: #fff6d2;", css)
         dark = re.search(r'html\[data-theme="dark"\] \{([^}]+)\}', css).group(1)
-        self.assertIn("--group-icon-tile: rgba(247, 201, 72, 0.28);", dark)
-        self.assertIn("--group-icon-border: rgba(247, 201, 72, 0.95);", dark)
+        self.assertIn("--group-icon-tile: rgba(247, 201, 72, 0.12);", dark)
+        self.assertIn("--group-icon-border: rgba(247, 201, 72, 0.55);", dark)
+        dark_active = re.search(
+            r'html\[data-theme="dark"\] \.category-filter-button\.is-active \{([^}]+)\}',
+            css,
+        ).group(1)
+        self.assertIn("border-color: var(--sarawak-yellow);", dark_active)
         self.assertNotIn("level-filter", css)
         self.assertNotIn("jump-links", css)
         button = re.search(r"\.category-filter-button \{([^}]+)\}", css).group(1)
