@@ -4,6 +4,14 @@ The live site is the static pages from `scripts/build.py`, styled by `site/style
 
 Type is Geist, then ui-sans-serif, system-ui, and the system sans-serif stack. Geist is the official variable font (weights 100–900), self-hosted under the SIL Open Font License from the vercel/geist-font v1.7.2 release, with `font-display: swap`. The page is white, ink is near-black, and the accents are Sarawak red `#d22630`, yellow `#f7c948`, and black `#111111`. The body is at most 840px wide. The brief, category list, and cards sit on a 760px rail. Dark mode uses the same hierarchy on a near-black canvas. Cards stay 8px radius or less.
 
+## Masthead
+
+The top bar (`.bar`) sticks to the viewport. Its background is the page colour and runs edge to edge, so the list scrolls underneath it. The wordmark, Home and About, the theme control, and the menu sit in an inner rail (`.bar-inner`, at most 760px) lined up with the brief and the cards.
+
+On viewports wider than 560px the Sarawak rule stays on that rail. Red sits under the wordmark. Yellow and black split the rest of the rail equally. From 560px down the rule runs from the left edge of the screen to the right, including behind the theme control and the menu. The red segment shifts left by the bar’s side padding (`--page-gutter`: 20px, or 15px from 560px down). The yellow and black segment runs past those controls to the right edge. The bar background and the scrolled shadow stay full-bleed at every width.
+
+After any scroll, `site/app.js` adds `.is-scrolled` on the bar. That draws a thin bottom edge and a soft shadow. `html` uses `overflow-x: clip` so the full-bleed bar does not add a horizontal scrollbar, and `scroll-padding-top` (72px, 76px from 560px down) so in-page links clear the bar.
+
 ## Motion
 
 Motion follows [ai.sarawak.news](https://ai.sarawak.news).
