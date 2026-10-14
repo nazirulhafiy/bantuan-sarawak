@@ -327,6 +327,43 @@ class BuildTests(unittest.TestCase):
         self.assertIn("IGPS", self.home)
         self.assertIn("selected courses", article(self.home, "ftes").casefold())
 
+    def test_sras_ftes_and_sri_pertiwi_match_sources(self):
+        sras = article(self.home, "sras")
+        self.assertIn("RM200 a month, for up to 4 years", sras)
+        self.assertIn("Aged 18 and above.", sras)
+        self.assertIn("A single applicant&#x27;s own income must not be above RM5,504 a month.", sras)
+        self.assertIn("A married applicant&#x27;s household income must not be above RM5,504 a month.", sras)
+        self.assertIn("RM5,504 a month or below", sras)
+        self.assertNotIn("is RM5,504", sras)
+        self.assertIn("Public tenants and PPR tenants have priority if they are aged 60 or older, or OKU.", sras)
+        self.assertIn("the home must not be owned by close family.", sras)
+        self.assertIn("Students, public tenants and PPR tenants need status K.", sras)
+        self.assertIn("Imbuhan Tetap Perumahan", sras)
+        self.assertIn("no HDC rent arrears for 3 months", sras)
+        self.assertIn("Students renew every year or semester.", sras)
+        self.assertIn("Kuching, Sibu and Bintulu", sras)
+        for item in re.findall(r"<li>(.*?)</li>", sras, flags=re.S):
+            if "Imbuhan Tetap Perumahan" in item or item.startswith("Civil servants"):
+                self.assertNotIn("status K", item)
+
+        ftes = article(self.home, "ftes")
+        amounts = re.search(r'<ul class="amount-list[^"]*">([\s\S]*?)</ul>', ftes).group(1)
+        self.assertIn("Tuition fees waived", amounts)
+        self.assertNotIn("RM15,000", amounts)
+        self.assertNotIn("RM1,500", amounts)
+        self.assertIn("status K", ftes)
+        self.assertIn("First bachelor&#x27;s degree, full-time only. No diploma or foundation.", ftes)
+        self.assertIn(
+            "Stipend of RM15,000 a year if income per person is RM1,500 or below: "
+            "RM5,000 accommodation, managed by the university, and RM10,000 living expenses through S Pay Global.",
+            ftes,
+        )
+
+        pertiwi = article(self.home, "sri-pertiwi")
+        self.assertIn("For first-time house buyers only (existing low-cost house owners may still buy).", pertiwi)
+        self.assertIn("Only one Sri Pertiwi house per household at any one time.", pertiwi)
+        self.assertNotIn('class="amount-list"', pertiwi)
+
     def test_published_directory_is_state_only(self):
         self.assertEqual(len(self.schemes), 24)
         self.assertTrue(all(scheme["level"] == "STATE" for scheme in self.schemes))
