@@ -155,11 +155,6 @@ def render_analytics_script(token: str | None = None) -> str:
     )
 
 
-def checked_long(iso_date: str) -> str:
-    checked = datetime.strptime(iso_date, "%Y-%m-%d")
-    return f"{checked.day} {checked.strftime('%B %Y')}"
-
-
 def checked_label(iso_date: str) -> str:
     checked = datetime.strptime(iso_date, "%Y-%m-%d")
     return f"{checked.strftime('%A').upper()}, {checked.day} {checked.strftime('%b %Y').upper()}"
@@ -649,7 +644,7 @@ def render_about(site: dict) -> str:
     <header class="about-hero">
       <p class="about-eyebrow">About the directory</p>
       <h1>About Bantuan Sarawak</h1>
-      <p class="about-lede">An independent list of state assistance, with official links only. Amounts were checked on {esc(checked_long(site['checked']))}.</p>
+      <p class="about-lede">An independent list of state assistance, with official links only.</p>
     </header>
 {chr(10).join(sections)}
     <section class="about-section" aria-labelledby="about-desks">
