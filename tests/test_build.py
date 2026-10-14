@@ -270,10 +270,7 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("sarawakenergy.com/media-info/media-releases", self.home)
         self.assertNotRegex(self.home, r'href="https://hdc\.sarawak\.gov\.my/?"')
         self.assertIn("independent", self.about.casefold())
-        self.assertIn("14 October 2026", self.about)
-        self.assertNotIn("6 October 2026", self.about)
-        self.assertNotIn("on 4 October 2026", self.about)
-        self.assertNotIn("on 6 October 2026", self.about)
+        self.assertNotRegex(self.about, r"(?i)checked on \d{1,2} [A-Za-z]+ \d{4}")
         self.assertIn("does not run", self.about)
         footer_bottom = (
             '<div class="site-footer-bottom">\n'
