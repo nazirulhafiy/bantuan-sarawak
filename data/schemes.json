@@ -53,15 +53,10 @@
     "level": "STATE",
     "short": "BKK IPT",
     "title": "Bantuan Kewangan Khas (BKK) for IPT Students",
-    "amount_basis": "page",
-    "amounts": [
-      "RM1,200 a year",
-      "RM600 each semester"
-    ],
+    "amount_basis": "none",
     "copy_ordered": true,
     "paragraphs": [
-      "Diploma or first-degree student at IPTA or IPTS. No income cap.",
-      "Paid twice a year through S Pay Global.",
+      "At least one parent or guardian is Sarawakian. Full-time diploma or bachelor student at an IPTA or IPTS recognised by the Ministry of Higher Education.",
       "The current phase is Special Financial Assistance 2026. Applications close on 30 October 2026."
     ],
     "due": "30 October 2026",
@@ -93,10 +88,7 @@
     "level": "STATE",
     "short": "Books",
     "title": "Book Voucher",
-    "amount_basis": "page",
-    "amounts": [
-      "RM500 through S Pay Global"
-    ],
+    "amount_basis": "none",
     "copy_ordered": true,
     "paragraphs": [
       "Book aid for a full-time IPTA or IPTS student. At least one parent or guardian is Sarawakian.",
@@ -162,9 +154,9 @@
     ],
     "copy_ordered": true,
     "paragraphs": [
-      "Tuition waiver for selected courses at Swinburne, Curtin, UTS and i-CATS.",
-      "No separate application. The university forwards names.",
-      "Stipend: RM5,000 lodging and RM10,000 through S Pay Global."
+      "Tuition waiver for selected courses at Swinburne, Curtin, UTS and i-CATS, from 2026.",
+      "Apply through the university where you will study. The stipend does not need a separate application.",
+      "Stipend: RM5,000 accommodation, managed by the university, and RM10,000 living expenses through S Pay Global."
     ],
     "links": [
       {"label": "Ministry of Education, Innovation and Talent Development", "url": "https://meitd.sarawak.gov.my/web/subpage/webpage_view/156"}
@@ -234,13 +226,13 @@
     "title": "SRAS Rent Assistance",
     "amount_basis": "page",
     "amounts": [
-      "RM200 a month for students"
+      "RM200 a month, for up to 4 years"
     ],
     "copy_ordered": true,
     "paragraphs": [
-      "IPTA or IPTS student renting in Kuching, Samarahan, Sibu, Bintulu or Miri.",
-      "Also covers a PPR tenant with status K and income RM4,556 or below.",
-      "Apply online."
+      "Public tenants, civil servants in government or employer quarters, and PPR tenants. Income not above RM5,504 a month.",
+      "IPTA or IPTS students need status K. Parent, guardian or household income is RM5,504 a month, and the student comes from outside the district of study.",
+      "Public tenants and PPR tenants need status K. Open in Kuching, Samarahan, Siburan, Serian, Sri Aman, Betong, Sibu, Mukah, Bintulu and Miri. PPR is HDC homes in Kuching, Sibu and Bintulu."
     ],
     "links": [
       {"label": "Housing Development Corporation", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/139"}
@@ -276,7 +268,7 @@
     "amount_basis": "none",
     "unspecified": "This is an affordable house, not a cash payment. Selling-price caps are not listed here.",
     "paragraphs": [
-      "Household income up to RM10,000."
+      "Malaysian from Sarawak, or a Sarawak permanent resident, in the B40 or M40 group. Household income RM4,000 to RM10,000."
     ],
     "links": [
       {"label": "Ministry of Urban Development and Natural Resources", "url": "https://mudenr.sarawak.gov.my/web/attachment/show/?docid=U2JnN2NtQmNWZi9DWkhaYUlUMnhsdz09OjrhxKX9m6xObBhS-XQMz_Kf"}
@@ -371,7 +363,7 @@
     "copy_ordered": true,
     "paragraphs": [
       "Birth or adopted child. Parent Malaysian with status K. Child born in or outside Sarawak.",
-      "Apply on Service Sarawak within 1 year. Withdraw at 18 with MyKad at the bank.",
+      "Apply on Service Sarawak within 1 year.",
       "Child born overseas without MyKid: manual form to efs@sarawak.gov.my."
     ],
     "links": [
@@ -432,7 +424,7 @@
     "copy_ordered": true,
     "paragraphs": [
       "JKMS client who can still work, income at or below the poverty line.",
-      "One-off startup capital. Apply on iSarawakCare or at a JKMS office."
+      "One-off startup capital."
     ],
     "links": [
       {"label": "Jabatan Kebajikan Masyarakat Sarawak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"}
@@ -444,12 +436,10 @@
     "level": "STATE",
     "short": "BA",
     "title": "Bantuan Am (BA)",
-    "amount_basis": "page",
-    "amounts": [
-      "RM200 to RM300 a month"
-    ],
+    "amount_basis": "none",
+    "unspecified": "The monthly rate is not stated on this page.",
     "paragraphs": [
-      "State welfare aid. Apply at a JKMS office."
+      "State aid. Household income at or below RM1,198 a month. Apply at a JKMS office."
     ],
     "links": [
       {"label": "Jabatan Kebajikan Masyarakat Sarawak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
@@ -461,12 +451,10 @@
     "level": "STATE",
     "short": "BBB",
     "title": "Bantuan Belia-Beliawanis (BBB)",
-    "amount_basis": "page",
-    "amounts": [
-      "RM200 a month"
-    ],
+    "amount_basis": "none",
+    "unspecified": "The monthly rate is not stated on this page.",
     "paragraphs": [
-      "State aid for youth. Apply at a JKMS office."
+      "State aid. Household income at or below RM1,198 a month. Apply at a JKMS office."
     ],
     "links": [
       {"label": "Jabatan Kebajikan Masyarakat Sarawak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
