@@ -272,6 +272,8 @@ class BuildTests(unittest.TestCase):
         self.assertIn("independent", self.about.casefold())
         self.assertIn("14 October 2026", self.about)
         self.assertNotIn("6 October 2026", self.about)
+        self.assertNotIn("on 4 October 2026", self.about)
+        self.assertNotIn("on 6 October 2026", self.about)
         self.assertIn("does not run", self.about)
         footer_bottom = (
             '<div class="site-footer-bottom">\n'
