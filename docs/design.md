@@ -16,7 +16,7 @@ After any scroll, `site/app.js` adds `.is-scrolled` on the bar. That draws a thi
 
 Motion follows [ai.sarawak.news](https://ai.sarawak.news).
 
-The home brief and the About hero use `hero-reveal`: a rise of 18px over 0.85s, easing `cubic-bezier(.22, 1, .36, 1)`. The lines inside the brief, and each About section, use `hero-content-reveal`: a rise of 10px over 0.7s with the same easing. The brief network is not part of that content reveal.
+The home brief and the About hero use `hero-reveal`: a rise of 18px over 0.85s, easing `cubic-bezier(.22, 1, .36, 1)`. The About hero is the title and lede only; there is no eyebrow line above the heading. The lines inside the brief, and each About section, use `hero-content-reveal`: a rise of 10px over 0.7s with the same easing. The brief network is not part of that content reveal.
 
 Each scheme card uses `story-reveal` once: a rise of 12px over 0.7s with the same easing. `site/app.js` adds `is-revealed` when an IntersectionObserver sees the card enter the viewport, then unobserves that card. The reveal runs once. It does not use CSS `animation-timeline: view()`.
 
