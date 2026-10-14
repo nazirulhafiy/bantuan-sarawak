@@ -150,13 +150,14 @@
     "title": "Selected-Course Tuition Waiver at Four Institutions",
     "amount_basis": "page",
     "amounts": [
-      "RM15,000 a year, only if income per person is RM1,500 or below"
+      "Tuition fees waived"
     ],
     "copy_ordered": true,
     "paragraphs": [
       "Tuition waiver for selected courses at Swinburne, Curtin, UTS and i-CATS, from 2026.",
+      "Anak Sarawak with status K, or a Malaysian with at least one parent who has status K. First bachelor's degree, full-time only. No diploma or foundation.",
       "Apply through the university where you will study. The stipend does not need a separate application.",
-      "Stipend: RM5,000 accommodation, managed by the university, and RM10,000 living expenses through S Pay Global."
+      "Stipend of RM15,000 a year if income per person is RM1,500 or below: RM5,000 accommodation, managed by the university, and RM10,000 living expenses through S Pay Global."
     ],
     "links": [
       {"label": "Ministry of Education, Innovation and Talent Development", "url": "https://meitd.sarawak.gov.my/web/subpage/webpage_view/156"}
@@ -230,9 +231,15 @@
     ],
     "copy_ordered": true,
     "paragraphs": [
-      "Public tenants, civil servants in government or employer quarters, and PPR tenants. Income not above RM5,504 a month.",
-      "IPTA or IPTS students need status K. Parent, guardian or household income is RM5,504 a month, and the student comes from outside the district of study.",
-      "Public tenants and PPR tenants need status K. Open in Kuching, Samarahan, Siburan, Serian, Sri Aman, Betong, Sibu, Mukah, Bintulu and Miri. PPR is HDC homes in Kuching, Sibu and Bintulu."
+      "Public tenants, civil servants in government or employer quarters, and PPR tenants. Aged 18 and above.",
+      "A single applicant's own income must not be above RM5,504 a month. A married applicant's household income must not be above RM5,504 a month.",
+      "Public tenants and PPR tenants have priority if they are aged 60 or older, or OKU.",
+      "For a public tenant, or a student renting a room or house, the home must not be owned by close family.",
+      "Students, public tenants and PPR tenants need status K.",
+      "Civil servants qualify only if the fixed housing allowance (Imbuhan Tetap Perumahan) is not paid, or is deducted on the payslip.",
+      "PPR tenants must have no HDC rent arrears for 3 months. PPR is HDC homes in Kuching, Sibu and Bintulu.",
+      "IPTA or IPTS students: parent, guardian or household income of RM5,504 a month or below. The student comes from outside the district of study. Students renew every year or semester.",
+      "Open in Kuching, Samarahan, Siburan, Serian, Sri Aman, Betong, Sibu, Mukah, Bintulu and Miri."
     ],
     "links": [
       {"label": "Housing Development Corporation", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/139"}
@@ -268,7 +275,9 @@
     "amount_basis": "none",
     "unspecified": "This is an affordable house, not a cash payment. Selling-price caps are not listed here.",
     "paragraphs": [
-      "Malaysian from Sarawak, or a Sarawak permanent resident, in the B40 or M40 group. Household income RM4,000 to RM10,000."
+      "Malaysian from Sarawak, or a Sarawak permanent resident, in the B40 or M40 group. Household income RM4,000 to RM10,000.",
+      "For first-time house buyers only (existing low-cost house owners may still buy).",
+      "Only one Sri Pertiwi house per household at any one time."
     ],
     "links": [
       {"label": "Ministry of Urban Development and Natural Resources", "url": "https://mudenr.sarawak.gov.my/web/attachment/show/?docid=U2JnN2NtQmNWZi9DWkhaYUlUMnhsdz09OjrhxKX9m6xObBhS-XQMz_Kf"}
