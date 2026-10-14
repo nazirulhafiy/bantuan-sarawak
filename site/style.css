@@ -913,15 +913,6 @@ html[data-theme="dark"] .scheme-head {
   animation: hero-reveal .85s cubic-bezier(.22, 1, .36, 1) both;
 }
 
-.about-eyebrow {
-  margin: 0 0 10px;
-  color: var(--sarawak-red-ink);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
 .about-hero h1 {
   max-width: none;
   margin: 0 0 12px;
