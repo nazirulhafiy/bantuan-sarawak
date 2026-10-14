@@ -642,7 +642,6 @@ def render_about(site: dict) -> str:
 {render_header(site, "about")}
   <main id="content" class="about-page">
     <header class="about-hero">
-      <p class="about-eyebrow">About the directory</p>
       <h1>About Bantuan Sarawak</h1>
       <p class="about-lede">An independent list of state assistance, with official links only.</p>
     </header>
