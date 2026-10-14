@@ -52,8 +52,7 @@
       "id": "figures",
       "title": "Where the figures come from",
       "paragraphs": [
-        "Amounts are taken from official pages. If a ringgit figure was not on an official page, it is not shown.",
-        "Some JKMS rates appear only on a rate-sheet attachment, not on the main HTML page. Those cards are marked “On an attachment”."
+        "Amounts are taken from official pages. If a ringgit figure was not on an official page, it is not shown."
       ]
     },
     {
@@ -61,13 +60,6 @@
       "title": "State schemes",
       "paragraphs": [
         "Every scheme in this directory is a Sarawak state programme."
-      ]
-    },
-    {
-      "id": "left-out",
-      "title": "What is left out",
-      "paragraphs": [
-        "A scheme with no direct official page is left out. So is a payment that was not on the page checked."
       ]
     }
   ],
