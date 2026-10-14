@@ -22,7 +22,7 @@ Each scheme card uses `story-reveal` once: a rise of 12px over 0.7s with the sam
 
 Hover lifts a card with `translateY(-3px)` and a slight rotation (`-.25deg`, or `.25deg` on an even card).
 
-`prefers-reduced-motion: reduce` removes transform motion and keeps the cards visible.
+`prefers-reduced-motion: reduce` removes transform motion and keeps the cards visible. The back-to-top control appears and hides with no fade, and its scroll to the top is instant.
 
 ## Hero network
 
@@ -89,6 +89,16 @@ When the buttons overflow, the row scrolls sideways with a 48px fade (`--categor
 The token lives in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py` (set for `bantuan.sarawak.news`), or in the `CLOUDFLARE_WEB_ANALYTICS_TOKEN` environment variable at build time (env overrides the constant). An empty token omits the beacon entirely. Do not reuse tokens from ai.sarawak.news or other sites.
 
 The beacon matches the sister site pattern: `https://static.cloudflareinsights.com/beacon.min.js` with `defer` and `data-cf-beacon` JSON `{"token":"…","spa":true}`. This repository does not ship a Content-Security-Policy meta tag; if one is added later, extend it for `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect) only when analytics is enabled.
+
+## Back to top
+
+The home page has one control, `<button type="button" class="back-to-top" aria-label="Back to top">`. The visible words are “Back to top” plus an up arrow (`↑`, `aria-hidden`). It is fixed to the bottom-right corner of the screen, under the sticky masthead (`z-index: 5` against the bar’s `40`), so it does not cover the bar or the theme control.
+
+Above 560px it is a text chip: padding 8px 11px, 11px type, weight 850, 6px radius. It sits 24px from the right edge and 24px from the bottom edge. On a wide viewport that inset lands in the margin beside the centred column, clear of the cards. From 560px down the label is hidden and the control is an icon-only arrow, 44×44px. The phone inset is `max(14px, env(safe-area-inset-right, 0px) + 14px)` on the right and the same with `safe-area-inset-bottom` on the bottom.
+
+The chip is `#111111` in both themes. The label and the arrow are `#f7c948` in both themes. Light mode uses a 1px `#111111` border. Dark mode (`html[data-theme="dark"]`) uses a 1px `#f7c948` border.
+
+`site/app.js` shows it when `scrollY` is at least 600 and hides it when `scrollY` is under 600. The show and hide are a 180ms fade: opacity plus an 8px translate, easing `cubic-bezier(.22, 1, .36, 1)`. `prefers-reduced-motion: reduce` drops that fade. The markup starts with the `hidden` attribute. Until the fade-in finishes, and again from the start of the fade-out, it is `inert` with `tabindex="-1"`. The `hidden` attribute returns once the fade-out ends. Either way it is not focusable and not in the tab order. Focus, when it is shown, is a 3px `#f7c948` ring with a 2px offset. Activating it scrolls to the top (`smooth`, or `auto` when reduced motion is on).
 
 ## Footer
 

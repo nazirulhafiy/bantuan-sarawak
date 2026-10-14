@@ -980,33 +980,53 @@ html[data-theme="dark"] .scheme-head {
 
 .back-to-top {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
+  right: 24px;
+  bottom: 24px;
   z-index: 5;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: 1px solid var(--sarawak-black);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35em;
+  padding: 8px 11px;
+  border: 1px solid #111111;
   border-radius: 6px;
-  background: var(--sarawak-black);
-  color: var(--sarawak-yellow);
+  background: #111111;
+  color: #f7c948;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 11px;
   font-weight: 850;
-  line-height: 1;
+  line-height: 1.3;
+  white-space: nowrap;
   box-shadow: 0 4px 14px rgb(17 24 39 / 10%);
-  transition: background-color .22s ease, border-color .22s ease, color .22s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity 180ms cubic-bezier(.22, 1, .36, 1),
+    transform 180ms cubic-bezier(.22, 1, .36, 1),
+    background-color .22s ease,
+    border-color .22s ease,
+    color .22s ease;
 }
 
-.back-to-top-label { display: none; }
+.back-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
 html[data-theme="dark"] .back-to-top {
-  border-color: var(--sarawak-yellow);
+  border-color: #f7c948;
   background: #111111;
-  color: var(--sarawak-yellow);
+  color: #f7c948;
 }
 
-.back-to-top .back-to-top-arrow { color: var(--sarawak-yellow); }
+.back-to-top .back-to-top-arrow { color: #f7c948; }
+
+.back-to-top:focus-visible {
+  outline: 3px solid #f7c948;
+  outline-offset: 2px;
+}
 
 .back-to-top[hidden] { display: none; }
 
@@ -1276,7 +1296,17 @@ html[data-theme="dark"] .site-footer {
 
   .site-footer-bottom { padding: 14px 18px; }
 
-  .back-to-top { right: 14px; bottom: 14px; }
+  .back-to-top {
+    right: max(14px, calc(env(safe-area-inset-right, 0px) + 14px));
+    bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 14px));
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .back-to-top-label { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1288,7 +1318,10 @@ html[data-theme="dark"] .site-footer {
   .brief > *,
   .about-hero,
   .about-section,
-  .scheme { transition: none; }
+  .scheme,
+  .back-to-top { transition: none; }
+
+  .back-to-top { transform: none; }
 
   .brief,
   .brief > *,
