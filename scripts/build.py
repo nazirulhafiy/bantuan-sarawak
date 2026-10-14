@@ -444,28 +444,30 @@ def render_header(site: dict, active: str) -> str:
         return f'<a class="{klass}" href="{href}"{current}>{label}</a>'
 
     return f"""  <header class="bar">
-    <span class="brand-lockup"><a class="brand" href="/">{esc(site['name'])}</a></span>
-    <nav class="site-nav" id="primary-navigation" aria-label="Primary">
-      {link("home", "/", "Home")}
-      {link("about", "about.html", "About")}
-    </nav>
-    <span class="bar-rule-tail" aria-hidden="true"></span>
-    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation" title="Open navigation">
-      <span></span><span></span><span></span>
-    </button>
-    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" title="Switch to dark mode">
-      <svg class="theme-icon-morph" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24">
-        <mask id="theme-toggle-moon-mask"><rect width="24" height="24" fill="#fff"></rect><circle cx="17" cy="7" r="7" fill="#000"></circle></mask>
-        <circle class="theme-icon-moon" cx="12" cy="12" r="9" mask="url(#theme-toggle-moon-mask)"></circle>
-        <circle class="theme-icon-sun" cx="12" cy="12" r="5"></circle>
-        <g class="theme-icon-rays">
-          <line x1="12" y1="1.6" x2="12" y2="3.8"></line><line x1="12" y1="20.2" x2="12" y2="22.4"></line>
-          <line x1="1.6" y1="12" x2="3.8" y2="12"></line><line x1="20.2" y1="12" x2="22.4" y2="12"></line>
-          <line x1="4.6" y1="4.6" x2="6.2" y2="6.2"></line><line x1="17.8" y1="17.8" x2="19.4" y2="19.4"></line>
-          <line x1="4.6" y1="19.4" x2="6.2" y2="17.8"></line><line x1="17.8" y1="6.2" x2="19.4" y2="4.6"></line>
-        </g>
-      </svg>
-    </button>
+    <div class="bar-inner">
+      <span class="brand-lockup"><a class="brand" href="/">{esc(site['name'])}</a></span>
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary">
+        {link("home", "/", "Home")}
+        {link("about", "about.html", "About")}
+      </nav>
+      <span class="bar-rule-tail" aria-hidden="true"></span>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation" title="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" title="Switch to dark mode">
+        <svg class="theme-icon-morph" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24">
+          <mask id="theme-toggle-moon-mask"><rect width="24" height="24" fill="#fff"></rect><circle cx="17" cy="7" r="7" fill="#000"></circle></mask>
+          <circle class="theme-icon-moon" cx="12" cy="12" r="9" mask="url(#theme-toggle-moon-mask)"></circle>
+          <circle class="theme-icon-sun" cx="12" cy="12" r="5"></circle>
+          <g class="theme-icon-rays">
+            <line x1="12" y1="1.6" x2="12" y2="3.8"></line><line x1="12" y1="20.2" x2="12" y2="22.4"></line>
+            <line x1="1.6" y1="12" x2="3.8" y2="12"></line><line x1="20.2" y1="12" x2="22.4" y2="12"></line>
+            <line x1="4.6" y1="4.6" x2="6.2" y2="6.2"></line><line x1="17.8" y1="17.8" x2="19.4" y2="19.4"></line>
+            <line x1="4.6" y1="19.4" x2="6.2" y2="17.8"></line><line x1="17.8" y1="6.2" x2="19.4" y2="4.6"></line>
+          </g>
+        </svg>
+      </button>
+    </div>
   </header>"""
 
 
