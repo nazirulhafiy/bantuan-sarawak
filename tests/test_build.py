@@ -28,7 +28,9 @@ ALLOWED_RM = {
     "1500",
     "1800",
     "2500",
+    "4000",
     "4556",
+    "5504",
     "4849",
     "5000",
     "5001",
@@ -268,8 +270,9 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("sarawakenergy.com/media-info/media-releases", self.home)
         self.assertNotRegex(self.home, r'href="https://hdc\.sarawak\.gov\.my/?"')
         self.assertIn("independent", self.about.casefold())
-        self.assertIn("6 October 2026", self.about)
-        self.assertNotIn("4 October 2026", self.about)
+        self.assertIn("14 October 2026", self.about)
+        self.assertNotIn("on 4 October 2026", self.about)
+        self.assertNotIn("6 October 2026", self.about)
         self.assertIn("does not run", self.about)
         footer_bottom = (
             '<div class="site-footer-bottom">\n'
@@ -331,7 +334,7 @@ class BuildTests(unittest.TestCase):
         self.assertTrue(all(scheme["level"] == "STATE" for scheme in self.schemes))
         updated = re.search(r'<p class="updated">(.*?)</p>', self.home).group(1)
         self.assertIn(">Last updated</span>", updated)
-        self.assertIn(">TUESDAY, 6 OCT 2026</time>", updated)
+        self.assertIn(">WEDNESDAY, 14 OCT 2026</time>", updated)
         self.assertNotIn("Checked", updated)
         self.assertNotIn("schemes", updated.casefold())
         self.assertNotIn("updated-count", self.home)
