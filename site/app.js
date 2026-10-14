@@ -103,12 +103,53 @@
 
   const backToTop = document.querySelector("[data-back-to-top]");
   if (backToTop) {
-    function updateBackToTop() {
-      backToTop.hidden = window.scrollY < 600;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const fadeMs = 180;
+    let shown = false;
+    let hideTimer = 0;
+
+    function revealBackToTop() {
+      if (window.scrollY < 600) return;
+      backToTop.classList.add("is-visible");
+      backToTop.inert = false;
+      backToTop.removeAttribute("tabindex");
     }
+
+    function showBackToTop() {
+      window.clearTimeout(hideTimer);
+      backToTop.inert = true;
+      backToTop.setAttribute("tabindex", "-1");
+      backToTop.hidden = false;
+      if (reduceMotion.matches) {
+        revealBackToTop();
+        return;
+      }
+      requestAnimationFrame(() => {
+        requestAnimationFrame(revealBackToTop);
+      });
+    }
+
+    function hideBackToTop() {
+      backToTop.classList.remove("is-visible");
+      backToTop.inert = true;
+      backToTop.setAttribute("tabindex", "-1");
+      if (document.activeElement === backToTop) backToTop.blur();
+      window.clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => {
+        if (window.scrollY < 600) backToTop.hidden = true;
+      }, reduceMotion.matches ? 0 : fadeMs);
+    }
+
+    function updateBackToTop() {
+      const shouldShow = window.scrollY >= 600;
+      if (shouldShow === shown) return;
+      shown = shouldShow;
+      if (shouldShow) showBackToTop();
+      else hideBackToTop();
+    }
+
     backToTop.addEventListener("click", () => {
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      window.scrollTo({ top: 0, behavior: reduceMotion.matches ? "auto" : "smooth" });
     });
     window.addEventListener("scroll", updateBackToTop, { passive: true });
     updateBackToTop();
