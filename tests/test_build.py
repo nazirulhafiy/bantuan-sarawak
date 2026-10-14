@@ -147,7 +147,13 @@ class BuildTests(unittest.TestCase):
             self.assertIn('name="twitter:card" content="summary_large_image"', page)
             self.assertIn("<title>", page)
             self.assertIn('name="description"', page)
-        self.assertIn("Sarawak government assistance, in one directory.", self.home)
+        self.assertIn("<title>Bantuan Sarawak</title>", self.home)
+        self.assertIn(
+            "<h1>Sarawak government assistance, in one directory.</h1>",
+            self.home,
+        )
+        self.assertIn('property="og:title" content="Bantuan Sarawak"', self.home)
+        self.assertIn("<title>About | Bantuan Sarawak</title>", self.about)
         self.assertIn("🫶", self.home)
         self.assertIn("Sitemap: https://bantuan.sarawak.news/sitemap.xml", (self.dist / "robots.txt").read_text())
         sitemap = (self.dist / "sitemap.xml").read_text(encoding="utf-8")

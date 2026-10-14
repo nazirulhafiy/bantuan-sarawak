@@ -602,7 +602,7 @@ def render_home(site: dict, schemes: list[dict]) -> str:
 {render_footer(site, "home")}
   {render_analytics_script()}
 </body>"""
-    return render_head(site, site["title"], site["description"], url, site["og_title"], structured) + "\n" + body + "\n</html>\n"
+    return render_head(site, site["og_title"], site["description"], url, site["og_title"], structured) + "\n" + body + "\n</html>\n"
 
 
 def render_about(site: dict) -> str:
