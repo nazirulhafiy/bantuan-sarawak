@@ -103,3 +103,9 @@ The fill is `#111` in both themes. The label and the arrow are `#f7c948` in both
 ## Footer
 
 The explore column lists Home and About, then a heading that reads Categories. The Categories divider runs the full width of the footer nav panel: a `::before` on `.site-footer-categories-title` extends past the nav padding (`left`/`right: -28px` on desktop, `-18px` at max-width 560px) so the line meets the box edges. Space between About and that divider comes from `margin-bottom: 14px` on the first link list and `margin-top: 34px` on the heading.
+
+## Analytics
+
+- Google Analytics 4: measurement ID `G-PYSEQGMJLC`, emitted in `<head>` of every page by `render_ga_script()` in `scripts/build.py`.
+- Cloudflare Web Analytics beacon is unchanged (`render_analytics_script()`, before `</body>`).
+- No Content-Security-Policy is set; if one is added, allow `www.googletagmanager.com`, `*.google-analytics.com` and `static.cloudflareinsights.com`.
