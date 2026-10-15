@@ -23,6 +23,17 @@ ICON_DIR = ROOT / "assets" / "phosphor"
 CLOUDFLARE_WEB_ANALYTICS_TOKEN = "bfba3801f65a489185b168a7446c7a62"
 
 
+GA_MEASUREMENT_ID = "G-PYSEQGMJLC"
+
+
+def render_ga_script() -> str:
+    return (
+        f'<script async src="https://www.googletagmanager.com/gtag/js?id={GA_MEASUREMENT_ID}"></script>'
+        "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
+        f"gtag('js',new Date());gtag('config','{GA_MEASUREMENT_ID}');</script>"
+    )
+
+
 def web_analytics_token() -> str:
     return (os.environ.get("CLOUDFLARE_WEB_ANALYTICS_TOKEN") or CLOUDFLARE_WEB_ANALYTICS_TOKEN).strip()
 
@@ -538,6 +549,7 @@ def render_head(site: dict, title: str, description: str, canonical: str, og_tit
   <link rel="icon" href="{FAVICON}" />
   <link rel="stylesheet" href="style.css" />
   <script src="app.js" defer></script>
+  {render_ga_script()}
 </head>"""
 
 
