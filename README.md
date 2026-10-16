@@ -1,6 +1,6 @@
 # Bantuan Sarawak
 
-Independent directory of Sarawak government assistance, for [bantuan.sarawak.news](https://bantuan.sarawak.news/).
+Independent directory of Sarawak government assistance, for [bantuan.sarawak.news](https://bantuan.sarawak.news/). The home subtitle is “Sarawak aid and schemes, in one place.”
 
 This is not a news feed and not a government website. It lists state schemes. Each card has one link, to the official page its figure came from. The link name is usually the agency in charge; **Service Sarawak** when the only source is the Service Sarawak portal (`service.sarawak.gov.my`). The site does not take applications. The home page “Last updated” line is the only check date. If a ringgit amount was not on an official page, it is not shown. A time-sensitive card states the current phase, and a due date from that page is a red label.
 
@@ -64,7 +64,7 @@ python3 -m unittest discover -s tests -v
 These are not done in this repository:
 
 1. **Custom domain.** On the `sarawak.news` zone, point `bantuan.sarawak.news` at GitHub Pages and set that hostname as the Pages custom domain. The published `CNAME` file is the Pages side of that setup. This project does not change DNS or the Cloudflare zone.
-2. **Cloudflare Web Analytics.** The `bantuan.sarawak.news` token is in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py`. The build may override it with the same environment variable (env wins). An empty token omits the beacon. Do not reuse the token from ai.sarawak.news. See `docs/design.md` (Analytics).
+2. **Analytics.** Google Analytics 4 (`G-PYSEQGMJLC`) and [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) are injected at build time (`render_ga_script()` in `<head>`, `render_analytics_script()` before `</body>`). The `bantuan.sarawak.news` Cloudflare token is in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py`; the build may override it with the same environment variable (env wins). An empty token omits the beacon. Do not reuse tokens from ai.sarawak.news or other sites. See `docs/design.md` (Analytics).
 3. **Favicon.** The current mark is a provisional 🫶 emoji.
 
 ## What the directory leaves out
