@@ -94,7 +94,7 @@ When the buttons overflow, the row scrolls sideways with a 48px fade (`--categor
 
 [Bantuan Sarawak](https://bantuan.sarawak.news) uses two build-time tags. Neither changes what visitors see on the page.
 
-**Google Analytics 4.** Measurement ID `G-7R9G7T5N9P`. `render_ga_script()` in `scripts/build.py` emits the async `gtag.js` loader and config in `<head>` on every built page.
+**Google Analytics 4.** Measurement ID `G-PYSEQGMJLC`. `render_ga_script()` in `scripts/build.py` emits the async `gtag.js` loader and config in `<head>` on every built page.
 
 **Cloudflare Web Analytics.** Privacy-friendly, cookie-less traffic measurement. When a site token is configured, `render_analytics_script()` adds a deferred `beacon.min.js` script before `</body>` on the home and About pages.
 
