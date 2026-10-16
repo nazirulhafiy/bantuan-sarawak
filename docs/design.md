@@ -12,6 +12,14 @@ On viewports wider than 560px the Sarawak rule stays on that rail. Red sits unde
 
 After any scroll, `site/app.js` adds `.is-scrolled` on the bar. That draws a thin bottom edge and a soft shadow. `html` uses `overflow-x: clip` so the full-bleed bar does not add a horizontal scrollbar, and `scroll-padding-top` (72px, 76px from 560px down) so in-page links clear the bar.
 
+## Home brief
+
+The home hero is the centred `.brief` block. The visible subtitle is `p.brief-deck`, built from `introduction` in `data/site.json`:
+
+- Sarawak aid and schemes, in one place.
+
+The headline above it is the `title` field in the same file (`h1` in the brief). The “Last updated” line follows the deck.
+
 ## Motion
 
 Motion follows [ai.sarawak.news](https://ai.sarawak.news).
@@ -20,7 +28,7 @@ The home brief and the About hero use `hero-reveal`: a rise of 18px over 0.85s, 
 
 Each scheme card uses `story-reveal` once: a rise of 12px over 0.7s with the same easing. `site/app.js` adds `is-revealed` when an IntersectionObserver sees the card enter the viewport, then unobserves that card. The reveal runs once. It does not use CSS `animation-timeline: view()`.
 
-Hover lifts a card with `translateY(-3px)` and a slight rotation (`-.25deg`, or `.25deg` on an even card).
+On pointer devices (`@media (hover: hover)`), hovering a scheme card (`.scheme`) adds a subtle lift and shadow from `site/style.css`. The border lightens (`#cbd1da` in light mode, `#4b5663` in dark). A soft shadow appears (`0 8px 20px rgb(17 24 39 / 8%)` light, `0 8px 20px rgb(0 0 0 / 28%)` dark). The card moves up 3px with a slight rotation (`translateY(-3px) rotate(-.25deg)`, or `rotate(.25deg)` on an even sibling). Transitions run on transform, box-shadow, border-color, and background-color (about 0.18–0.22s ease). Touch-only viewports skip this hover block.
 
 `prefers-reduced-motion: reduce` removes transform motion and keeps the cards visible. The back-to-top control appears and hides with no fade, and its scroll to the top is instant.
 
@@ -71,7 +79,7 @@ When the buttons overflow, the row scrolls sideways with a 48px fade (`--categor
 ## Type scale
 
 - Page title: `clamp(36px, 6vw, 48px)`, weight 700.
-- Deck under the title: 18px (17px below 560px).
+- Home subtitle (`p.brief-deck`): 18px (17px below 560px). Live copy: “Sarawak aid and schemes, in one place.”
 - Body: 16px.
 - Category heading: 24px (20px below 560px).
 - Scheme rank and title: 16px.
@@ -84,11 +92,15 @@ When the buttons overflow, the row scrolls sideways with a 48px fade (`--categor
 
 ## Analytics
 
-[Bantuan Sarawak](https://bantuan.sarawak.news) uses [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) for privacy-friendly, cookie-less traffic measurement. There is no visible change on the page: the build adds a deferred `beacon.min.js` script at the end of `<body>` on the home and About pages when a site token is configured.
+[Bantuan Sarawak](https://bantuan.sarawak.news) uses two build-time tags. Neither changes what visitors see on the page.
 
-The token lives in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py` (set for `bantuan.sarawak.news`), or in the `CLOUDFLARE_WEB_ANALYTICS_TOKEN` environment variable at build time (env overrides the constant). An empty token omits the beacon entirely. Do not reuse tokens from ai.sarawak.news or other sites.
+**Google Analytics 4.** Measurement ID `G-7R9G7T5N9P`. `render_ga_script()` in `scripts/build.py` emits the async `gtag.js` loader and config in `<head>` on every built page.
 
-The beacon matches the sister site pattern: `https://static.cloudflareinsights.com/beacon.min.js` with `defer` and `data-cf-beacon` JSON `{"token":"…","spa":true}`. This repository does not ship a Content-Security-Policy meta tag; if one is added later, extend it for `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect) only when analytics is enabled.
+**Cloudflare Web Analytics.** Privacy-friendly, cookie-less traffic measurement. When a site token is configured, `render_analytics_script()` adds a deferred `beacon.min.js` script before `</body>` on the home and About pages.
+
+The Cloudflare token lives in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py` (set for `bantuan.sarawak.news`), or in the `CLOUDFLARE_WEB_ANALYTICS_TOKEN` environment variable at build time (env overrides the constant). An empty token omits the beacon entirely. Do not reuse tokens from ai.sarawak.news or other sites.
+
+The beacon matches the sister site pattern: `https://static.cloudflareinsights.com/beacon.min.js` with `defer` and `data-cf-beacon` JSON `{"token":"…","spa":true}`. This repository does not ship a Content-Security-Policy meta tag; if one is added later, allow `www.googletagmanager.com` and `*.google-analytics.com` for GA4, and `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect) for Cloudflare when analytics is enabled.
 
 ## Back to top
 
@@ -103,9 +115,3 @@ The fill is `#111` in both themes. The label and the arrow are `#f7c948` in both
 ## Footer
 
 The explore column lists Home and About, then a heading that reads Categories. The Categories divider runs the full width of the footer nav panel: a `::before` on `.site-footer-categories-title` extends past the nav padding (`left`/`right: -28px` on desktop, `-18px` at max-width 560px) so the line meets the box edges. Space between About and that divider comes from `margin-bottom: 14px` on the first link list and `margin-top: 34px` on the heading.
-
-## Analytics
-
-- Google Analytics 4: measurement ID `G-PYSEQGMJLC`, emitted in `<head>` of every page by `render_ga_script()` in `scripts/build.py`.
-- Cloudflare Web Analytics beacon is unchanged (`render_analytics_script()`, before `</body>`).
-- No Content-Security-Policy is set; if one is added, allow `www.googletagmanager.com`, `*.google-analytics.com` and `static.cloudflareinsights.com`.
