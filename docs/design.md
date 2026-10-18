@@ -94,7 +94,9 @@ When the buttons overflow, the row scrolls sideways with a 48px fade (`--categor
 
 [Bantuan Sarawak](https://bantuan.sarawak.news) uses two build-time tags. Neither changes what visitors see on the page.
 
-**Google Analytics 4.** Measurement ID `G-PYSEQGMJLC`. `render_ga_script()` in `scripts/build.py` emits the async `gtag.js` loader and config in `<head>` on every built page.
+**Google Analytics 4.** Measurement ID `G-PYSEQGMJLC`. `render_ga_script()` in `scripts/build.py` emits an inline bootstrap in `<head>` on every built page. That script loads `gtag.js` and runs `gtag('config', …)` **only** when `location.hostname` is `bantuan.sarawak.news` or `www.bantuan.sarawak.news`. It does not load on `*.pages.dev`, `*.github.io`, `*.vercel.app`, `localhost`, or any other host.
+
+**Internal traffic.** `?internal=1` sets a first-party cookie `ga_internal=1` (`Max-Age` ≈ 1 year, `Path=/`, `SameSite=Lax`). `?internal=0` clears it. While the cookie is set, config includes `traffic_type: 'internal'` so GA4 can exclude maintainer/agent hits. Agents and automation that open the live site must use `?internal=1` (see `AGENTS.md`, `tools/shots.config.json`).
 
 **Cloudflare Web Analytics.** Privacy-friendly, cookie-less traffic measurement. When a site token is configured, `render_analytics_script()` adds a deferred `beacon.min.js` script before `</body>` on the home and About pages.
 

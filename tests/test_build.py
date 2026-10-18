@@ -161,6 +161,27 @@ class BuildTests(unittest.TestCase):
         self.assertIn("https://bantuan.sarawak.news/about.html", sitemap)
         self.assertNotIn("skas.html", sitemap)
 
+    def test_ga_script_production_gate_and_internal_cookie(self):
+        ga = build.render_ga_script()
+        self.assertIn(build.GA_MEASUREMENT_ID, ga)
+        self.assertIn("bantuan.sarawak.news", ga)
+        self.assertIn("www.bantuan.sarawak.news", ga)
+        self.assertIn(build.GA_INTERNAL_COOKIE, ga)
+        self.assertIn("traffic_type", ga)
+        self.assertIn("'internal'", ga)
+        self.assertIn("get('internal')", ga)
+        self.assertIn("q==='1'", ga)
+        self.assertIn("q==='0'", ga)
+        self.assertIn("Max-Age=", ga)
+        self.assertIn(str(build.GA_INTERNAL_COOKIE_MAX_AGE), ga)
+        # Host gate before loading gtag — no unconditional async loader tag.
+        self.assertNotIn('<script async src="https://www.googletagmanager.com/gtag/js', ga)
+        self.assertIn("googletagmanager.com/gtag/js?id=", ga)
+        self.assertIn("H.indexOf(location.hostname)<0", ga)
+        for page in (self.home, self.about):
+            self.assertIn(ga, page)
+            self.assertEqual(page.count("googletagmanager.com/gtag/js"), 1)
+
     def test_analytics_beacon_in_dist_when_token_configured(self):
         token = "bfba3801f65a489185b168a7446c7a62"
         self.assertEqual(build.CLOUDFLARE_WEB_ANALYTICS_TOKEN, token)
