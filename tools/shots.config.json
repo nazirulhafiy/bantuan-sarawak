@@ -1,6 +1,6 @@
 {
   "name": "bantuan",
-  "defaultUrl": "https://bantuan.sarawak.news",
+  "defaultUrl": "https://bantuan.sarawak.news/?internal=1",
   "outDir": "shots",
   "defaults": {
     "devices": ["phone"],

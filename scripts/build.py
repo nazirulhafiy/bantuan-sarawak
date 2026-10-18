@@ -24,13 +24,43 @@ CLOUDFLARE_WEB_ANALYTICS_TOKEN = "bfba3801f65a489185b168a7446c7a62"
 
 
 GA_MEASUREMENT_ID = "G-PYSEQGMJLC"
+GA_PRODUCTION_HOSTS = ("bantuan.sarawak.news", "www.bantuan.sarawak.news")
+GA_INTERNAL_COOKIE = "ga_internal"
+# ~1 year; used by the inline bootstrap for ?internal=1
+GA_INTERNAL_COOKIE_MAX_AGE = 60 * 60 * 24 * 365
 
 
 def render_ga_script() -> str:
+    """Emit GA4 bootstrap: production host only; optional internal traffic cookie.
+
+    Loads gtag only when hostname is bantuan.sarawak.news (or www).
+    Never on *.pages.dev, *.github.io, *.vercel.app, localhost, or other hosts.
+    ``?internal=1`` sets a ~1-year first-party cookie; ``?internal=0`` clears it.
+    While the cookie is set, gtag config sends ``traffic_type: 'internal'``.
+    """
+    hosts_js = ",".join(f'"{h}"' for h in GA_PRODUCTION_HOSTS)
+    mid = GA_MEASUREMENT_ID
+    cookie = GA_INTERNAL_COOKIE
+    max_age = GA_INTERNAL_COOKIE_MAX_AGE
+    # Single inline script: host gate, cookie toggle, then dynamic gtag load + config.
     return (
-        f'<script async src="https://www.googletagmanager.com/gtag/js?id={GA_MEASUREMENT_ID}"></script>'
-        "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
-        f"gtag('js',new Date());gtag('config','{GA_MEASUREMENT_ID}');</script>"
+        "<script>(function(){"
+        f"var H=[{hosts_js}],id={mid!r},c={cookie!r},m={max_age};"
+        "if(H.indexOf(location.hostname)<0)return;"
+        "var q=new URLSearchParams(location.search).get('internal');"
+        "if(q==='1')document.cookie=c+'=1;Max-Age='+m+';Path=/;SameSite=Lax';"
+        "else if(q==='0')document.cookie=c+'=;Max-Age=0;Path=/;SameSite=Lax';"
+        "var internal=document.cookie.split(';').some(function(p){"
+        "return p.trim().indexOf(c+'=1')===0;});"
+        "var s=document.createElement('script');s.async=1;"
+        "s.src='https://www.googletagmanager.com/gtag/js?id='+id;"
+        "document.head.appendChild(s);"
+        "window.dataLayer=window.dataLayer||[];"
+        "function gtag(){dataLayer.push(arguments);}window.gtag=gtag;"
+        "gtag('js',new Date());"
+        "var cfg={};if(internal)cfg.traffic_type='internal';"
+        "gtag('config',id,cfg);"
+        "})();</script>"
     )
 
 
@@ -156,13 +186,30 @@ def check_scheme_source(scheme: dict) -> None:
 
 
 def render_analytics_script(token: str | None = None) -> str:
+    """Emit Cloudflare Web Analytics bootstrap (prod host only; skip if internal).
+
+    Loads ``beacon.min.js`` only on bantuan.sarawak.news (or www), and only when
+    the ``ga_internal`` cookie set by ``?internal=1`` is absent. Maintainer/agent
+    visits that use ``?internal=1`` therefore skip the CF beacon as well as
+    marking GA4 with ``traffic_type: 'internal'``.
+    """
     token = (token if token is not None else web_analytics_token()).strip()
     if not token:
         return ""
+    hosts_js = ",".join(f'"{h}"' for h in GA_PRODUCTION_HOSTS)
+    cookie = GA_INTERNAL_COOKIE
     beacon = json.dumps({"token": token, "spa": True}, separators=(",", ":"))
     return (
-        '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
-        f"data-cf-beacon='{beacon}'></script>"
+        "<script>(function(){"
+        f"var H=[{hosts_js}],c={cookie!r};"
+        "if(H.indexOf(location.hostname)<0)return;"
+        "if(document.cookie.split(';').some(function(p){"
+        "return p.trim().indexOf(c+'=1')===0;}))return;"
+        "var s=document.createElement('script');s.defer=1;"
+        "s.src='https://static.cloudflareinsights.com/beacon.min.js';"
+        f"s.setAttribute('data-cf-beacon',{beacon!r});"
+        "document.body.appendChild(s);"
+        "})();</script>"
     )
 
 

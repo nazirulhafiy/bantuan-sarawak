@@ -161,11 +161,43 @@ class BuildTests(unittest.TestCase):
         self.assertIn("https://bantuan.sarawak.news/about.html", sitemap)
         self.assertNotIn("skas.html", sitemap)
 
+    def test_ga_script_production_gate_and_internal_cookie(self):
+        ga = build.render_ga_script()
+        self.assertIn(build.GA_MEASUREMENT_ID, ga)
+        self.assertIn("bantuan.sarawak.news", ga)
+        self.assertIn("www.bantuan.sarawak.news", ga)
+        self.assertIn(build.GA_INTERNAL_COOKIE, ga)
+        self.assertIn("traffic_type", ga)
+        self.assertIn("'internal'", ga)
+        self.assertIn("get('internal')", ga)
+        self.assertIn("q==='1'", ga)
+        self.assertIn("q==='0'", ga)
+        self.assertIn("Max-Age=", ga)
+        self.assertIn(str(build.GA_INTERNAL_COOKIE_MAX_AGE), ga)
+        # Host gate before loading gtag — no unconditional async loader tag.
+        self.assertNotIn('<script async src="https://www.googletagmanager.com/gtag/js', ga)
+        self.assertIn("googletagmanager.com/gtag/js?id=", ga)
+        self.assertIn("H.indexOf(location.hostname)<0", ga)
+        for page in (self.home, self.about):
+            self.assertIn(ga, page)
+            self.assertEqual(page.count("googletagmanager.com/gtag/js"), 1)
+
     def test_analytics_beacon_in_dist_when_token_configured(self):
         token = "bfba3801f65a489185b168a7446c7a62"
         self.assertEqual(build.CLOUDFLARE_WEB_ANALYTICS_TOKEN, token)
         self.assertEqual(build.web_analytics_token(), token)
         beacon = build.render_analytics_script(token)
+        self.assertIn("bantuan.sarawak.news", beacon)
+        self.assertIn(build.GA_INTERNAL_COOKIE, beacon)
+        self.assertIn("H.indexOf(location.hostname)<0", beacon)
+        self.assertIn("static.cloudflareinsights.com/beacon.min.js", beacon)
+        self.assertIn("data-cf-beacon", beacon)
+        self.assertIn(token, beacon)
+        # No unconditional script tag — host/cookie gate first.
+        self.assertNotIn(
+            '<script defer src="https://static.cloudflareinsights.com/beacon.min.js"',
+            beacon,
+        )
         for page in (self.home, self.about):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
@@ -184,6 +216,7 @@ class BuildTests(unittest.TestCase):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
             self.assertIn(beacon, page)
+            self.assertIn(build.GA_INTERNAL_COOKIE, page)
 
     def test_every_scheme_is_labelled_and_linked(self):
         self.assertTrue(all(scheme["links"] for scheme in self.schemes))
