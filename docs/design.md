@@ -96,13 +96,13 @@ When the buttons overflow, the row scrolls sideways with a 48px fade (`--categor
 
 **Google Analytics 4.** Measurement ID `G-PYSEQGMJLC`. `render_ga_script()` in `scripts/build.py` emits an inline bootstrap in `<head>` on every built page. That script loads `gtag.js` and runs `gtag('config', …)` **only** when `location.hostname` is `bantuan.sarawak.news` or `www.bantuan.sarawak.news`. It does not load on `*.pages.dev`, `*.github.io`, `*.vercel.app`, `localhost`, or any other host.
 
-**Internal traffic.** `?internal=1` sets a first-party cookie `ga_internal=1` (`Max-Age` ≈ 1 year, `Path=/`, `SameSite=Lax`). `?internal=0` clears it. While the cookie is set, config includes `traffic_type: 'internal'` so GA4 can exclude maintainer/agent hits. Agents and automation that open the live site must use `?internal=1` (see `AGENTS.md`, `tools/shots.config.json`).
+**Internal traffic.** `?internal=1` sets a first-party cookie `ga_internal=1` (`Max-Age` ≈ 1 year, `Path=/`, `SameSite=Lax`). `?internal=0` clears it. While the cookie is set, GA4 config includes `traffic_type: 'internal'`, and the Cloudflare Web Analytics beacon is **not** loaded. Agents and automation that open the live site must use `?internal=1` (see `AGENTS.md`, `tools/shots.config.json`).
 
-**Cloudflare Web Analytics.** Privacy-friendly, cookie-less traffic measurement. When a site token is configured, `render_analytics_script()` adds a deferred `beacon.min.js` script before `</body>` on the home and About pages.
+**Cloudflare Web Analytics.** Privacy-friendly, cookie-less traffic measurement. When a site token is configured, `render_analytics_script()` emits an inline bootstrap before `</body>` on the home and About pages. That script injects `beacon.min.js` **only** on `bantuan.sarawak.news` / `www.bantuan.sarawak.news`, and only when the `ga_internal` cookie is absent. The beacon is build-injected (not Cloudflare automatic injection).
 
-The Cloudflare token lives in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py` (set for `bantuan.sarawak.news`), or in the `CLOUDFLARE_WEB_ANALYTICS_TOKEN` environment variable at build time (env overrides the constant). An empty token omits the beacon entirely. Do not reuse tokens from ai.sarawak.news or other sites.
+The Cloudflare token lives in `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `scripts/build.py` (set for `bantuan.sarawak.news`), or in the `CLOUDFLARE_WEB_ANALYTICS_TOKEN` environment variable at build time (env overrides the constant). An empty token omits the bootstrap entirely. Do not reuse tokens from ai.sarawak.news or other sites.
 
-The beacon matches the sister site pattern: `https://static.cloudflareinsights.com/beacon.min.js` with `defer` and `data-cf-beacon` JSON `{"token":"…","spa":true}`. This repository does not ship a Content-Security-Policy meta tag; if one is added later, allow `www.googletagmanager.com` and `*.google-analytics.com` for GA4, and `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect) for Cloudflare when analytics is enabled.
+The injected beacon matches the sister site pattern: `https://static.cloudflareinsights.com/beacon.min.js` with `data-cf-beacon` JSON `{"token":"…","spa":true}`. This repository does not ship a Content-Security-Policy meta tag; if one is added later, allow `www.googletagmanager.com` and `*.google-analytics.com` for GA4, and `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect) for Cloudflare when analytics is enabled.
 
 ## Back to top
 

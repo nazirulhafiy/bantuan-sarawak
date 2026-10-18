@@ -187,6 +187,17 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(build.CLOUDFLARE_WEB_ANALYTICS_TOKEN, token)
         self.assertEqual(build.web_analytics_token(), token)
         beacon = build.render_analytics_script(token)
+        self.assertIn("bantuan.sarawak.news", beacon)
+        self.assertIn(build.GA_INTERNAL_COOKIE, beacon)
+        self.assertIn("H.indexOf(location.hostname)<0", beacon)
+        self.assertIn("static.cloudflareinsights.com/beacon.min.js", beacon)
+        self.assertIn("data-cf-beacon", beacon)
+        self.assertIn(token, beacon)
+        # No unconditional script tag — host/cookie gate first.
+        self.assertNotIn(
+            '<script defer src="https://static.cloudflareinsights.com/beacon.min.js"',
+            beacon,
+        )
         for page in (self.home, self.about):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
@@ -205,6 +216,7 @@ class BuildTests(unittest.TestCase):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
             self.assertIn(beacon, page)
+            self.assertIn(build.GA_INTERNAL_COOKIE, page)
 
     def test_every_scheme_is_labelled_and_linked(self):
         self.assertTrue(all(scheme["links"] for scheme in self.schemes))

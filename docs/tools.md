@@ -62,4 +62,4 @@ Writes `-before`, `-after`, and side-by-side `-compare` PNGs per theme/device; p
 node tools/shots.mjs --url 'https://bantuan.sarawak.news/?internal=1' --out shots
 ```
 
-`shots.config.json` already defaults to that URL (with `?internal=1` so GA4 marks the hit as internal). With config defaults (`phone`, `light`+`dark`, crop `.scheme-head`), this matches the project screenshot rule: 3× phone, cropped, both themes.
+`shots.config.json` already defaults to that URL (with `?internal=1` so GA4 marks the hit as internal and the CF beacon is skipped). With config defaults (`phone`, `light`+`dark`, crop `.scheme-head`), this matches the project screenshot rule: 3× phone, cropped, both themes.

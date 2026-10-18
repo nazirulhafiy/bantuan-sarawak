@@ -186,13 +186,30 @@ def check_scheme_source(scheme: dict) -> None:
 
 
 def render_analytics_script(token: str | None = None) -> str:
+    """Emit Cloudflare Web Analytics bootstrap (prod host only; skip if internal).
+
+    Loads ``beacon.min.js`` only on bantuan.sarawak.news (or www), and only when
+    the ``ga_internal`` cookie set by ``?internal=1`` is absent. Maintainer/agent
+    visits that use ``?internal=1`` therefore skip the CF beacon as well as
+    marking GA4 with ``traffic_type: 'internal'``.
+    """
     token = (token if token is not None else web_analytics_token()).strip()
     if not token:
         return ""
+    hosts_js = ",".join(f'"{h}"' for h in GA_PRODUCTION_HOSTS)
+    cookie = GA_INTERNAL_COOKIE
     beacon = json.dumps({"token": token, "spa": True}, separators=(",", ":"))
     return (
-        '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
-        f"data-cf-beacon='{beacon}'></script>"
+        "<script>(function(){"
+        f"var H=[{hosts_js}],c={cookie!r};"
+        "if(H.indexOf(location.hostname)<0)return;"
+        "if(document.cookie.split(';').some(function(p){"
+        "return p.trim().indexOf(c+'=1')===0;}))return;"
+        "var s=document.createElement('script');s.defer=1;"
+        "s.src='https://static.cloudflareinsights.com/beacon.min.js';"
+        f"s.setAttribute('data-cf-beacon',{beacon!r});"
+        "document.body.appendChild(s);"
+        "})();</script>"
     )
 
 
