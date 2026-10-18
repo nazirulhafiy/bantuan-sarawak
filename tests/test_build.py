@@ -81,6 +81,22 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(int.from_bytes(card[16:20], "big"), 1200)
         self.assertEqual(int.from_bytes(card[20:24], "big"), 630)
 
+    def test_nav_mark_icons_published(self):
+        icons = ROOT / "site" / "icons"
+        for mark_name in ("nav-mark-transparent.svg", "nav-mark-transparent-dark.svg"):
+            published = self.dist / "icons" / mark_name
+            source = icons / mark_name
+            self.assertTrue(published.is_file(), mark_name)
+            self.assertEqual(published.read_bytes(), source.read_bytes())
+        for page in (self.home, self.about):
+            self.assertIn('src="icons/nav-mark-transparent.svg"', page)
+            self.assertIn('src="icons/nav-mark-transparent-dark.svg"', page)
+            self.assertIn(f'<span class="brand-text">{self.site["name"]}</span>', page)
+        css = (self.dist / "style.css").read_text(encoding="utf-8")
+        self.assertIn("white-space: nowrap", css)
+        self.assertIn(".brand-mark", css)
+        self.assertIn('html[data-theme="dark"] .brand-mark-dark', css)
+
     def test_geist_font_is_self_hosted(self):
         source = ROOT / "site" / "fonts" / "Geist-Variable.woff2"
         license_source = ROOT / "site" / "fonts" / "OFL.txt"

@@ -498,7 +498,7 @@ def render_header(site: dict, active: str) -> str:
 
     return f"""  <header class="bar">
     <div class="bar-inner">
-      <span class="brand-lockup"><a class="brand" href="/">{esc(site['name'])}</a></span>
+      <span class="brand-lockup"><a class="brand" href="/"><img class="brand-mark brand-mark-light" src="icons/nav-mark-transparent.svg" alt="" width="220" height="220" decoding="async" aria-hidden="true" /><img class="brand-mark brand-mark-dark" src="icons/nav-mark-transparent-dark.svg" alt="" width="220" height="220" decoding="async" aria-hidden="true" /><span class="brand-text">{esc(site['name'])}</span></a></span>
       <nav class="site-nav" id="primary-navigation" aria-label="Primary">
         {link("home", "/", "Home")}
         {link("about", "about.html", "About")}
@@ -743,6 +743,16 @@ def copy_site_fonts() -> None:
     shutil.copy2(license_file, target / license_file.name)
 
 
+def copy_nav_marks() -> None:
+    icons_dist = DIST / "icons"
+    icons_dist.mkdir()
+    for mark_name in ("nav-mark-transparent.svg", "nav-mark-transparent-dark.svg"):
+        mark_src = SITE_DIR / "icons" / mark_name
+        if not mark_src.is_file():
+            raise SystemExit(f"missing nav mark {mark_src.relative_to(ROOT)}")
+        shutil.copy2(mark_src, icons_dist / mark_name)
+
+
 def build() -> None:
     site = load_json(DATA / "site.json")
     schemes = load_json(DATA / "schemes.json")
@@ -760,6 +770,7 @@ def build() -> None:
     (DIST / "app.js").write_text((SITE_DIR / "app.js").read_text(encoding="utf-8"), encoding="utf-8")
     shutil.copy2(SITE_DIR / "social-card.png", DIST / "social-card.png")
     copy_site_fonts()
+    copy_nav_marks()
     (DIST / "schemes.json").write_text(json.dumps(schemes, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     (DIST / "CNAME").write_text((ROOT / "CNAME").read_text(encoding="utf-8"), encoding="utf-8")
     (DIST / "robots.txt").write_text(
