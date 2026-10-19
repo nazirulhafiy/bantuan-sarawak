@@ -335,6 +335,29 @@ class BuildTests(unittest.TestCase):
         )
         self.assertEqual(self.home.count('<footer class="site-footer">'), 1)
         self.assertEqual(self.about.count('<footer class="site-footer">'), 1)
+        self.assertIn('<h2>Explore</h2>', self.home)
+        self.assertIn(
+            '<a class="site-footer-link" href="/" aria-current="page">Home</a>',
+            self.home,
+        )
+        self.assertIn(
+            '<a class="site-footer-link" href="about.html">About</a>',
+            self.home,
+        )
+        self.assertIn(
+            '<a class="site-footer-link" href="mailto:contact@sarawak.news">Contact</a>',
+            self.home,
+        )
+        self.assertIn('<nav aria-label="Explore" class="site-footer-nav">', self.about)
+        self.assertIn('<a class="site-footer-link" href="/">Home</a>', self.about)
+        self.assertIn(
+            '<a class="site-footer-link" href="about.html" aria-current="page">About</a>',
+            self.about,
+        )
+        self.assertIn(
+            '<a class="site-footer-link" href="mailto:contact@sarawak.news">Contact</a>',
+            self.about,
+        )
         self.assertIn(footer_bottom, self.home)
         self.assertIn(footer_bottom, self.about)
         self.assertIn("official", self.about.casefold())
