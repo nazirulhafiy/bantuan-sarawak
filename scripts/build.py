@@ -542,6 +542,7 @@ def render_footer(site: dict, active: str) -> str:
         <ul>
           <li><a class="site-footer-link" href="/"{home_current}>Home</a></li>
           <li><a class="site-footer-link" href="about.html"{about_current}>About</a></li>
+          <li><a class="site-footer-link" href="mailto:contact@sarawak.news">Contact</a></li>
         </ul>
         <h2 class="site-footer-categories-title">Categories</h2>
         <ul>
