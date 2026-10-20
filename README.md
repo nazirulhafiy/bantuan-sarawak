@@ -1,6 +1,6 @@
 # Bantuan Sarawak
 
-Independent directory of Sarawak government assistance, for [bantuan.sarawak.news](https://bantuan.sarawak.news/). The home subtitle is “Sarawak aid and schemes, in one place.”
+Independent directory of Sarawak government assistance, for [bantuan.sarawak.news](https://bantuan.sarawak.news/). Site title, tagline, description, and About lead live only in [`data/site.json`](data/site.json); the build fills every page surface from that file.
 
 This is not a news feed and not a government website. It lists state schemes. Each card has one link, to the official page its figure came from. The link name is usually the agency in charge; **Service Sarawak** when the only source is the Service Sarawak portal (`service.sarawak.gov.my`). The site does not take applications. The home page “Last updated” line is the only check date. If a ringgit amount was not on an official page, it is not shown. A time-sensitive card states the current phase, and a due date from that page is a red label.
 

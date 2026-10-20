@@ -5,10 +5,12 @@ Matches the live AI.Sarawak.News card: white ground, black site name,
 two-line black headline, one gray subtitle, full-width Sarawak flag bar.
 No left red bar, no short stripe under the name, no date, no URL.
 Requires Pillow and the Geist variable font.
+Wording comes from data/site.json (title, tagline, description).
 """
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 try:
@@ -18,11 +20,8 @@ except ImportError as error:
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "site" / "social-card.png"
+SITE_JSON = ROOT / "data" / "site.json"
 GEIST = "/usr/share/fonts/truetype/sand-box/google/Geist/Geist-VariableFont_wght.ttf"
-
-SITE_NAME = "Bantuan.Sarawak.News"
-HEADLINE = ("Sarawak government assistance,", "in one directory.")
-SUBTITLE = "Each scheme links to its source."
 
 WHITE = (255, 255, 255)
 INK = (0, 0, 0)
@@ -32,20 +31,46 @@ YELLOW = (243, 195, 38)
 BLACK = (0, 0, 0)
 
 
+def load_copy() -> dict[str, str]:
+    payload = json.loads(SITE_JSON.read_text(encoding="utf-8"))
+    title = payload.get("title")
+    tagline = payload.get("tagline")
+    description = payload.get("description")
+    if not all(isinstance(value, str) and value.strip() for value in (title, tagline, description)):
+        raise SystemExit("data/site.json needs title, tagline, and description")
+    return {
+        "title": title.strip(),
+        "tagline": tagline.strip(),
+        "description": description.strip(),
+    }
+
+
 def font(size: int, weight: int) -> ImageFont.FreeTypeFont:
     face = ImageFont.truetype(GEIST, size)
     face.set_variation_by_axes([weight])
     return face
 
 
+def split_tagline(tagline: str) -> tuple[str, str]:
+    """Split the live tagline on the comma for the two-line social card."""
+    if ", " in tagline:
+        left, right = tagline.split(", ", 1)
+        return f"{left},", right
+    mid = len(tagline) // 2
+    return tagline[:mid].rstrip(), tagline[mid:].lstrip()
+
+
 def main() -> None:
+    copy = load_copy()
+    line1, line2 = split_tagline(copy["tagline"])
+
     image = Image.new("RGB", (1200, 630), WHITE)
     draw = ImageDraw.Draw(image)
 
-    draw.text((56, 58), SITE_NAME, font=font(32, 800), fill=INK)
-    draw.text((56, 160), HEADLINE[0], font=font(64, 900), fill=INK)
-    draw.text((56, 244), HEADLINE[1], font=font(64, 900), fill=INK)
-    draw.text((56, 348), SUBTITLE, font=font(32, 400), fill=GRAY)
+    draw.text((56, 58), copy["title"], font=font(32, 800), fill=INK)
+    draw.text((56, 160), line1, font=font(64, 900), fill=INK)
+    draw.text((56, 244), line2, font=font(64, 900), fill=INK)
+    draw.text((56, 348), copy["description"], font=font(32, 400), fill=GRAY)
 
     x0, x1, y0, y1 = 56, 1142, 568, 576
     seg = (x1 - x0) // 3

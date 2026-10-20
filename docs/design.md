@@ -8,7 +8,7 @@ Type is Geist, then ui-sans-serif, system-ui, and the system sans-serif stack. G
 
 The top bar (`.bar`) sticks to the viewport. Its background is the page colour and runs edge to edge, so the list scrolls underneath it. The wordmark, Home and About, the theme control, and the menu sit in an inner rail (`.bar-inner`, at most 760px) lined up with the brief and the cards.
 
-The home link (`.brand`) starts with Design Bot’s origami line hornbill (hub `#snnav` / `#snnav2`), then the site name from `data/site.json`, with a small gap. Sources are `site/icons/nav-mark-transparent.svg` (light) and `site/icons/nav-mark-transparent-dark.svg` (dark; transparent, no `#111` square), copied byte-for-byte from `sarawak-news-hub`. The build copies both to `dist/icons/`. Images use `alt=""` and `aria-hidden`; the text labels the link. Mark height matches the wordmark line (`1.15em`). The brand stays on one line (`white-space: nowrap`) down to 375px. SVGs are used as supplied — no recolouring.
+The home link (`.brand`) starts with Design Bot’s origami line hornbill (hub `#snnav` / `#snnav2`), then the site `title` from `data/site.json`, with a small gap. Sources are `site/icons/nav-mark-transparent.svg` (light) and `site/icons/nav-mark-transparent-dark.svg` (dark; transparent, no `#111` square), copied byte-for-byte from `sarawak-news-hub`. The build copies both to `dist/icons/`. Images use `alt=""` and `aria-hidden`; the text labels the link. Mark height matches the wordmark line (`1.15em`). The brand stays on one line (`white-space: nowrap`) down to 375px. SVGs are used as supplied — no recolouring.
 
 On viewports wider than 560px the Sarawak rule stays on that rail. Red sits under the wordmark. Yellow and black split the rest of the rail equally. From 560px down the rule runs from the left edge of the screen to the right, including behind the theme control and the menu. The red segment shifts left by the bar’s side padding (`--page-gutter`: 20px, or 15px from 560px down). The yellow and black segment runs past those controls to the right edge. The bar background and the scrolled shadow stay full-bleed at every width.
 
@@ -16,11 +16,15 @@ After any scroll, `site/app.js` adds `.is-scrolled` on the bar. That draws a thi
 
 ## Home brief
 
-The home hero is the centred `.brief` block. The visible subtitle is `p.brief-deck`, built from `introduction` in `data/site.json`:
+Site wording is owned by `data/site.json` (`title`, `tagline`, `description`, `about_lead`). The build fills every surface from that file; do not hand-type those strings in `scripts/`, `tests/`, `docs/`, or `README.md`. `tests/test_site_copy.py` fails if they appear elsewhere in source.
 
-- Sarawak aid and schemes, in one place.
+- `title` → header and footer brand, `og:site_name`
+- `tagline` → home `<h1>`
+- `description` → `p.brief-deck` and home meta / og / twitter descriptions
+- `about_lead` → About lede (`.about-lede`)
+- Home `<title>` / `og:title` / `twitter:title` use `og_title`; About page titles use `about_seo_title` and `about_description`
 
-The headline above it is the `title` field in the same file (`h1` in the brief). The “Last updated” line follows the deck.
+The home hero is the centred `.brief` block. The “Last updated” line follows the deck.
 
 ## Motion
 
@@ -81,7 +85,7 @@ When the buttons overflow, the row scrolls sideways with a 48px fade (`--categor
 ## Type scale
 
 - Page title: `clamp(36px, 6vw, 48px)`, weight 700.
-- Home subtitle (`p.brief-deck`): 18px (17px below 560px). Live copy: “Sarawak aid and schemes, in one place.”
+- Home subtitle (`p.brief-deck`): 18px (17px below 560px). Live copy comes from `description` in `data/site.json`.
 - Body: 16px.
 - Category heading: 24px (20px below 560px).
 - Scheme rank and title: 16px.
