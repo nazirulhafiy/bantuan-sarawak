@@ -69,6 +69,7 @@ class Validation(unittest.TestCase):
         self.assertTrue(any("not in data/allowed-sources.json" in e for e in errs))
 
     def test_rejects_near_miss_short_label(self):
+        # Historical mistake shape: short form instead of the full agency name.
         item = copy.deepcopy(self.good)
         item["links"][0]["label"] = "HDC"
         errs = L.validate_scheme_source(item, self.allowed)
