@@ -21,4 +21,4 @@ Special cases:
 
 Shared URLs (several cards, one snapshot): `myys`, `biasiswa`, `bantuan-pelajar`, `ba-bbb`.
 
-Weekly change detection (no commits) is `scripts/check_source_changes.py`, run by `.github/workflows/source-refetch.yml`. It opens or updates one issue titled `source changed` when hashes or transcript asset bytes differ.
+Change detection (no commits) is `scripts/check_source_changes.py`, run by `.github/workflows/source-refetch.yml` on `workflow_dispatch` only (Maintainer Monday section 1 via the Sarawak News Cursor Project — no repo schedule). It opens or updates one issue titled `source changed` when hashes or transcript asset bytes differ.

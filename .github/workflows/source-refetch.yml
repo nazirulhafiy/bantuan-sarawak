@@ -1,12 +1,12 @@
 name: source-refetch
 
-# Weekly re-fetch of official scheme source pages.
-# Compares cleaned-text hashes (and transcript asset / Canva bytes) to
-# committed sources/. On change, opens or updates ONE issue titled exactly
-# "source changed". Never commits. Never fails a pull request.
+# Re-fetch of official scheme source pages (workflow_dispatch only).
+# No schedule lives in this repo. Maintainer Monday section 1 (Sarawak News
+# Cursor Project) triggers workflow_dispatch. Section 2 (electricity headed
+# check) is separate. Compares cleaned-text hashes (and transcript asset /
+# Canva bytes) to committed sources/. On change, opens or updates ONE issue
+# titled exactly "source changed". Never commits. Never fails a pull request.
 on:
-  schedule:
-    - cron: "0 1 * * 1" # Monday 01:00 UTC
   workflow_dispatch:
 
 permissions:

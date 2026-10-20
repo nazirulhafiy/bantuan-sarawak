@@ -12,13 +12,13 @@ Independent directory of Sarawak government assistance, for [bantuan.sarawak.new
 
 This is not a news feed and not a government website. It lists state schemes. Each card has one link, to the official page its figure came from. The link name is usually the agency in charge; **Service Sarawak** when the only source is the Service Sarawak portal (`service.sarawak.gov.my`). The site does not take applications. The home page “Last updated” line is the only check date. If a ringgit amount was not on an official page, it is not shown. A time-sensitive card states the current phase, and a due date from that page is a red label.
 
-A weekly GitHub Actions job re-fetches official source pages and opens or updates a single issue titled `source changed` when a snapshot hash changes. Separately, re-check the official pages once a week for new schemes and for cards that need updating or retiring.
+Each Monday, Maintainer Bot (Sarawak News Cursor Project) runs a modular pass — no schedule lives in the repo. Section 1 triggers source-refetch via `workflow_dispatch` (opens or updates the `source changed` issue when hashes change). Section 2 is the electricity headed check (separate PR). Further sections may be added later. Separately, re-check the official pages once a week for new schemes and for cards that need updating or retiring.
 
 ## Documentation
 
 - `docs/product.md` — what the directory is, who it is for, what a scheme card must contain, and how freshness works.
 - `docs/design.md` — the live visual system.
-- `docs/automation.md` — weekly source re-fetch job and the weekly content pass.
+- `docs/automation.md` — Maintainer Monday sections, source re-fetch, and the weekly content pass.
 - `docs/tools.md` — `tools/shots.mjs` for consistent UI screenshots (phone 3×, light/dark).
 
 ## Build

@@ -19,11 +19,23 @@ Concurrency is split so PR runs do not stomp on each other or on production:
 - **Pull requests:** concurrency group `build-pr-<number>` with `cancel-in-progress` enabled, so a new push on the same PR cancels only that PR’s older run.
 - **`main`:** concurrency group `pages` with **no** cancel-in-progress, so a `main` deploy is never cancelled mid-way when another PR or push starts a build.
 
-# Weekly source re-fetch
+# Maintainer Monday (Sarawak News Cursor Project)
 
-The **source-refetch** GitHub Actions workflow runs once a week (and on `workflow_dispatch`). It re-fetches the official pages behind `sources/`, compares cleaned-text hashes (and transcript asset / Canva bytes for SRAS and FTES), and when something changed it opens or updates **one** GitHub issue titled exactly `source changed`, with the diff. That issue is the job’s only output: it never commits, never fails a pull request, and never posts anywhere else.
+**Maintainer Bot** runs a modular Monday pass via the Sarawak News Cursor Project. **No schedule lives in the repo.** There is no Cursor timer. Each numbered section returns its own one-line result. Further checks may be added as later sections.
+
+## 1. Source re-fetch
+
+Triggers `.github/workflows/source-refetch.yml` with **`workflow_dispatch` only**. The workflow re-fetches the official pages behind `sources/`, compares cleaned-text hashes (and transcript asset / Canva bytes for SRAS and FTES), and when something changed it opens or updates **one** GitHub issue titled exactly `source changed`, with the diff. That issue is this section’s only output: it never commits, never fails a pull request, and never posts anywhere else.
 
 Scripts: `scripts/check_source_changes.py` (compare + report), `scripts/snapshot_sources.py` (refresh snapshots locally when you choose to update `sources/`).
+
+## 2. Electricity headed check
+
+Separate from this workflow (lands in its own PR). Confirms the Sarawak Energy announcement is still readable with a headed client when automated fetches get HTTP 403. Returns its own one-line result.
+
+## Further sections
+
+Optional later sections (for example a bantuan live-site check of home, `/about.html`, and the Cloudflare beacon) may be added the same way — each its own one-line result. Not implemented here.
 
 # Weekly pass
 
