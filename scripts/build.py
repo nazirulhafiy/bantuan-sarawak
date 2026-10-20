@@ -31,6 +31,7 @@ from kit.python.shell import (  # noqa: E402
     render_footer as kit_render_footer,
     render_header as kit_render_header,
 )
+import schemes_lib  # noqa: E402
 
 DATA = ROOT / "data"
 DIST = ROOT / "dist"
@@ -195,11 +196,21 @@ def render_text_with_due(text: str, phrases: list[str]) -> str:
     return "".join(parts)
 
 
-def check_scheme_source(scheme: dict) -> None:
+def check_scheme_source(
+    scheme: dict, allowed_sources: set[str] | None = None
+) -> None:
     scheme_id = scheme["id"]
     links = scheme.get("links")
     if not isinstance(links, list) or len(links) != 1:
         raise SystemExit(f"{scheme_id} needs exactly one source link")
+    allowed = (
+        allowed_sources
+        if allowed_sources is not None
+        else schemes_lib.load_allowed_sources()
+    )
+    label_errs = schemes_lib.validate_scheme_source(scheme, allowed)
+    if label_errs:
+        raise SystemExit(label_errs[0])
     check_official_url(links[0]["url"], scheme_id)
     phrases = due_phrases(scheme)
     blocks = copy_blocks(scheme)
@@ -221,6 +232,7 @@ def validate(site: dict, schemes: list[dict]) -> None:
     group_ids = [group["id"] for group in site["groups"]]
     if len(group_ids) != len(set(group_ids)):
         raise SystemExit("Duplicate group id in data/site.json")
+    allowed_sources = schemes_lib.load_allowed_sources()
     seen = set()
     for scheme in schemes:
         scheme_id = scheme["id"]
@@ -244,7 +256,7 @@ def validate(site: dict, schemes: list[dict]) -> None:
             raise SystemExit(f"{scheme_id} needs at least one amount")
         if not scheme.get("paragraphs"):
             raise SystemExit(f"{scheme_id} needs paragraphs")
-        check_scheme_source(scheme)
+        check_scheme_source(scheme, allowed_sources)
     for group in site["groups"]:
         if group["id"] not in GROUP_ICONS:
             raise SystemExit(f"No heading icon for group {group['id']}")
