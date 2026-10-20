@@ -42,13 +42,13 @@ On the page, a card shows, in order:
 
 ## Freshness
 
-Phases end, due dates move, and amounts go stale. The operating rule is a weekly re-check of the official page already linked on each listed scheme, then an update to that card. Do not invent a figure, a date, or an eligibility line.
+Phases end, due dates move, and amounts go stale. The Wednesday card-audit (scheduled weekly re-check of every scheme card) is **retired** — no Wednesday schedule or timer. Update a card when the `source changed` issue fires, or when someone is adding, changing, or retiring a scheme. Do not invent a figure, a date, or an eligibility line.
 
 A time-sensitive card states the current phase in the copy and puts each due date in `due`. The date has to be on that one official page. If the scheme is wholly past due, remove it. If an earlier phase has passed and a later phase is current, keep the card and describe the current phase.
 
 The public “Last updated” line is `checked` in `data/site.json`. The figures now on the site were checked on 6 October 2026. Date-sensitive lines include the SKAS payment on 10 November 2026 and the acknowledgement before mid-December 2026, the electricity discount through December 2026 and bill corrections by 28 February 2027, and the Yayasan application windows that close on 30 October 2026 for BKK, Free Laptop, and Book Voucher. IGPS, BIK, BIB, and EFS state a relative window, not a calendar due date.
 
-How to do the pass, including which pages to open, is `docs/automation.md`.
+How to edit cards, including which pages to open, is `docs/automation.md`.
 
 ## Publishing
 

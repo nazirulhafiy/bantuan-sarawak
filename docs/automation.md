@@ -21,7 +21,7 @@ Concurrency is split so PR runs do not stomp on each other or on production:
 
 # Maintainer Monday (Sarawak News Cursor Project)
 
-**Maintainer Bot** runs a modular Monday pass via the Sarawak News Cursor Project. **No schedule lives in the repo.** There is no Cursor timer. Each numbered section returns its own one-line result. Further checks may be added as later sections.
+**Maintainer Bot** runs a modular Monday pass via the Sarawak News Cursor Project. **No schedule lives in the repo.** There is no Cursor timer. Only the two sections below. Each returns its own one-line result. Maintainer runs the live-site check itself (not a numbered Monday section here).
 
 ## 1. Source re-fetch
 
@@ -33,18 +33,18 @@ Scripts: `scripts/check_source_changes.py` (compare + report), `scripts/snapshot
 
 Separate from this workflow (lands in its own PR). Confirms the Sarawak Energy announcement is still readable with a headed client when automated fetches get HTTP 403. Returns its own one-line result.
 
-## Further sections
+# Wednesday card-audit — RETIRED
 
-Optional later sections (for example a bantuan live-site check of home, `/about.html`, and the Cloudflare beacon) may be added the same way — each its own one-line result. Not implemented here.
+The Wednesday bantuan card-audit (the old weekly content pass that re-checked every scheme card on a schedule or timer) is **retired**. There is no Wednesday schedule, no Cursor timer, and no active card-audit automation for this. Do not reinstate one without Nazirul saying so.
 
-# Weekly pass
+Card edits still happen when needed — typically when the `source changed` issue fires, or when someone is adding, changing, or retiring a scheme. The steps below are that on-demand howto, not a weekly job.
 
-Once a week, do both of these:
+When editing:
 
 a) **New schemes.** Add a state scheme only when it has its own official page. The steps are under “Add a scheme”.
 b) **Current schemes.** Open the official page already linked on each scheme in `data/schemes.json` and update that card so it matches the page. If the scheme is wholly past due, remove it. If an earlier phase has passed and a later phase is current, keep the card and describe the current phase. The steps are under “Change a listed scheme” and “Retire a scheme”.
 
-If the page and the card already match, leave the card. Do not invent a figure, a date, or an eligibility line. If the page does not state it, it does not go on the card. When the `source changed` issue fires, use it as the cue to re-check those cards.
+If the page and the card already match, leave the card. Do not invent a figure, a date, or an eligibility line. If the page does not state it, it does not go on the card.
 
 ## Pages to re-check
 
