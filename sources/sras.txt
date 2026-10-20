@@ -1,0 +1,394 @@
+SRAS (Sarawak Rental Assistance Scheme) / Skim Bantuan Sewa Sarawak
+Source page: https://hdc.sarawak.gov.my/web/subpage/webpage_view/139
+Embedded Canva: https://www.canva.com/design/DAGcCS78TpA/pLyXdL9SE2VdQa4gWvJTPw/view?embed
+Method: transcript of Canva embed pages 1–12 (DOM/accessibility text from headless browser).
+
+=== Canva page 1 ===
+Sarawak Rental Assistance Scheme
+
+Skim Bantuan Sewa Sarawak
+
+SRAS
+
+Perbadanan Pembangunan Perumahan
+
+=== Canva page 2 ===
+SKIM BANTUAN SEWA KEDIAMAN SARAWAK (SRAS)
+
+Bantuan sewa RM 200 sebulan selama 48
+bulan (4 Tahun Maksimum)
+
+Dibuka kepada penyewa yang menyewa di daerah Kuching, Samarahan, Siburan, Serian, Sri Aman, Betong, Sibu, Mukah, Bintulu dan Miri
+
+Perbadanan Pembangunan Perumahan
+
+=== Canva page 3 ===
+Penyewa Awam
+
+Penjawat Awam Kerajaan Persekutuan / Kerajaan Sarawak yang mendiami kuaters Kerajaan atau Majikan
+
+Penyewa Program Perumahan Rakyat (PPR) HDC
+
+Pelajar Institusi Pengajian Tinggi Awam & Swasta (IPTA/IPTS)
+
+KATEGORI
+
+PERMOHONAN
+
+=== Canva page 4 ===
+KRITERIA PENYEWA AWAM
+
+Warganegara Malaysia dan PERMASTAUTIN TETAP di Sarawak dan memiliki MyKad dengan status ‘K’.
+
+Bapa / Ibu tunggal, berusia 18 tahun ke atas berpendapatan TIDAK MELEBIHI RM 5,504 sebulan.
+
+Berkahwin, berusia 18 tahun
+keatas dengan pendapatan isi
+rumah TIDAK MELEBIHI RM5,504
+
+Keutamaan diberi kepada golongan yang berusia 60 tahun ke atas dan golongan Orang Kurang Upaya (OKU).
+
+Sedang menyewa bilik / rumah
+yang BUKAN DIMILIKI oleh ahli
+keluarga terdekat
+
+Bujang berusia 18 tahun ke atas
+berpendapatan TIDAK MELEBIHI
+RM 5,504 sebulan
+
+=== Canva page 5 ===
+Salinan Kad Pengenalan pemohon dan pasangan serta Kad Pengenalan / Sijil Lahir tanggungan
+
+Salinan Surat kahwin / Surat cerai / Sijil Kematian
+
+Salinan penyata pendapatan pemohon dan pasangan atau surat pengesahan pendapatan bagi pemohon yang tidak mempunyai penyata pendapatan
+
+Salinan kad OKU bagi pemohon berstatus OKU
+
+Salinan Surat Perjanjian Sewaan diantara Land Lord / Pemilik Rumah dengan penyewa dan dimatikan setem hasil
+
+Jika tiada Surat Perjanjian Sewaan, penyewa boleh mengemukakan Lampiran B HDC.
+
+DOKUMEN SOKONGAN
+
+(PENYEWA AWAM)
+
+Gambar premis yang disewa
+
+Perbadanan Pembangunan Perumahan
+
+=== Canva page 6 ===
+2. KRITERIA
+PENYEWA
+PROGRAM
+PERUMAHAN
+RAKYAT (PPR)
+HDC
+
+Warganegara Malaysia dan pemaustatin tetap di Sarawak dan memiliki MyKad dengan status ‘K’
+
+Pendapatan sebulan isi
+rumah RM5,504
+sebulan dan ke bawah
+
+Berkahwin, Bapa / Ibu
+tunggal /Janda / Duda
+BERUSIA 18 TAHUN ke
+atas
+
+Keutamaan diberi kepada
+golongan yang BERUSIA
+60 TAHUN ke atas dan
+golongan Orang Kurang
+Upaya (OKU)
+
+Sedang MENYEWA RUMAH
+PPR HDC di daerah
+Kuching, Sibu dan Bintulu
+
+Penyewa TIDAK
+MEMPUNYAI TUNGGAKAN
+rumah dengan HDC
+UNTUK TEMPOH 3 BULAN
+
+Perbadanan Pembangunan Perumahan
+
+=== Canva page 7 ===
+Salinan Kad Pengenalan pemohon dan pasangan serta Kad Pengenalan / Sijil Lahir tanggungan
+
+Salinan Surat Kahwin / Surat Cerai / Sijil Kematian
+
+Salinan kad OKU bagi pemohon berstatus OKU
+
+Salinan penyata pendapatan pemohon dan pasangan atau surat pengesahan pendapatan bagi pemohon yang tidak mempunyai penyata pendapatan
+
+DOKUMEN
+
+SOKONGAN
+
+(PENYEWA
+PROGRAM PPR
+HDC)
+
+=== Canva page 8 ===
+3. KRITERIA PELAJAR INSTITUSI PENGAJIAN TINGGI AWAM & SWASTA (IPTA/IPTS)
+
+3. KRITERIA PELAJAR INSTITUSI PENGAJIAN TINGGI AWAM & SWASTA (IPTA/IPTS)
+
+MENYEWA RUMAH ATAU
+BILIK PERSENDIRIAN
+
+MENYEWA BILIK DARI
+ANCHOR TENANT
+
+MENYEWA DORMITORI ATAU
+ASRAMA YANG DISEDIAKAN
+OLEH INSTITUSI PENGAJIAN
+TINGGI
+
+PELAJAR YANG MENDUDUKI
+HOSTEL DISEDIAKAN INSTITUSI
+PENGAJIAN TINGGI DI DALAM
+KAMPUS
+
+Warganegara Malaysia dan pemaustatin tetap di Sarawak dan memiliki MyKad dengan status ‘K’
+
+Pendapatan ketua isi rumah (ibubapa) atau penjaga RM5,504 sebulan
+
+Bagi pelajar yang berkahwin, pendapatan isi rumah RM5,504 sebulan
+
+Berasal dari luar daerah tempat pengajian
+
+Warganegara Malaysia dan pemaustatin tetap di Sarawak dan memiliki MyKad dengan status ‘K’
+
+Pendapatan ketua isi rumah (ibubapa) atau penjaga RM5,504 sebulan
+
+Berasal dari luar daerah tempat pengajian
+
+Sedang menyewa bilik / rumah yang bukan dimiliki oleh ahli keluarga terdekat
+
+Warganegara Malaysia dan pemaustatin tetap di Sarawak dan memiliki MyKad dengan status ‘K’
+
+Pendapatan ketua isi rumah (ibubapa) atau penjaga RM5,504 sebulan
+
+Berasal dari luar daerah tempat pengajian
+
+Sedang menyewa bilik / rumah yang bukan dimiliki oleh ahli keluarga terdekat
+
+Warganegara Malaysia dan pemaustatin tetap di Sarawak dan memiliki MyKad dengan status ‘K’
+
+Pendapatan ketua isi rumah (ibubapa) atau penjaga RM5,504 sebulan
+
+Berasal dari luar daerah tempat pengajian
+
+Menduduki hostel yang disediakan oleh institusi pengajian tinggi di dalam kampus
+
+Sedang menyewa bilik / rumah yang bukan dimiliki oleh ahli keluarga terdekat
+
+Menuntut di IPTA atau IPTS di daerah Kuching, Samarahan, Siburan, Serian, Sri
+Aman, Betong, Sibu, Mukah, Bintulu dan Miri
+
+Perlu memperbaharui permohonan setiap tahun
+
+Menuntut di IPTA atau IPTS di daerah Kuching, Samarahan, Siburan, Serian, Sri
+Aman, Betong, Sibu, Mukah, Bintulu dan Miri
+
+Perlu memperbaharui permohonan setiap tahun
+
+Menuntut di IPTA atau IPTS di daerah Kuching, Samarahan, Siburan, Serian, Sri
+Aman, Betong, Sibu, Mukah, Bintulu dan Miri
+
+Perlu memperbaharui permohonan setiap semester
+
+Menuntut di IPTA atau IPTS di daerah Kuching, Samarahan, Siburan, Serian, Sri
+Aman, Betong, Sibu, Mukah, Bintulu dan Miri
+
+Perlu memperbaharui permohonan setiap semester
+
+=== Canva page 9 ===
+MENYEWA RUMAH ATAU BILIK PERSENDIRIAN
+
+Salinan Kad Pengenalan Pelajar
+
+Salinan Kad Pelajar
+
+Salinan Kad Pengenalan Ibubapa atau penjaga
+
+Penyata gaji atau pengesahan pendapatan menunjukkan pendapatan kasar bulanan ibubapa atau penjaga atau isteri / suami
+
+Salinan surat tawaran dari IPTA atau IPTS
+
+Salinan Surat Perjanjian Sewaan yang ditandatangani diantara Land Lord / pemilik dengan penyewa dan dimatikan setem hasil
+
+Sekiranya tidak mempunyai Perjanjian Sewa pemohon perlu mengisi Lampiran B yang disediakan dan oleh HDC
+
+Gambar permis yang disewa
+
+DOKUMEN SOKONGAN (PELAJAR IPTA/IPTS)
+
+MENYEWA BILIK DARI ANCHOR TENANT
+
+Salinan Kad Pengenalan Pelajar
+
+Salinan Kad Pelajar
+
+Salinan Kad Pengenalan Ibubapa atau penjaga
+
+Penyata gaji atau pengesahan pendapatan menunjukkan pendapatan kasar bulanan ibubapa atau penjaga
+
+Lampiran B atau Surat Akuan Bersumpah (Statutory Declaration) diantara anchor tenant dan pelajar yang disediakan dan disetemkan oleh HDC
+
+Salinan penyata bank pelajar bagi tujuan bayaran balik tuntutan
+
+Gambar permis yang disewa
+
+MENYEWA DORMITORI ATAU ASRAMA YANG DISEDIAKAN OLEH INSTITUSI PENGAJIAN TINGGI
+
+Salinan Kad Pengenalan Pelajar
+
+Salinan Kad Pelajar
+
+Salinan Kad Pengenalan Ibubapa atau penjaga
+
+Penyata gaji atau pengesahan pendapatan menunjukkan pendapatan kasar bulanan ibubapa atau penjaga
+
+Salinan surat tawaran dari IPTA atau IPTS
+
+Surat penempatan kediaman dari Institusi Pengajian Tinggi
+
+Salinan akaun bank bagi tujuan bayaran balik (reimbursment)
+
+Salinan resit rasmi bayaran yang dikeluarkan institusi pengajian tinggi
+
+Surat Akuan Bersumpah (Statutory Declaration) yang disediakan dan disetemkan oleh HDC
+
+PELAJAR YANG MENDUDUKI HOSTEL DISEDIAKAN INSTITUSI PENGAJIAN TINGGI DI DALAM KAMPUS
+
+Salinan Kad Pengenalan Pelajar
+
+Salinan Kad Pelajar
+
+Salinan Kad Pengenalan Ibubapa atau penjaga
+
+Penyata gaji atau pengesahan pendapatan menunjukkan pendapatan kasar bulanan ibubapa atau penjaga
+
+Salinan surat tawaran dari IPTA atau IPTS
+
+Surat penempatan kediaman dari Institusi Pengajian Tinggi
+
+Salinan akaun bank bagi tujuan bayaran balik (reimbursment)
+
+Salinan resit rasmi bayaran yang dikeluarkan institusi pengajian tinggi
+
+Surat Akuan Bersumpah (Statutory Declaration) yang disediakan dan disetemkan oleh HDC
+
+=== Canva page 10 ===
+KRITERIA PENJAWAT AWAM KERAJAAN PERSEKUTUAN / KERAJAAN SARAWAK YANG MENDIAMI KUATERS KERAJAAN ATAU MAJIKAN
+
+Warganegara Malaysia dan
+pemaustatin tetap di Sarawak dan
+memiliki MyKad dengan status ‘K’
+
+Berkahwin, berusia 18 tahun ke atas
+dengan pendapatan isi rumah tidak
+melebih RM5,504
+
+Menduduki kuaters yang disediakan
+Kerajaan Persekutuan atau Kerajaan
+Sarawak atau majikan
+
+Bapa / Ibu tunggal, berusia 18 tahun
+ke atas berpendapatan tidak melebihi
+RM 5,504 sebulan
+
+Imbuhan Tetap Perumahan tidak
+dibayar atau dipotong seperti yang
+tertera dalam penyata pendapatan
+pemohon
+
+Hanya seorang pemohon layak untuk
+memohon bantuan bagi pasangan yang
+berkhidmat dengan mana-mana Kerajaan
+Persekutuan atau Kerajaan Sarawak
+
+Mengemas kini salinan
+penyata pendapatan setiap
+bulan kepada HDC
+
+=== Canva page 11 ===
+Salinan Kad Pengenalan pemohon dan pasangan serta Kad Pengenalan / Sijil Lahir tanggungan
+
+Salinan Surat Kahwin /
+Surat Cerai / Sijil
+Kematian
+
+Salinan penyata
+pendapatan pemohon dan
+pasangan atau penyata
+Kumpulan Wang Simpanan
+Pekerja (EPF)
+
+Salinan buku bank atau
+nombor akaun bank bagi
+tujuan bayaran tuntutan
+balik (reimbursement)
+
+Salinan Surat Tawaran
+menduduki kuaters
+kerajaan atau majikan
+
+Surat Akuan Bersumpah
+(Statutory Declaration)yang
+disediakan dan disetemkan
+oleh HDC
+
+DOKUMEN SOKONGAN (PENJAWAT AWAM KERAJAAN PERSEKUTUAN /
+KERAJAAN SARAWAK YANG MENDIAMI KUATERS KERAJAAN ATAU MAJIKAN)
+
+Gambar premis yang di
+duduki
+
+=== Canva page 12 ===
+HUBUNGI KAMI !
+
+MAKLUMAT LANJUT
+
++60-82-444-381
+
+hdc.sarawak.gov.my
+
+infotech.hdc@sarawak.gov.my
+
+Wisma Sultan Tengah,
+
+Jalan Sukma Petrajaya,
+
+Taman Sukma, 93050 Kuching, Sarawak
+
+Ibu Pejabat Kuching
+
+Pejabat Wilayah
+Kawasan Tengah, Sibu
+
+Pejabat Wilayah
+Kawasan Utara, Miri
+
++60-84-315-543
+
+hdc.sarawak.gov.my
+
+infotech.hdc@sarawak.gov.my
+
+Parcel B9, Unit 14-16,
+
+HDC Garden Terrace Sibu Jaya CDT 84, 96000, Sibu, Sarawak
+
++60-85-656-134
+
+hdc.sarawak.gov.my
+
+infotech.hdc@sarawak.gov.my
+
+Lot 6747 & 6748, Shophouse, Phase 8, Peti Surat 684, 98107, Bandar Baru Permyjaya, Sarawak
+
+Gaps: none for pages 1–12 (full deck captured).
