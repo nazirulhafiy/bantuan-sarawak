@@ -42,6 +42,7 @@ Checks:
 ```bash
 python3 kit/sync.py --check --hub-path "$SN_HUB_PATH"
 python3 kit/generate_docs.py --check
+python3 scripts/validate.py
 python3 -m unittest discover -s tests -v
 python3 scripts/build.py
 python3 scripts/check_analytics_dist.py
@@ -59,6 +60,8 @@ python3 scripts/check_analytics_dist.py
 
 - `data/site.json` — titles, the check date, audience groups, about copy
 - `data/schemes.json` — state schemes, amounts, official URLs
+- `data/allowed-sources.json` — closed set of allowed source labels (`links[].label`)
+- `scripts/validate.py` — fails when a scheme source label is missing or not allowlisted
 - `scripts/build.py` — turns that JSON into `dist/`. It also refuses unofficial URLs and a short list of rejected phrases
 - `tests/test_build.py` — checks the built pages, including claims that must stay unpublished
 - `docs/federal-assistance-backlog.md` — federal schemes taken out of the directory, with the fields needed to add them back

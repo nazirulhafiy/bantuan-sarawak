@@ -8,7 +8,11 @@ If the PR changes any watched file and changes nothing under `docs/`, the check 
 
 ## build (test + GitHub Pages)
 
-The **build** workflow runs tests and uploads a Pages artifact on every push and pull request; it deploys to GitHub Pages only on pushes to `main`.
+The **build** workflow checks the kit pin, checks generated docs, validates
+published scheme source labels (`scripts/validate.py` against
+`data/allowed-sources.json`), runs tests, builds `dist/`, checks analytics
+dist, and uploads a Pages artifact on every push and pull request; it deploys
+to GitHub Pages only on pushes to `main`.
 
 Concurrency is split so PR runs do not stomp on each other or on production:
 
@@ -102,7 +106,7 @@ Every `links` URL must be `https`, and the host must be in `OFFICIAL_HOSTS` in `
 
 Each card has exactly one `links` entry. Keep the official programme page for the agency in charge. Drop an apply portal, a duplicate “how to apply” page, or a second Yayasan page. Do not leave a card with no link.
 
-The label is the full agency name from that page. **Exception:** a card whose only URL is on `service.sarawak.gov.my` is labelled **Service Sarawak**, not the ministry or department shown on the portal. Other hosts keep the full name: Housing Development Corporation, Jabatan Kebajikan Masyarakat Sarawak, Ministry of Education, Innovation and Talent Development, Yayasan Sarawak on my-Yayasan and programme pages, and so on. Drop suffixes such as “JKMS — Geran Pelancaran”, “JWKS — KIRWaS”, “Sri Pertiwi guidelines”, and “Yayasan IPT page”. The tuition-waiver label stays the full ministry name, not “MEITD”. Link the scheme’s own page, not the agency homepage, when the scheme has one. SRAS keeps the Housing Development Corporation page only.
+The label is the full agency name from that page, and it must match an entry in `data/allowed-sources.json` exactly. `scripts/validate.py` (and CI) fail the build otherwise. Add a name to that allowlist before publishing a card from a new agency. **Exception:** a card whose only URL is on `service.sarawak.gov.my` is labelled **Service Sarawak**, not the ministry or department shown on the portal. Other hosts keep the full name: Housing Development Corporation, Jabatan Kebajikan Masyarakat Sarawak, Ministry of Education, Innovation and Talent Development, Yayasan Sarawak on my-Yayasan and programme pages, and so on. Drop short forms and suffixes such as “HDC”, “JKMS”, “MEITD”, “JKMS — Geran Pelancaran”, “JWKS — KIRWaS”, “Sri Pertiwi guidelines”, and “Yayasan IPT page”. Link the scheme’s own page, not the agency homepage, when the scheme has one. SRAS keeps the Housing Development Corporation page only.
 
 The build allowlist is not the whole rule. The tests also reject these fragments on the public pages, even when the host is listed: `news_view`, `announcement_view`, `faq_view`, `isarawakcare.sarawak.gov.my`, `Bantuan-IPT-ENG.pdf`, `article_view/0/380`, `webpage_view/117`, `sla_view/319/757`, `meitd.sarawak.gov.my/web/subpage/news_view`, `sarawakenergy.com/media-info/media-releases`, and a bare `https://hdc.sarawak.gov.my/` link. SKAS stays on `sla_view/0/821/`. BKK, Free Laptop, and Book Voucher stay on my-Yayasan, not the Yayasan IPT page.
 
@@ -154,6 +158,7 @@ Also leave out:
 ## Check the change
 
 ```bash
+python3 scripts/validate.py
 python3 scripts/build.py
 python3 -m http.server 43123 --directory dist
 python3 -m unittest discover -s tests -v
