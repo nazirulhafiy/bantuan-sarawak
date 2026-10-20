@@ -1,4 +1,3 @@
-"""Shared validation for published scheme source labels (data/schemes.json)."""
 from __future__ import annotations
 
 import json
@@ -30,7 +29,6 @@ def load_allowed_sources(path: Path = ALLOWED_SOURCES) -> set[str]:
 
 
 def validate_scheme_source(scheme: dict, allowed_sources: set[str]) -> list[str]:
-    """Return errors for one scheme's source link label."""
     errs: list[str] = []
     if not isinstance(scheme, dict):
         return ["scheme must be an object"]
@@ -64,7 +62,6 @@ def validate_collection(
     schemes: list,
     allowed_sources: set[str] | None = None,
 ) -> list[str]:
-    """Validate every published scheme's source label."""
     if allowed_sources is None:
         allowed_sources = load_allowed_sources()
     if not isinstance(schemes, list):

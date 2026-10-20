@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Validate data/schemes.json: every scheme needs an allowed source label."""
 from __future__ import annotations
 
 import sys
