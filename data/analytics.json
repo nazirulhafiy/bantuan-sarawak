@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "internal_cookie": "sn_internal",
+  "spa": false,
+  "hosts": {
+    "bantuan.sarawak.news": {
+      "ga4_measurement_id": "G-PYSEQGMJLC",
+      "cf_beacon_token": "bfba3801f65a489185b168a7446c7a62",
+      "aliases": ["www.bantuan.sarawak.news"],
+      "legacy_internal_cookies": ["ga_internal"]
+    }
+  }
+}

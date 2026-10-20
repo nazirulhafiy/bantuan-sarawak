@@ -29,6 +29,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Build static site
         run: python scripts/build.py
+      - name: Check analytics dist against registry
+        run: python scripts/check_analytics_dist.py
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

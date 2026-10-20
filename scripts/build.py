@@ -11,62 +11,124 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
+try:
+    from scripts.analytics_registry import load_registry, production_hosts
+except ImportError:  # python scripts/build.py (scripts/ on sys.path)
+    from analytics_registry import load_registry, production_hosts
+
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 DIST = ROOT / "dist"
 SITE_DIR = ROOT / "site"
 ICON_DIR = ROOT / "assets" / "phosphor"
 
-# Cloudflare Web Analytics for bantuan.sarawak.news (site tag 97cc3bf5c9e4406b8c6ea160a1e81f6e).
-# Public beacon token. Do not reuse ai.sarawak.news or other sites.
-# GitHub Actions may set CLOUDFLARE_WEB_ANALYTICS_TOKEN instead; env wins.
-CLOUDFLARE_WEB_ANALYTICS_TOKEN = "bfba3801f65a489185b168a7446c7a62"
+# Primary production host key in data/analytics.json.
+ANALYTICS_PRIMARY_HOST = "bantuan.sarawak.news"
+
+# Cloudflare site tag 97cc3bf5c9e4406b8c6ea160a1e81f6e (token lives in the registry).
+# GitHub Actions may set CLOUDFLARE_WEB_ANALYTICS_TOKEN; env wins over the registry.
+# ~1 year; used by the inline loader for ?internal=1
+INTERNAL_COOKIE_MAX_AGE = 60 * 60 * 24 * 365
 
 
-GA_MEASUREMENT_ID = "G-PYSEQGMJLC"
-GA_PRODUCTION_HOSTS = ("bantuan.sarawak.news", "www.bantuan.sarawak.news")
-GA_INTERNAL_COOKIE = "ga_internal"
-# ~1 year; used by the inline bootstrap for ?internal=1
-GA_INTERNAL_COOKIE_MAX_AGE = 60 * 60 * 24 * 365
+def analytics_config() -> dict:
+    """Fleet analytics registry (validated). Cached per process after first load."""
+    cached = getattr(analytics_config, "_cached", None)
+    if cached is not None:
+        return cached
+    registry = load_registry()
+    analytics_config._cached = registry  # type: ignore[attr-defined]
+    return registry
 
 
-def render_ga_script() -> str:
-    """Emit GA4 bootstrap: production host only; optional internal traffic cookie.
+def analytics_site() -> dict:
+    registry = analytics_config()
+    try:
+        return registry["hosts"][ANALYTICS_PRIMARY_HOST]
+    except KeyError as exc:
+        raise SystemExit(f"analytics registry missing host {ANALYTICS_PRIMARY_HOST}") from exc
 
-    Loads gtag only when hostname is bantuan.sarawak.news (or www).
-    Never on *.pages.dev, *.github.io, *.vercel.app, localhost, or other hosts.
-    ``?internal=1`` sets a ~1-year first-party cookie; ``?internal=0`` clears it.
-    While the cookie is set, gtag config sends ``traffic_type: 'internal'``.
-    """
-    hosts_js = ",".join(f'"{h}"' for h in GA_PRODUCTION_HOSTS)
-    mid = GA_MEASUREMENT_ID
-    cookie = GA_INTERNAL_COOKIE
-    max_age = GA_INTERNAL_COOKIE_MAX_AGE
-    # Single inline script: host gate, cookie toggle, then dynamic gtag load + config.
-    return (
-        "<script>(function(){"
-        f"var H=[{hosts_js}],id={mid!r},c={cookie!r},m={max_age};"
-        "if(H.indexOf(location.hostname)<0)return;"
-        "var q=new URLSearchParams(location.search).get('internal');"
-        "if(q==='1')document.cookie=c+'=1;Max-Age='+m+';Path=/;SameSite=Lax';"
-        "else if(q==='0')document.cookie=c+'=;Max-Age=0;Path=/;SameSite=Lax';"
-        "var internal=document.cookie.split(';').some(function(p){"
-        "return p.trim().indexOf(c+'=1')===0;});"
-        "var s=document.createElement('script');s.async=1;"
-        "s.src='https://www.googletagmanager.com/gtag/js?id='+id;"
-        "document.head.appendChild(s);"
-        "window.dataLayer=window.dataLayer||[];"
-        "function gtag(){dataLayer.push(arguments);}window.gtag=gtag;"
-        "gtag('js',new Date());"
-        "var cfg={};if(internal)cfg.traffic_type='internal';"
-        "gtag('config',id,cfg);"
-        "})();</script>"
-    )
+
+# Back-compat names used by tests and docs; values come from the registry.
+def _refresh_analytics_constants() -> None:
+    registry = analytics_config()
+    site = analytics_site()
+    global GA_MEASUREMENT_ID, GA_PRODUCTION_HOSTS, GA_INTERNAL_COOKIE
+    global GA_INTERNAL_COOKIE_MAX_AGE, CLOUDFLARE_WEB_ANALYTICS_TOKEN
+    global LEGACY_INTERNAL_COOKIES, ANALYTICS_SPA
+    GA_MEASUREMENT_ID = site["ga4_measurement_id"]
+    GA_PRODUCTION_HOSTS = production_hosts(registry, ANALYTICS_PRIMARY_HOST)
+    GA_INTERNAL_COOKIE = registry["internal_cookie"]
+    GA_INTERNAL_COOKIE_MAX_AGE = INTERNAL_COOKIE_MAX_AGE
+    CLOUDFLARE_WEB_ANALYTICS_TOKEN = site["cf_beacon_token"]
+    LEGACY_INTERNAL_COOKIES = tuple(site.get("legacy_internal_cookies") or [])
+    ANALYTICS_SPA = bool(registry["spa"])
+
+
+_refresh_analytics_constants()
 
 
 def web_analytics_token() -> str:
     return (os.environ.get("CLOUDFLARE_WEB_ANALYTICS_TOKEN") or CLOUDFLARE_WEB_ANALYTICS_TOKEN).strip()
 
+
+def render_analytics_loader(token: str | None = None) -> str:
+    """Emit one production-only analytics loader (GA4 + Cloudflare Web Analytics).
+
+    Loads only on registry hosts. ``?internal=1`` sets the shared ``sn_internal``
+    cookie (~1 year); ``?internal=0`` clears it. While ``sn_internal`` **or** a
+    documented legacy cookie (``ga_internal`` on this site) is set, GA4 sends
+    ``traffic_type: 'internal'`` and the CF beacon is not loaded.
+    """
+    _refresh_analytics_constants()
+    hosts_js = ",".join(json.dumps(h) for h in GA_PRODUCTION_HOSTS)
+    mid = GA_MEASUREMENT_ID
+    cookie = GA_INTERNAL_COOKIE
+    legacy = list(LEGACY_INTERNAL_COOKIES)
+    max_age = GA_INTERNAL_COOKIE_MAX_AGE
+    spa = ANALYTICS_SPA
+    token = (token if token is not None else web_analytics_token()).strip()
+    # Marker attribute so scripts/check_analytics_dist.py can count loaders.
+    # Legacy cookie honour is intentional: devices already marked with ga_internal
+    # stay excluded until they clear cookies and re-opt with ?internal=1.
+    parts = [
+        '<script data-sn-analytics="registry">(function(){',
+        f"var H=[{hosts_js}],id={mid!r},c={cookie!r},L={json.dumps(legacy)},m={max_age};",
+        "if(H.indexOf(location.hostname)<0)return;",
+        "var q=new URLSearchParams(location.search).get('internal');",
+        "if(q==='1')document.cookie=c+'=1;Max-Age='+m+';Path=/;SameSite=Lax';",
+        "else if(q==='0')document.cookie=c+'=;Max-Age=0;Path=/;SameSite=Lax';",
+        "function hasCookie(n){return document.cookie.split(';').some(function(p){",
+        "return p.trim().indexOf(n+'=1')===0;});}",
+        "var internal=hasCookie(c)||L.some(hasCookie);",
+        "var s=document.createElement('script');s.async=1;",
+        "s.src='https://www.googletagmanager.com/gtag/js?id='+id;",
+        "document.head.appendChild(s);",
+        "window.dataLayer=window.dataLayer||[];",
+        "function gtag(){dataLayer.push(arguments);}window.gtag=gtag;",
+        "gtag('js',new Date());",
+        "var cfg={};if(internal)cfg.traffic_type='internal';",
+        "gtag('config',id,cfg);",
+    ]
+    if token:
+        beacon = json.dumps({"token": token, "spa": spa}, separators=(",", ":"))
+        parts.extend(
+            [
+                "if(!internal){",
+                "var b=document.createElement('script');b.defer=1;",
+                "b.src='https://static.cloudflareinsights.com/beacon.min.js';",
+                f"b.setAttribute('data-cf-beacon',{beacon!r});",
+                "document.head.appendChild(b);",
+                "}",
+            ]
+        )
+    parts.append("})();</script>")
+    return "".join(parts)
+
+
+def render_ga_script() -> str:
+    """Alias for the unified registry loader (GA4 + CF when token present)."""
+    return render_analytics_loader()
 OFFICIAL_HOSTS = {
     "ukas.sarawak.gov.my",
     "www.sarawak.gov.my",
@@ -183,34 +245,6 @@ def check_scheme_source(scheme: dict) -> None:
         for amount in scheme.get("amounts") or []:
             if phrase in amount:
                 raise SystemExit(f"{scheme_id} due phrase is also in an amount: {phrase}")
-
-
-def render_analytics_script(token: str | None = None) -> str:
-    """Emit Cloudflare Web Analytics bootstrap (prod host only; skip if internal).
-
-    Loads ``beacon.min.js`` only on bantuan.sarawak.news (or www), and only when
-    the ``ga_internal`` cookie set by ``?internal=1`` is absent. Maintainer/agent
-    visits that use ``?internal=1`` therefore skip the CF beacon as well as
-    marking GA4 with ``traffic_type: 'internal'``.
-    """
-    token = (token if token is not None else web_analytics_token()).strip()
-    if not token:
-        return ""
-    hosts_js = ",".join(f'"{h}"' for h in GA_PRODUCTION_HOSTS)
-    cookie = GA_INTERNAL_COOKIE
-    beacon = json.dumps({"token": token, "spa": True}, separators=(",", ":"))
-    return (
-        "<script>(function(){"
-        f"var H=[{hosts_js}],c={cookie!r};"
-        "if(H.indexOf(location.hostname)<0)return;"
-        "if(document.cookie.split(';').some(function(p){"
-        "return p.trim().indexOf(c+'=1')===0;}))return;"
-        "var s=document.createElement('script');s.defer=1;"
-        "s.src='https://static.cloudflareinsights.com/beacon.min.js';"
-        f"s.setAttribute('data-cf-beacon',{beacon!r});"
-        "document.body.appendChild(s);"
-        "})();</script>"
-    )
 
 
 def checked_label(iso_date: str) -> str:
@@ -597,7 +631,7 @@ def render_head(site: dict, title: str, description: str, canonical: str, og_tit
   <link rel="icon" href="{FAVICON}" />
   <link rel="stylesheet" href="style.css" />
   <script src="app.js" defer></script>
-  {render_ga_script()}
+  {render_analytics_loader()}
 </head>"""
 
 
@@ -660,7 +694,6 @@ def render_home(site: dict, schemes: list[dict]) -> str:
   </main>
   <button class="back-to-top" type="button" data-back-to-top aria-label="Back to top" hidden><span class="back-to-top-label">Back to top</span> <span class="back-to-top-arrow" aria-hidden="true">↑</span></button>
 {render_footer(site, "home")}
-  {render_analytics_script()}
 </body>"""
     return render_head(site, site["og_title"], site["description"], url, site["og_title"], structured) + "\n" + body + "\n</html>\n"
 
@@ -715,7 +748,6 @@ def render_about(site: dict) -> str:
     </section>
   </main>
 {render_footer(site, "about")}
-  {render_analytics_script()}
 </body>"""
     return (
         render_head(site, site["about_seo_title"], site["about_description"], url, site["about_seo_title"], structured)
