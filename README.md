@@ -32,7 +32,10 @@ Then open `http://127.0.0.1:43123/`.
 Checks:
 
 ```bash
+python3 kit/sync.py --check --hub-path "$SN_HUB_PATH"
 python3 -m unittest discover -s tests -v
+python3 scripts/build.py
+python3 scripts/check_analytics_dist.py
 ```
 
 ## Preview
@@ -64,7 +67,7 @@ python3 -m unittest discover -s tests -v
 These are not done in this repository:
 
 1. **Custom domain.** On the `sarawak.news` zone, point `bantuan.sarawak.news` at GitHub Pages and set that hostname as the Pages custom domain. The published `CNAME` file is the Pages side of that setup. This project does not change DNS or the Cloudflare zone.
-2. **Analytics.** Google Analytics 4 (`G-PYSEQGMJLC`) and [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) come from `data/analytics.json`. The build emits one `render_analytics_loader()` script in `<head>` (production hosts only). `?internal=1` sets the shared `sn_internal` cookie so gtag sends `traffic_type: 'internal'` and the CF beacon is skipped; the loader also honours legacy `ga_internal`. The Cloudflare token is in the registry; `CLOUDFLARE_WEB_ANALYTICS_TOKEN` may override it at build time (env wins). CI runs `scripts/check_analytics_dist.py`. Do not reuse tokens from ai.sarawak.news or other sites. See `docs/design.md` (Analytics).
+2. **Analytics.** Google Analytics 4 (`G-PYSEQGMJLC`) and [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) come from `data/analytics.json`. The build emits one kit `data-sn-analytics-loader` script in `<head>` (production hosts only). `?internal=1` sets the shared `sn_internal` cookie so gtag sends `traffic_type: 'internal'` and the CF beacon is skipped; the loader also honours legacy `ga_internal`. CI runs `scripts/check_analytics_dist.py`. Do not reuse tokens from ai.sarawak.news or other sites. See `docs/design.md` (Analytics). Header, Contact, back-to-top, nav marks, and the loader are vendored from hub `kit/` at `kit/PIN` (`python3 kit/sync.py --check --hub-path "$SN_HUB_PATH"`).
 3. **Favicon.** The current mark is a provisional 🫶 emoji.
 
 ## What the directory leaves out
