@@ -38,6 +38,19 @@ class ComparePaths(unittest.TestCase):
         self.assertIsNone(section)
         self.assertEqual(line, "electricity headed: no change")
 
+    def test_announcement_chrome_line_is_not_a_change(self) -> None:
+        """Live page inserts a lone ANNOUNCEMENT chrome line; must not upsert."""
+        lines = self.old_body.splitlines()
+        # Match live shape: title, ANNOUNCEMENT, title-without-suffix, body…
+        live = "\n".join([lines[0], "ANNOUNCEMENT", *lines[1:]]).strip() + "\n"
+        section, line = elec.compare_or_fail(live, None, url=self.url, date=self.date)
+        self.assertIsNone(section)
+        self.assertEqual(line, "electricity headed: no change")
+
+    def test_strip_page_chrome_drops_announcement(self) -> None:
+        raw = "TITLE\nANNOUNCEMENT\nbody line\n"
+        self.assertEqual(elec.strip_page_chrome(raw), "TITLE\nbody line\n")
+
     def test_changed_path_builds_section_with_diff(self) -> None:
         live = self.old_body.replace("Tariff D", "Tariff ZZZ", 1)
         section, line = elec.compare_or_fail(live, None, url=self.url, date=self.date)

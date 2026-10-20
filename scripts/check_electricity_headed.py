@@ -54,6 +54,26 @@ SNAPSHOT_JSON = snap.SOURCES_DIR / f"{SOURCE_ID}.json"
 
 ACCESS_DENIED_RE = re.compile(r"access\s*denied|forbidden|request blocked", re.I)
 
+# Exact-line site chrome that clean_html still keeps (Sarawak Energy shell).
+# Dropping these avoids false "source changed" hits every Monday.
+CHROME_LINES = frozenset(
+    {
+        "announcement",
+        "announcements & publications",
+        "media & info",
+        "home",
+        "current:",
+        "about us",
+        "contact us",
+        "customers",
+        "careers",
+        "investors",
+        "suppliers",
+        "ethics & integrity",
+        "ministries",
+    }
+)
+
 
 class LoadFailure(Exception):
     """Page did not yield usable announcement text."""
@@ -81,6 +101,23 @@ def strip_snapshot_preamble(text: str) -> str:
         if line.startswith("EXTENSION OF ELECTRICITY"):
             return "\n".join(lines[i:]).strip() + "\n"
     return text if text.endswith("\n") else text + "\n"
+
+
+def strip_page_chrome(text: str) -> str:
+    """Drop known Sarawak Energy chrome lines (e.g. lone ANNOUNCEMENT)."""
+    kept: list[str] = []
+    for line in text.splitlines():
+        key = line.strip().lower()
+        if not key:
+            continue
+        if key in CHROME_LINES:
+            continue
+        # Lone pipe / breadcrumb separators from the shell
+        if key in {"|", "/", ">"}:
+            continue
+        kept.append(line.rstrip())
+    out = "\n".join(kept).strip()
+    return out + "\n" if out else ""
 
 
 def short_diff(old: str, new: str, limit: int = 12) -> list[str]:
@@ -143,7 +180,7 @@ def fetch_live_text_headed(url: str, timeout_ms: int = 60000) -> str:
     if ACCESS_DENIED_RE.search(title) or ACCESS_DENIED_RE.search(body_text[:800]):
         raise LoadFailure("Access Denied")
 
-    cleaned = snap.clean_html(html)
+    cleaned = strip_page_chrome(snap.clean_html(html))
     if not cleaned.strip() or len(cleaned.strip()) < 80:
         raise LoadFailure("empty body")
     return cleaned
@@ -291,8 +328,8 @@ def compare_or_fail(
 
     assert live_text is not None
     committed = SNAPSHOT_TXT.read_text(encoding="utf-8")
-    old_body = strip_snapshot_preamble(committed)
-    live = live_text if live_text.endswith("\n") else live_text + "\n"
+    old_body = strip_page_chrome(strip_snapshot_preamble(committed))
+    live = strip_page_chrome(live_text)
 
     if normalize_text(old_body) == normalize_text(live):
         return None, "electricity headed: no change"
