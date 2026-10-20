@@ -19,16 +19,24 @@ Concurrency is split so PR runs do not stomp on each other or on production:
 - **Pull requests:** concurrency group `build-pr-<number>` with `cancel-in-progress` enabled, so a new push on the same PR cancels only that PR’s older run.
 - **`main`:** concurrency group `pages` with **no** cancel-in-progress, so a `main` deploy is never cancelled mid-way when another PR or push starts a build.
 
-# Maintainer Monday message (on demand)
+# Maintainer Monday (Sarawak News Cursor Project)
 
-The Sarawak News Cursor Project Maintainer Bot Monday message has **two** on-demand sections only (§1 and §2). Each has its own one-line result. There is **no** Cursor timer and **no** repo schedule for either section — they run when that Monday message asks for them. Live-site checks are run by the Maintainer itself, not as a Monday-message section.
+**Maintainer Bot** runs a modular Monday pass via the Sarawak News Cursor Project. **No schedule lives in the repo.** There is no Cursor timer. Only the two sections below. Each returns its own one-line result. Maintainer runs the live-site check itself (not a numbered Monday section here).
 
-1. **Source re-fetch** — `workflow_dispatch` on the source-refetch workflow (`scripts/check_source_changes.py`, when landed). One-line result from that job.
-2. **Electricity headed check** — `scripts/check_electricity_headed.py` (this section). Opens the Sarawak Energy announcement in **headed** Chromium (Playwright), cleans main text the same way as `scripts/snapshot_sources.py`, normalizes with `scripts/text_normalize.py` (same rules as validate / the fact-check stack), and compares to `sources/electricity.txt`.
-   - **Difference:** open or update the single GitHub issue titled exactly `source changed`, with an `electricity (headed weekly check)` section and a short diff.
-   - **Load failure** (HTTP 403, timeout, Access Denied, empty body): post a clear note in that **same** issue (status + date). Never silent.
-   - **Match and loaded fine:** do nothing (no issue touch).
-   - One-line results look like `electricity headed: no change`, `electricity headed: source text differs`, or `electricity headed: load failure (…)`.
+## 1. Source re-fetch
+
+Triggers `.github/workflows/source-refetch.yml` with **`workflow_dispatch` only**. The workflow re-fetches the official pages behind `sources/`, compares cleaned-text hashes (and transcript asset / Canva bytes for SRAS and FTES), and when something changed it opens or updates **one** GitHub issue titled exactly `source changed`, with the diff. That issue is this section’s only output: it never commits, never fails a pull request, and never posts anywhere else.
+
+Scripts: `scripts/check_source_changes.py` (compare + report), `scripts/snapshot_sources.py` (refresh snapshots locally when you choose to update `sources/`).
+
+## 2. Electricity headed check
+
+`scripts/check_electricity_headed.py` (this section). Opens the Sarawak Energy announcement in **headed** Chromium (Playwright), cleans main text the same way as `scripts/snapshot_sources.py`, normalizes with `scripts/text_normalize.py` (same rules as validate / the fact-check stack), and compares to `sources/electricity.txt`.
+
+- **Difference:** open or update the single GitHub issue titled exactly `source changed`, with an `electricity (headed weekly check)` section and a short diff.
+- **Load failure** (HTTP 403, timeout, Access Denied, empty body): post a clear note in that **same** issue (status + date). Never silent.
+- **Match and loaded fine:** do nothing (no issue touch).
+- One-line results look like `electricity headed: no change`, `electricity headed: source text differs`, or `electricity headed: load failure (…)`.
 
 ### How to run section 2 (headed dry-run)
 
@@ -48,11 +56,13 @@ xvfb-run -a python3 scripts/check_electricity_headed.py --dry-run --out /tmp/ele
 # drop --dry-run to upsert the "source changed" issue via gh
 ```
 
-# Weekly pass
+# Wednesday card-audit — RETIRED
 
-There is no bot and no schedule. Do not add either until Nazirul says the site is complete. A person does this pass. Maintainer Monday §1 and §2 above are on-demand Project prompts only — not a Cursor timer and not a repo schedule.
+The Wednesday bantuan card-audit (the old weekly content pass that re-checked every scheme card on a schedule or timer) is **retired**. There is no Wednesday schedule, no Cursor timer, and no active card-audit automation for this. Do not reinstate one without Nazirul saying so.
 
-Once a week, do both of these:
+Card edits still happen when needed — typically when the `source changed` issue fires, or when someone is adding, changing, or retiring a scheme. The steps below are that on-demand howto, not a weekly job.
+
+When editing:
 
 a) **New schemes.** Add a state scheme only when it has its own official page. The steps are under “Add a scheme”.
 b) **Current schemes.** Open the official page already linked on each scheme in `data/schemes.json` and update that card so it matches the page. If the scheme is wholly past due, remove it. If an earlier phase has passed and a later phase is current, keep the card and describe the current phase. The steps are under “Change a listed scheme” and “Retire a scheme”.
