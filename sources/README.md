@@ -20,3 +20,5 @@ Special cases:
 - `electricity` — Sarawak Energy returns HTTP 403 to automated clients (`method: manual`)
 
 Shared URLs (several cards, one snapshot): `myys`, `biasiswa`, `bantuan-pelajar`, `ba-bbb`.
+
+Weekly change detection (no commits) is `scripts/check_source_changes.py`, run by `.github/workflows/source-refetch.yml`. It opens or updates one issue titled `source changed` when hashes or transcript asset bytes differ.

@@ -50,6 +50,6 @@ The public “Last updated” line is `checked` in `data/site.json`. The figures
 
 How to do the pass, including which pages to open, is `docs/automation.md`.
 
-## Still in development
+## Publishing
 
-The site is not finished. Do not hand it to a maintainer bot until Nazirul says it is complete. There is no bot and no schedule. Publishing still means a reviewed change merged to `main`.
+Publishing still means a reviewed change merged to `main`. The weekly source re-fetch job only opens or updates the `source changed` issue; it does not publish card edits by itself.

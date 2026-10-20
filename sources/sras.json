@@ -4,5 +4,6 @@
   "sha256": "13b287ae968253613fa93771ce8fb7f06dad431d885976033bcf60531e62926b",
   "method": "transcript",
   "note": "Hand transcript of HDC Canva embed (DAGcCS78TpA), pages 1\u201312.",
-  "canva_embed": "https://www.canva.com/design/DAGcCS78TpA/pLyXdL9SE2VdQa4gWvJTPw/view?embed"
+  "canva_embed": "https://www.canva.com/design/DAGcCS78TpA/pLyXdL9SE2VdQa4gWvJTPw/view?embed",
+  "canva_sha256": "76d2bb6f405b33880cf56df00ee7903044715e410c3156b5fbc1cacd4513ebc8"
 }

@@ -19,16 +19,20 @@ Concurrency is split so PR runs do not stomp on each other or on production:
 - **Pull requests:** concurrency group `build-pr-<number>` with `cancel-in-progress` enabled, so a new push on the same PR cancels only that PR’s older run.
 - **`main`:** concurrency group `pages` with **no** cancel-in-progress, so a `main` deploy is never cancelled mid-way when another PR or push starts a build.
 
-# Weekly pass
+# Weekly source re-fetch
 
-There is no bot and no schedule. Do not add either until Nazirul says the site is complete. A person does this pass.
+The **source-refetch** GitHub Actions workflow runs once a week (and on `workflow_dispatch`). It re-fetches the official pages behind `sources/`, compares cleaned-text hashes (and transcript asset / Canva bytes for SRAS and FTES), and when something changed it opens or updates **one** GitHub issue titled exactly `source changed`, with the diff. That issue is the job’s only output: it never commits, never fails a pull request, and never posts anywhere else.
+
+Scripts: `scripts/check_source_changes.py` (compare + report), `scripts/snapshot_sources.py` (refresh snapshots locally when you choose to update `sources/`).
+
+# Weekly pass
 
 Once a week, do both of these:
 
 a) **New schemes.** Add a state scheme only when it has its own official page. The steps are under “Add a scheme”.
 b) **Current schemes.** Open the official page already linked on each scheme in `data/schemes.json` and update that card so it matches the page. If the scheme is wholly past due, remove it. If an earlier phase has passed and a later phase is current, keep the card and describe the current phase. The steps are under “Change a listed scheme” and “Retire a scheme”.
 
-If the page and the card already match, leave the card. Do not invent a figure, a date, or an eligibility line. If the page does not state it, it does not go on the card.
+If the page and the card already match, leave the card. Do not invent a figure, a date, or an eligibility line. If the page does not state it, it does not go on the card. When the `source changed` issue fires, use it as the cue to re-check those cards.
 
 ## Pages to re-check
 

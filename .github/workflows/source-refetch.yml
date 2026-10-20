@@ -1,0 +1,68 @@
+name: source-refetch
+
+# Weekly re-fetch of official scheme source pages.
+# Compares cleaned-text hashes (and transcript asset / Canva bytes) to
+# committed sources/. On change, opens or updates ONE issue titled exactly
+# "source changed". Never commits. Never fails a pull request.
+on:
+  schedule:
+    - cron: "0 1 * * 1" # Monday 01:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: source-refetch
+  cancel-in-progress: false
+
+jobs:
+  re-fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pdftotext
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
+      - name: Compare sources (never fail the job)
+        id: compare
+        continue-on-error: true
+        run: |
+          set +e
+          python3 scripts/check_source_changes.py --out "$RUNNER_TEMP/source-changed.md"
+          if grep -qE '→|succeeded' "$RUNNER_TEMP/source-changed.md" 2>/dev/null; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+          exit 0
+
+      - name: Open or update the "source changed" issue
+        if: steps.compare.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          BODY_FILE="$RUNNER_TEMP/source-changed.md"
+          TITLE='source changed'
+
+          EXISTING="$(gh issue list --state open --search "in:title \"$TITLE\"" --json number,title \
+            --jq ".[] | select(.title == \"$TITLE\") | .number" | head -n1)"
+
+          if [ -n "${EXISTING}" ]; then
+            gh issue edit "$EXISTING" --body-file "$BODY_FILE"
+            echo "Updated issue #$EXISTING"
+          else
+            gh issue create --title "$TITLE" --body-file "$BODY_FILE"
+            echo "Created issue: $TITLE"
+          fi
+
+      - name: No changes
+        if: steps.compare.outputs.changed != 'true'
+        run: echo "No source hash/byte changes; leaving issues untouched."
