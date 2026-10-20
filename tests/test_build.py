@@ -178,11 +178,15 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("skas.html", sitemap)
 
     def test_ga_script_production_gate_and_internal_cookie(self):
-        ga = build.render_ga_script()
+        ga = build.render_analytics_loader()
         self.assertIn(build.GA_MEASUREMENT_ID, ga)
+        self.assertEqual(build.GA_MEASUREMENT_ID, "G-PYSEQGMJLC")
         self.assertIn("bantuan.sarawak.news", ga)
         self.assertIn("www.bantuan.sarawak.news", ga)
+        self.assertEqual(build.GA_INTERNAL_COOKIE, "sn_internal")
         self.assertIn(build.GA_INTERNAL_COOKIE, ga)
+        self.assertIn("ga_internal", ga)  # legacy honour
+        self.assertIn('data-sn-analytics="registry"', ga)
         self.assertIn("traffic_type", ga)
         self.assertIn("'internal'", ga)
         self.assertIn("get('internal')", ga)
@@ -197,42 +201,49 @@ class BuildTests(unittest.TestCase):
         for page in (self.home, self.about):
             self.assertIn(ga, page)
             self.assertEqual(page.count("googletagmanager.com/gtag/js"), 1)
+            self.assertEqual(page.count('data-sn-analytics="registry"'), 1)
 
     def test_analytics_beacon_in_dist_when_token_configured(self):
         token = "bfba3801f65a489185b168a7446c7a62"
         self.assertEqual(build.CLOUDFLARE_WEB_ANALYTICS_TOKEN, token)
         self.assertEqual(build.web_analytics_token(), token)
-        beacon = build.render_analytics_script(token)
-        self.assertIn("bantuan.sarawak.news", beacon)
-        self.assertIn(build.GA_INTERNAL_COOKIE, beacon)
-        self.assertIn("H.indexOf(location.hostname)<0", beacon)
-        self.assertIn("static.cloudflareinsights.com/beacon.min.js", beacon)
-        self.assertIn("data-cf-beacon", beacon)
-        self.assertIn(token, beacon)
+        self.assertIs(build.ANALYTICS_SPA, False)
+        loader = build.render_analytics_loader(token)
+        self.assertIn("bantuan.sarawak.news", loader)
+        self.assertIn(build.GA_INTERNAL_COOKIE, loader)
+        self.assertIn("ga_internal", loader)
+        self.assertIn("H.indexOf(location.hostname)<0", loader)
+        self.assertIn("static.cloudflareinsights.com/beacon.min.js", loader)
+        self.assertIn("data-cf-beacon", loader)
+        self.assertIn(token, loader)
+        self.assertIn('"spa":false', loader)
         # No unconditional script tag — host/cookie gate first.
         self.assertNotIn(
             '<script defer src="https://static.cloudflareinsights.com/beacon.min.js"',
-            beacon,
+            loader,
         )
         for page in (self.home, self.about):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
-            self.assertIn(beacon, page)
+            self.assertEqual(page.count('data-sn-analytics="registry"'), 1)
+            self.assertIn(loader, page)
             self.assertIn(token, page)
-        self.assertEqual(build.render_analytics_script(""), "")
-        self.assertEqual(build.render_analytics_script("   "), "")
+        self.assertNotIn("beacon.min.js", build.render_analytics_loader(""))
+        self.assertNotIn("beacon.min.js", build.render_analytics_loader("   "))
 
     def test_analytics_beacon_once_per_page_when_token_set(self):
         token = "bantuan-test-token-only"
-        beacon = build.render_analytics_script(token)
+        loader = build.render_analytics_loader(token)
         with mock.patch.object(build, "web_analytics_token", return_value=token):
             home = build.render_home(self.site, self.schemes)
             about = build.render_about(self.site)
         for page in (home, about):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
-            self.assertIn(beacon, page)
+            self.assertEqual(page.count('data-sn-analytics="registry"'), 1)
+            self.assertIn(loader, page)
             self.assertIn(build.GA_INTERNAL_COOKIE, page)
+            self.assertIn("ga_internal", page)
 
     def test_every_scheme_is_labelled_and_linked(self):
         self.assertTrue(all(scheme["links"] for scheme in self.schemes))
