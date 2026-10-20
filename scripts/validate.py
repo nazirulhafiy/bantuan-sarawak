@@ -101,6 +101,11 @@ CAP_PHRASES = re.compile(
     r"maximum of|up to|at or below|≤|<=)"
 )
 
+# Normalized claim phrases: if present on a card, must also appear in the snapshot.
+CLAIM_PHRASES = (
+    "withdraw at 18",
+)
+
 # Proper-name tokens that must be source-backed when they appear on a card.
 KEY_NAME_RE = re.compile(
     r"\b(?:"
@@ -346,6 +351,38 @@ def validate_scheme(scheme: dict, *, require_quotes: bool = True) -> list[str]:
         q = due_quotes[i] if i < len(due_quotes) else None
         check_pair("due", i, str(line), q)
 
+    # Token rule (d): RM figures, dates, key names on the card → snapshot
+    card_bits = []
+    card_bits.extend(amounts)
+    card_bits.extend(paragraphs)
+    card_bits.extend(str(d) for d in dues)
+    if scheme.get("unspecified"):
+        card_bits.append(str(scheme["unspecified"]))
+    if scheme.get("amount_note"):
+        card_bits.append(str(scheme["amount_note"]))
+    card_bits.append(str(scheme.get("title") or ""))
+    card_text = "\n".join(card_bits)
+    card_norm = normalize_text(card_text)
+
+    for tok in extract_rm_tokens(card_text):
+        if tok not in snap_norm:
+            fails.append(f"{sid}: token.rm — {tok} not in snapshot {source_id}")
+    for tok in extract_date_tokens(card_text):
+        if tok not in snap_norm:
+            # also allow relative windows that are not absolute calendar dates
+            fails.append(f"{sid}: token.date — {tok} not in snapshot {source_id}")
+    for name in extract_key_names(card_text):
+        if name and name not in snap_norm:
+            fails.append(f"{sid}: token.name — {name!r} not in snapshot {source_id}")
+
+    # Claim phrases on the card must also appear in the snapshot (catches
+    # unsupported lines like EFS "Withdraw at 18").
+    for phrase in CLAIM_PHRASES:
+        if phrase in card_norm and phrase not in snap_norm:
+            fails.append(
+                f"{sid}: token.claim — {phrase!r} on card but not in snapshot {source_id}"
+            )
+
     # Facts: caps need comparator; required facts must be covered by some quote.
     all_quotes = [q for q in amount_quotes + paragraph_quotes + due_quotes if q]
     for fact in facts:
@@ -367,6 +404,18 @@ def validate_scheme(scheme: dict, *, require_quotes: bool = True) -> list[str]:
                         break
             if required and not covered:
                 fails.append(f"{sid}: fact.uncovered — {fid} (cap <= not evidenced in quotes)")
+        elif kind == "amount" and fact.get("must_appear_on_card") and fact.get("value") is not None:
+            # Range lower/upper bounds that must be written on the card itself
+            # (e.g. Sri Pertiwi RM4,000–RM10,000, not "up to RM10,000" alone).
+            needle = f"rm{fact['value']}"
+            if needle not in card_norm:
+                fails.append(
+                    f"{sid}: fact.on_card — {fid} requires {needle} on the card text"
+                )
+            elif required:
+                covered = any(needle in normalize_text(q) for q in all_quotes)
+                if not covered:
+                    fails.append(f"{sid}: fact.uncovered — {fid}")
         elif required:
             val = fact.get("value")
             needle = None
@@ -385,29 +434,6 @@ def validate_scheme(scheme: dict, *, require_quotes: bool = True) -> list[str]:
                         break
             if needle and not covered:
                 fails.append(f"{sid}: fact.uncovered — {fid}")
-
-    # Token rule (d): RM figures, dates, key names on the card → snapshot
-    card_bits = []
-    card_bits.extend(amounts)
-    card_bits.extend(paragraphs)
-    card_bits.extend(str(d) for d in dues)
-    if scheme.get("unspecified"):
-        card_bits.append(str(scheme["unspecified"]))
-    if scheme.get("amount_note"):
-        card_bits.append(str(scheme["amount_note"]))
-    card_bits.append(str(scheme.get("title") or ""))
-    card_text = "\n".join(card_bits)
-
-    for tok in extract_rm_tokens(card_text):
-        if tok not in snap_norm:
-            fails.append(f"{sid}: token.rm — {tok} not in snapshot {source_id}")
-    for tok in extract_date_tokens(card_text):
-        if tok not in snap_norm:
-            # also allow relative windows that are not absolute calendar dates
-            fails.append(f"{sid}: token.date — {tok} not in snapshot {source_id}")
-    for name in extract_key_names(card_text):
-        if name and name not in snap_norm:
-            fails.append(f"{sid}: token.name — {name!r} not in snapshot {source_id}")
 
     return fails
 

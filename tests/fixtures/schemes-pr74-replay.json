@@ -797,14 +797,16 @@
         "kind": "amount",
         "value": 4000,
         "quote_ref": "paragraphs[0]",
-        "required": true
+        "required": true,
+        "must_appear_on_card": true
       },
       {
         "id": "pertiwi-income-high",
         "kind": "amount",
         "value": 10000,
         "quote_ref": "paragraphs[0]",
-        "required": true
+        "required": true,
+        "must_appear_on_card": true
       },
       {
         "id": "pertiwi-one-house",
@@ -1057,6 +1059,13 @@
         "id": "efs-status-k-parent",
         "kind": "eligibility",
         "quote_ref": "paragraphs[0]"
+      },
+      {
+        "id": "efs-no-withdraw-at-18",
+        "kind": "eligibility",
+        "label": "Withdraw at 18",
+        "required": false,
+        "note": "Unsupported on source; token.claim fires if this phrase appears on the card."
       }
     ],
     "amount_quotes": [

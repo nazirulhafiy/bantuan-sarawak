@@ -43,6 +43,11 @@ class FactcheckReplay(unittest.TestCase):
         self.assertIn("ba: token.rm", result.stdout)
         self.assertIn("bbb: token.rm", result.stdout)
         self.assertIn("ftes: quote.numbers", result.stdout)
+        # Unsupported EFS "Withdraw at 18" and Sri Pertiwi "up to RM10,000" (no RM4,000)
+        self.assertIn("efs: token.claim", result.stdout)
+        self.assertIn("withdraw at 18", result.stdout)
+        self.assertIn("sri-pertiwi: fact.on_card", result.stdout)
+        self.assertIn("pertiwi-income-low", result.stdout)
 
     def test_pr74_base_fails_named_cards(self) -> None:
         """#74 base b87780e — FTES amount framing, SRAS/Sri Pertiwi incomplete lines."""
