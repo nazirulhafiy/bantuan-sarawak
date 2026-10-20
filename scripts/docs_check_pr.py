@@ -13,8 +13,13 @@ import sys
 WATCH_PATTERNS = (
     "site/*.css",
     "site/*.js",
+    "kit/*",
+    "kit/**/*",
     "scripts/build.py",
+    "scripts/analytics_registry.py",
+    "scripts/check_analytics_dist.py",
     "data/site.json",
+    "data/analytics.json",
 )
 
 FAIL_MESSAGE = (

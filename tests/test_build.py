@@ -1,8 +1,6 @@
 import re
 import unittest
 from pathlib import Path
-from unittest import mock
-
 import scripts.build as build
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -184,37 +182,35 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(build.GA_INTERNAL_COOKIE, "sn_internal")
         self.assertIn(build.GA_INTERNAL_COOKIE, ga)
         self.assertIn("ga_internal", ga)  # legacy honour
-        self.assertIn('data-sn-analytics="registry"', ga)
+        self.assertIn(build.ANALYTICS_LOADER_ATTR, ga)
+        self.assertIn("data-sn-analytics-loader", ga)
         self.assertIn("traffic_type", ga)
         self.assertIn("'internal'", ga)
         self.assertIn("get('internal')", ga)
-        self.assertIn("q==='1'", ga)
-        self.assertIn("q==='0'", ga)
-        self.assertIn("Max-Age=", ga)
+        self.assertIn("max-age=", ga)
         self.assertIn(str(build.GA_INTERNAL_COOKIE_MAX_AGE), ga)
         # Host gate before loading gtag — no unconditional async loader tag.
         self.assertNotIn('<script async src="https://www.googletagmanager.com/gtag/js', ga)
         self.assertIn("googletagmanager.com/gtag/js?id=", ga)
-        self.assertIn("H.indexOf(location.hostname)<0", ga)
+        self.assertIn("H.indexOf(h)<0", ga)
         for page in (self.home, self.about):
             self.assertIn(ga, page)
             self.assertEqual(page.count("googletagmanager.com/gtag/js"), 1)
-            self.assertEqual(page.count('data-sn-analytics="registry"'), 1)
+            self.assertEqual(page.count("data-sn-analytics-loader"), 1)
 
     def test_analytics_beacon_in_dist_when_token_configured(self):
         token = "bfba3801f65a489185b168a7446c7a62"
         self.assertEqual(build.CLOUDFLARE_WEB_ANALYTICS_TOKEN, token)
-        self.assertEqual(build.web_analytics_token(), token)
         self.assertIs(build.ANALYTICS_SPA, False)
-        loader = build.render_analytics_loader(token)
+        loader = build.render_analytics_loader()
         self.assertIn("bantuan.sarawak.news", loader)
         self.assertIn(build.GA_INTERNAL_COOKIE, loader)
         self.assertIn("ga_internal", loader)
-        self.assertIn("H.indexOf(location.hostname)<0", loader)
+        self.assertIn("H.indexOf(h)<0", loader)
         self.assertIn("static.cloudflareinsights.com/beacon.min.js", loader)
         self.assertIn("data-cf-beacon", loader)
         self.assertIn(token, loader)
-        self.assertIn('"spa":false', loader)
+        self.assertIn("spa:false", loader)
         # No unconditional script tag — host/cookie gate first.
         self.assertNotIn(
             '<script defer src="https://static.cloudflareinsights.com/beacon.min.js"',
@@ -223,22 +219,18 @@ class BuildTests(unittest.TestCase):
         for page in (self.home, self.about):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
-            self.assertEqual(page.count('data-sn-analytics="registry"'), 1)
+            self.assertEqual(page.count("data-sn-analytics-loader"), 1)
             self.assertIn(loader, page)
             self.assertIn(token, page)
-        self.assertNotIn("beacon.min.js", build.render_analytics_loader(""))
-        self.assertNotIn("beacon.min.js", build.render_analytics_loader("   "))
 
-    def test_analytics_beacon_once_per_page_when_token_set(self):
-        token = "bantuan-test-token-only"
-        loader = build.render_analytics_loader(token)
-        with mock.patch.object(build, "web_analytics_token", return_value=token):
-            home = build.render_home(self.site, self.schemes)
-            about = build.render_about(self.site)
+    def test_analytics_beacon_once_per_page(self):
+        loader = build.render_analytics_loader()
+        home = build.render_home(self.site, self.schemes)
+        about = build.render_about(self.site)
         for page in (home, about):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
-            self.assertEqual(page.count('data-sn-analytics="registry"'), 1)
+            self.assertEqual(page.count("data-sn-analytics-loader"), 1)
             self.assertIn(loader, page)
             self.assertIn(build.GA_INTERNAL_COOKIE, page)
             self.assertIn("ga_internal", page)

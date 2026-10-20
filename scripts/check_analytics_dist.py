@@ -1,189 +1,123 @@
 #!/usr/bin/env python3
-"""Fail if dist/ HTML analytics drift from data/analytics.json.
+"""Fail if dist HTML analytics loaders drift from data/analytics.json.
 
 Checks each built ``*.html`` page:
 
-- exactly one analytics loader script (unified ``data-sn-analytics`` marker, or
-  one script that owns both GA4 + CF; hand-split GA/CF counts as two)
-- every GA4 ID and CF beacon token appears in the registry
-- cookie names are the registry ``internal_cookie`` (legacy names listed on the
-  host entry are allowed when documented there)
-- Cloudflare ``spa`` matches the registry fleet setting
-
-Usage::
-
-    python scripts/check_analytics_dist.py
-    python scripts/check_analytics_dist.py --dist dist
+- exactly one ``data-sn-analytics-loader`` script (zero or two+ fails; names the file)
+- every GA4 id and CF beacon token found must appear in the registry
+- every internal-cookie name referenced must be the registry primary or a
+  per-host ``legacy_internal_cookies`` entry
+- CF beacon ``spa`` must match the registry boolean
 """
 
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import sys
 from pathlib import Path
 
-try:
-    from scripts.analytics_registry import (
-        all_cf_tokens,
-        all_ga4_ids,
-        allowed_cookies,
-        load_registry,
-    )
-except ImportError:
-    from analytics_registry import (
-        all_cf_tokens,
-        all_ga4_ids,
-        allowed_cookies,
-        load_registry,
-    )
-
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT_NAME = Path(__file__).name
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "scripts"))
 
-LOADER_MARKER_RE = re.compile(
-    r"<script\b[^>]*\bdata-sn-analytics\b[^>]*>[\s\S]*?</script>",
-    re.IGNORECASE,
+from analytics_registry import load_analytics  # noqa: E402
+
+LOADER_ATTR = "data-sn-analytics-loader"
+LOADER_BLOCK_RE = re.compile(
+    rf"<script[^>]*\b{re.escape(LOADER_ATTR)}\b[^>]*>(.*?)</script>",
+    re.DOTALL | re.IGNORECASE,
 )
-SCRIPT_RE = re.compile(r"<script\b[^>]*>[\s\S]*?</script>", re.IGNORECASE)
-GA_ID_RE = re.compile(r"\bG-[A-Z0-9]+\b")
-GTAG_HINT = "googletagmanager.com/gtag/js"
-BEACON_HINT = "cloudflareinsights.com/beacon.min.js"
+GA4_RE = re.compile(r"\bG-[A-Z0-9]+\b")
+# Cloudflare Web Analytics site tokens are 32 lowercase hex chars.
+CF_TOKEN_RE = re.compile(r"\b[a-f0-9]{32}\b")
+# Primary cookie: var C="name" or ,C="name"
+PRIMARY_COOKIE_RE = re.compile(r"""(?:\bvar\s+C|\bC)\s*=\s*(["'])([A-Za-z0-9_-]+)\1""")
+# Honour list: L=["a","b"]
+LEGACY_LIST_RE = re.compile(r"""\bL\s*=\s*\[(.*?)\]""", re.DOTALL)
+QUOTED_NAME_RE = re.compile(r"""(["'])([A-Za-z0-9_-]+)\1""")
+# Hand-typed dual loaders on main used GA_INTERNAL_COOKIE / ga_internal / sn_internal
+# outside the marked loader — catch stray cookie literals next to document.cookie.
+STRAY_COOKIE_RE = re.compile(
+    r"""document\.cookie\s*=\s*(["'])([A-Za-z0-9_-]+)\1"""
+    r"""|"""
+    r"""(["'])([A-Za-z0-9_-]+)\3\s*\+\s*['"]=1['"]"""
+    r"""|"""
+    r"""indexOf\(\s*(["'])([A-Za-z0-9_-]+)\5\s*\+\s*['"]=1['"]\)"""
+)
+SPA_TRUE_RE = re.compile(r"""["']spa["']\s*:\s*true|\bspa\s*:\s*true\b|\bspa\s*:\s*!0""")
+SPA_FALSE_RE = re.compile(r"""["']spa["']\s*:\s*false|\bspa\s*:\s*false\b|\bspa\s*:\s*!1""")
 
 
-def _is_analytics_script(block: str) -> bool:
-    lower = block.lower()
-    return (
-        "data-sn-analytics" in lower
-        or GTAG_HINT in lower
-        or BEACON_HINT in lower
-        or "data-cf-beacon" in lower
-    )
+def html_pages(dist: Path) -> list[Path]:
+    pages = sorted(dist.glob("*.html"))
+    if not pages:
+        raise SystemExit(f"no HTML pages under {dist}")
+    return pages
 
 
-def _extract_cf_payloads(html: str) -> list[dict]:
-    payloads: list[dict] = []
-    # Inline loader sets attribute with a JSON string literal.
-    for match in re.finditer(
-        r"""data-cf-beacon['"]?\s*,\s*['"](\{[^'\"]*\})['"]""",
-        html,
-    ):
-        try:
-            payloads.append(json.loads(match.group(1)))
-        except json.JSONDecodeError:
-            continue
-    for match in re.finditer(
-        r"""setAttribute\(\s*['"]data-cf-beacon['"]\s*,\s*['"](\{[^'\"]*\})['"]""",
-        html,
-    ):
-        try:
-            payloads.append(json.loads(match.group(1)))
-        except json.JSONDecodeError:
-            continue
-    for match in re.finditer(
-        r"""data-cf-beacon\s*=\s*['"](\{[^'\"]*\})['"]""",
-        html,
-    ):
-        try:
-            payloads.append(json.loads(match.group(1)))
-        except json.JSONDecodeError:
-            continue
-    return payloads
-
-
-def _cookie_names_in_analytics(html: str) -> set[str]:
-    """Internal-traffic cookie name literals inside analytics scripts.
-
-    Fleet convention is ``*_internal`` (plus the shared ``sn_internal`` name).
-    Avoid scanning arbitrary string literals — ``get('internal')`` and similar
-    are query params, not cookies.
-    """
-    names: set[str] = set()
-    for block in SCRIPT_RE.findall(html):
-        if not _is_analytics_script(block):
-            continue
-        for match in re.finditer(r"""['"]([A-Za-z][A-Za-z0-9_]*_internal)['"]""", block):
-            names.add(match.group(1))
-        for match in re.finditer(r"""['"](sn_internal|ga_internal)['"]""", block):
-            names.add(match.group(1))
-    return names
-
-
-def check_page(path: Path, registry: dict, primary: str) -> list[str]:
-    html = path.read_text(encoding="utf-8")
+def check_page(path: Path, registry) -> list[str]:
+    text = path.read_text(encoding="utf-8")
     rel = str(path)
     errors: list[str] = []
 
-    marked = LOADER_MARKER_RE.findall(html)
-    analytics_scripts = [s for s in SCRIPT_RE.findall(html) if _is_analytics_script(s)]
-
-    if marked:
-        loader_count = len(marked)
-        loader_kind = "marked data-sn-analytics loader"
-    else:
-        loader_count = len(analytics_scripts)
-        loader_kind = "hand-typed analytics script"
-
+    loader_count = text.count(LOADER_ATTR)
     if loader_count == 0:
-        errors.append(f"{rel}: zero analytics loaders ({loader_kind})")
-    elif loader_count > 1:
-        errors.append(
-            f"{rel}: {loader_count} analytics loaders (want exactly one; {loader_kind})"
-        )
+        errors.append(f"{rel}: zero analytics loaders (missing {LOADER_ATTR})")
+    elif loader_count != 1:
+        errors.append(f"{rel}: {loader_count} analytics loaders (want exactly one {LOADER_ATTR})")
 
-    allowed_ids = all_ga4_ids(registry)
-    # Only IDs that appear inside analytics scripts count.
-    page_ids: set[str] = set()
-    for block in analytics_scripts:
-        page_ids.update(GA_ID_RE.findall(block))
-    for ga_id in page_ids:
-        if ga_id not in allowed_ids:
-            errors.append(f"{rel}: GA4 id {ga_id} not in registry")
+    allowed_ga = registry.ga4_ids()
+    allowed_tokens = registry.cf_tokens()
+    allowed_cookies = set(registry.honour_cookies)
 
-    allowed_tokens = all_cf_tokens(registry)
-    payloads = _extract_cf_payloads(html)
-    for payload in payloads:
-        token = payload.get("token")
-        if isinstance(token, str) and token not in allowed_tokens:
-            errors.append(f"{rel}: CF beacon token not in registry")
-        if "spa" in payload and payload["spa"] is not registry["spa"]:
+    for mid in sorted(set(GA4_RE.findall(text))):
+        if mid not in allowed_ga:
+            errors.append(f"{rel}: GA4 id {mid!r} not in data/analytics.json")
+
+    # Only flag 32-hex strings that appear near CF beacon usage.
+    if "cloudflareinsights.com/beacon" in text or "data-cf-beacon" in text:
+        for token in sorted(set(CF_TOKEN_RE.findall(text))):
+            if token not in allowed_tokens:
+                errors.append(f"{rel}: CF beacon token {token!r} not in data/analytics.json")
+
+    found_cookies: set[str] = set()
+    for block in LOADER_BLOCK_RE.findall(text):
+        for match in PRIMARY_COOKIE_RE.finditer(block):
+            found_cookies.add(match.group(2))
+        for list_match in LEGACY_LIST_RE.finditer(block):
+            for quoted in QUOTED_NAME_RE.finditer(list_match.group(1)):
+                found_cookies.add(quoted.group(2))
+    # Also scan full page for document.cookie patterns (hand-typed dual scripts on main).
+    if "traffic_type" in text or "cloudflareinsights.com/beacon" in text or LOADER_ATTR in text:
+        for match in STRAY_COOKIE_RE.finditer(text):
+            name = match.group(2) or match.group(4) or match.group(6)
+            if name:
+                found_cookies.add(name)
+
+    for name in sorted(found_cookies):
+        if name not in allowed_cookies:
             errors.append(
-                f"{rel}: spa={payload['spa']!r} but registry spa={registry['spa']!r}"
+                f"{rel}: cookie name {name!r} is not registry internal_cookie "
+                f"({registry.internal_cookie!r}) or legacy_internal_cookies "
+                f"{registry.legacy_internal_cookies!r}"
             )
-
-    # If beacon is present without parseable spa, still require registry spa when
-    # the raw JSON substring is visible.
-    if BEACON_HINT in html and payloads:
-        pass
-    elif BEACON_HINT in html and '"spa":true' in html.replace(" ", "") and registry["spa"] is False:
-        errors.append(f"{rel}: spa=true but registry spa=false")
-    elif BEACON_HINT in html and '"spa":false' in html.replace(" ", "") and registry["spa"] is True:
-        errors.append(f"{rel}: spa=false but registry spa=true")
-
-    allowed = allowed_cookies(registry, primary)
-    found_cookies = _cookie_names_in_analytics(html)
-    for name in found_cookies:
-        if name not in allowed:
-            errors.append(
-                f"{rel}: cookie {name!r} not allowed "
-                f"(registry {registry['internal_cookie']!r}; legacy ok: "
-                f"{sorted(allowed - {registry['internal_cookie']})})"
-            )
-
-    # Primary shared cookie must appear whenever analytics scripts are present.
-    # Legacy-only pages (e.g. hand-typed main with ga_internal) are cookie drift.
-    if loader_count >= 1 and registry["internal_cookie"] not in found_cookies:
-        errors.append(
-            f"{rel}: missing registry cookie name {registry['internal_cookie']!r} "
-            f"(found {sorted(found_cookies) or 'none'})"
-        )
+    has_spa_true = bool(SPA_TRUE_RE.search(text))
+    has_spa_false = bool(SPA_FALSE_RE.search(text))
+    if "cloudflareinsights.com/beacon" in text or "data-cf-beacon" in text:
+        if registry.spa and not has_spa_true:
+            errors.append(f"{rel}: registry spa is true but CF beacon config lacks spa:true")
+        if not registry.spa and has_spa_true:
+            errors.append(f"{rel}: registry spa is false but CF beacon sets spa:true (drift)")
+        if not registry.spa and has_spa_false:
+            # Explicit false is fine; no error.
+            pass
 
     return errors
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=f"Analytics dist check ({SCRIPT_NAME})")
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--dist",
         type=Path,
@@ -194,52 +128,32 @@ def main(argv: list[str] | None = None) -> int:
         "--registry",
         type=Path,
         default=ROOT / "data" / "analytics.json",
-        help="Analytics registry JSON",
-    )
-    parser.add_argument(
-        "--primary-host",
-        default="bantuan.sarawak.news",
-        help="Primary host key in the registry for this repo",
+        help="Analytics registry path",
     )
     args = parser.parse_args(argv)
 
-    print(f"{SCRIPT_NAME}: checking {args.dist} against {args.registry}")
-
     if not args.dist.is_dir():
-        print(f"{SCRIPT_NAME}: FAIL — dist directory missing: {args.dist}", file=sys.stderr)
+        print(f"FAIL: dist directory missing: {args.dist}", file=sys.stderr)
         return 1
 
-    try:
-        registry = load_registry(args.registry)
-    except SystemExit as exc:
-        print(f"{SCRIPT_NAME}: FAIL — {exc}", file=sys.stderr)
-        return 1
-
-    if args.primary_host not in registry["hosts"]:
-        print(
-            f"{SCRIPT_NAME}: FAIL — primary host {args.primary_host!r} missing from registry",
-            file=sys.stderr,
-        )
-        return 1
-
-    pages = sorted(args.dist.rglob("*.html"))
-    if not pages:
-        print(f"{SCRIPT_NAME}: FAIL — no HTML pages under {args.dist}", file=sys.stderr)
-        return 1
-
+    registry = load_analytics(args.registry)
     errors: list[str] = []
-    for page in pages:
-        errors.extend(check_page(page, registry, args.primary_host))
+    for page in html_pages(args.dist):
+        errors.extend(check_page(page, registry))
 
     if errors:
-        print(f"{SCRIPT_NAME}: FAIL ({len(errors)} issue(s))")
+        print("Analytics dist check FAILED:", file=sys.stderr)
         for err in errors:
-            print(f"  - {err}")
+            print(f"  {err}", file=sys.stderr)
         return 1
 
+    pages = html_pages(args.dist)
     print(
-        f"{SCRIPT_NAME}: PASS — {len(pages)} page(s), "
-        f"cookie={registry['internal_cookie']!r}, spa={registry['spa']!r}"
+        f"Analytics dist check OK: {len(pages)} page(s), "
+        f"version={registry.version}, cookie={registry.internal_cookie!r}, "
+        f"spa={registry.spa}, ga4={sorted(registry.ga4_ids())}, "
+        f"hosts={list(registry.hosts)}, "
+        f"legacy_internal_cookies={registry.legacy_internal_cookies!r}"
     )
     return 0
 

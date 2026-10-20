@@ -12,12 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE_JSON = ROOT / "data" / "site.json"
 
 # Production and project text only. Build output and tooling caches are out of scope.
+# .hub-kit-check is the shallow hub clone CI uses for kit/sync.py --check.
 SKIP_DIR_NAMES = {
     ".git",
     "dist",
     "__pycache__",
     ".venv",
     "node_modules",
+    ".hub-kit-check",
 }
 SKIP_SUFFIXES = {
     ".png",
