@@ -18,14 +18,18 @@ _SCRIPTS = Path(__file__).resolve().parent
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
-from kit.analytics_loader import (  # noqa: E402
+from kit.python.analytics_loader import (  # noqa: E402
     ANALYTICS_LOADER_ATTR,
     ANALYTICS_MAX_AGE,
     render_analytics_loader as kit_render_analytics_loader,
 )
-from kit.analytics_registry import AnalyticsRegistry, load_analytics  # noqa: E402
-from kit.shell import NavItem, render_back_to_top, render_footer as kit_render_footer  # noqa: E402
-from kit.shell import render_header as kit_render_header  # noqa: E402
+from kit.python.analytics_registry import AnalyticsRegistry, load_analytics  # noqa: E402
+from kit.python.shell import (  # noqa: E402
+    NavItem,
+    render_back_to_top,
+    render_footer as kit_render_footer,
+    render_header as kit_render_header,
+)
 
 DATA = ROOT / "data"
 DIST = ROOT / "dist"
@@ -497,6 +501,7 @@ def render_header(site: dict, active: str) -> str:
 
 
 def render_footer(site: dict, active: str) -> str:
+    """Kit footer (Explore + Contact) plus bantuan Categories list."""
     group_links = "\n".join(
         f'          <li><a class="site-footer-link" href="/#{esc(group["id"])}">{esc(group["title"])}</a></li>'
         for group in site["groups"]
@@ -505,7 +510,7 @@ def render_footer(site: dict, active: str) -> str:
         '        <h2 class="site-footer-categories-title">Categories</h2>\n'
         f"        <ul>\n{group_links}\n        </ul>\n"
     )
-    return kit_render_footer(
+    footer = kit_render_footer(
         brand_title=site["title"],
         brand_note=FOOTER_BRAND_NOTE,
         active=active,
@@ -513,9 +518,13 @@ def render_footer(site: dict, active: str) -> str:
             NavItem("home", "/", "Home"),
             NavItem("about", "about.html", "About"),
         ),
-        extra_nav_html=categories,
         credit_html=FOOTER_CREDIT_HTML,
     )
+    # Kit footer has no extra_nav hook; insert Categories before Explore </nav>.
+    needle = "        </ul>\n      </nav>"
+    if needle not in footer:
+        raise SystemExit("kit footer missing Explore </ul></nav> anchor for Categories")
+    return footer.replace(needle, f"        </ul>\n{categories}      </nav>", 1)
 
 
 def theme_boot() -> str:
