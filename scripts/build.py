@@ -24,6 +24,7 @@ from kit.python.analytics_loader import (  # noqa: E402
     render_analytics_loader as kit_render_analytics_loader,
 )
 from kit.python.analytics_registry import AnalyticsRegistry, load_analytics  # noqa: E402
+from kit.python.asset_urls import versioned_href  # noqa: E402
 from kit.python.shell import (  # noqa: E402
     NavItem,
     render_back_to_top,
@@ -540,7 +541,7 @@ def theme_boot() -> str:
 
 
 def render_head(site: dict, title: str, description: str, canonical: str, og_title: str, structured: str) -> str:
-    image = f"{site['url']}social-card.png"
+    image = versioned_href(f"{site['url']}social-card.png", SITE_DIR / "social-card.png")
     return f"""<!doctype html>
 <html lang="en">
 <head>

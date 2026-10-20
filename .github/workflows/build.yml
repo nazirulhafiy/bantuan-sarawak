@@ -33,6 +33,8 @@ jobs:
           git -C .hub-kit-check fetch --depth=1 origin "$PIN"
           git -C .hub-kit-check checkout --detach "$PIN"
           python3 kit/sync.py --check --hub-path "$PWD/.hub-kit-check"
+      - name: Check generated docs
+        run: python3 kit/generate_docs.py --check
       - name: Run tests
         run: python -m unittest discover -s tests -v
       - name: Build static site
