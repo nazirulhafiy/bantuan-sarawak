@@ -91,7 +91,7 @@ class BuildTests(unittest.TestCase):
         for page in (self.home, self.about):
             self.assertIn('src="icons/nav-mark-transparent.svg"', page)
             self.assertIn('src="icons/nav-mark-transparent-dark.svg"', page)
-            self.assertIn(f'<span class="brand-text">{self.site["name"]}</span>', page)
+            self.assertIn(f'<span class="brand-text">{self.site["title"]}</span>', page)
         css = (self.dist / "style.css").read_text(encoding="utf-8")
         self.assertIn("white-space: nowrap", css)
         self.assertIn(".brand-mark", css)
@@ -163,13 +163,11 @@ class BuildTests(unittest.TestCase):
             self.assertIn('name="twitter:card" content="summary_large_image"', page)
             self.assertIn("<title>", page)
             self.assertIn('name="description"', page)
-        self.assertIn("<title>Bantuan Sarawak</title>", self.home)
-        self.assertIn(
-            "<h1>Sarawak government assistance, in one directory.</h1>",
-            self.home,
-        )
-        self.assertIn('property="og:title" content="Bantuan Sarawak"', self.home)
-        self.assertIn("<title>About | Bantuan Sarawak</title>", self.about)
+        self.assertIn(f"<title>{self.site['og_title']}</title>", self.home)
+        self.assertIn(f"<h1>{self.site['tagline']}</h1>", self.home)
+        self.assertIn(f'property="og:title" content="{self.site["og_title"]}"', self.home)
+        self.assertIn(f"<title>{self.site['about_seo_title']}</title>", self.about)
+        self.assertIn(self.site["about_lead"], self.about)
         self.assertIn("🫶", self.home)
         self.assertIn("Sitemap: https://bantuan.sarawak.news/sitemap.xml", (self.dist / "robots.txt").read_text())
         sitemap = (self.dist / "sitemap.xml").read_text(encoding="utf-8")
@@ -463,7 +461,7 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("schemes", updated.casefold())
         self.assertNotIn("updated-count", self.home)
         deck = re.search(r'<p class="brief-deck">(.*?)</p>', self.home).group(1)
-        self.assertEqual(deck, "Each scheme links to its source.")
+        self.assertEqual(deck, self.site["description"])
         self.assertNotIn('data-level="federal"', self.home)
         self.assertNotIn("level-filter", self.home)
         self.assertNotIn("data-level-filter", self.home)

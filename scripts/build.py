@@ -21,6 +21,10 @@ DATA = ROOT / "data"
 DIST = ROOT / "dist"
 SITE_DIR = ROOT / "site"
 ICON_DIR = ROOT / "assets" / "phosphor"
+SITE_META_PATH = DATA / "site.json"
+
+# Site title, tagline, description, and About lead live only in data/site.json.
+SITE_COPY_FIELDS = ("title", "tagline", "description", "about_lead")
 
 # Primary production host key in data/analytics.json.
 ANALYTICS_PRIMARY_HOST = "bantuan.sarawak.news"
@@ -172,6 +176,21 @@ FAVICON = (
 
 def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_site(path: Path = SITE_META_PATH) -> dict:
+    """Load site meta and require title/tagline/description/about_lead."""
+    if not path.is_file():
+        raise SystemExit(f"missing site copy file: {path.relative_to(ROOT)}")
+    payload = load_json(path)
+    if not isinstance(payload, dict):
+        raise SystemExit("data/site.json must be an object")
+    for field in SITE_COPY_FIELDS:
+        value = payload.get(field)
+        if not isinstance(value, str) or not value.strip():
+            raise SystemExit(f"data/site.json is missing {field}")
+        payload[field] = value.strip()
+    return payload
 
 
 def esc(value: object) -> str:
@@ -532,7 +551,7 @@ def render_header(site: dict, active: str) -> str:
 
     return f"""  <header class="bar">
     <div class="bar-inner">
-      <span class="brand-lockup"><a class="brand" href="/"><img class="brand-mark brand-mark-light" src="icons/nav-mark-transparent.svg" alt="" width="220" height="220" decoding="async" aria-hidden="true" /><img class="brand-mark brand-mark-dark" src="icons/nav-mark-transparent-dark.svg" alt="" width="220" height="220" decoding="async" aria-hidden="true" /><span class="brand-text">{esc(site['name'])}</span></a></span>
+      <span class="brand-lockup"><a class="brand" href="/"><img class="brand-mark brand-mark-light" src="icons/nav-mark-transparent.svg" alt="" width="220" height="220" decoding="async" aria-hidden="true" /><img class="brand-mark brand-mark-dark" src="icons/nav-mark-transparent-dark.svg" alt="" width="220" height="220" decoding="async" aria-hidden="true" /><span class="brand-text">{esc(site['title'])}</span></a></span>
       <nav class="site-nav" id="primary-navigation" aria-label="Primary">
         {link("home", "/", "Home")}
         {link("about", "about.html", "About")}
@@ -568,7 +587,7 @@ def render_footer(site: dict, active: str) -> str:
     return f"""  <footer class="site-footer">
     <div class="site-footer-main">
       <div class="site-footer-summary">
-        <p class="site-footer-brand">{esc(site['name'])}</p>
+        <p class="site-footer-brand">{esc(site['title'])}</p>
         <p class="site-footer-note">An independent directory of Sarawak government assistance. Every scheme links to an official page. This website does not take applications.</p>
       </div>
       <nav aria-label="Explore" class="site-footer-nav">
@@ -615,9 +634,9 @@ def render_head(site: dict, title: str, description: str, canonical: str, og_tit
   <meta property="og:title" content="{esc(og_title)}" />
   <meta property="og:description" content="{esc(description)}" />
   <meta property="og:url" content="{esc(canonical)}" />
-  <meta property="og:site_name" content="{esc(site['name'])}" />
+  <meta property="og:site_name" content="{esc(site['title'])}" />
   <meta property="og:image" content="{esc(image)}" />
-  <meta property="og:image:alt" content="Bantuan Sarawak, a directory of Sarawak government assistance" />
+  <meta property="og:image:alt" content="{esc(site['short_name'])}, a directory of Sarawak government assistance" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -649,7 +668,7 @@ def render_home(site: dict, schemes: list[dict]) -> str:
                     "@type": "WebSite",
                     "@id": f"{url}#website",
                     "url": url,
-                    "name": site["name"],
+                    "name": site["title"],
                     "description": site["description"],
                     "inLanguage": "en",
                 },
@@ -657,7 +676,7 @@ def render_home(site: dict, schemes: list[dict]) -> str:
                     "@type": "CollectionPage",
                     "@id": f"{url}#collection",
                     "url": url,
-                    "name": site["title"],
+                    "name": site["tagline"],
                     "description": site["description"],
                     "isPartOf": {"@id": f"{url}#website"},
                     "dateModified": site["checked"],
@@ -685,8 +704,8 @@ def render_home(site: dict, schemes: list[dict]) -> str:
   <main id="content">
     <header class="brief">
       {render_brief_net()}
-      <h1>{esc(site['title'])}</h1>
-      <p class="brief-deck">{esc(site['introduction'])}</p>
+      <h1>{esc(site['tagline'])}</h1>
+      <p class="brief-deck">{esc(site['description'])}</p>
       <p class="updated"><span class="updated-label">Last updated</span> <time datetime="{esc(site['checked'])}">{esc(checked_label(site['checked']))}</time></p>
     </header>
 {render_category_filter(site, schemes)}
@@ -735,8 +754,8 @@ def render_about(site: dict) -> str:
 {render_header(site, "about")}
   <main id="content" class="about-page">
     <header class="about-hero">
-      <h1>About Bantuan Sarawak</h1>
-      <p class="about-lede">An independent list of state assistance, with official links only.</p>
+      <h1>About {esc(site['short_name'])}</h1>
+      <p class="about-lede">{esc(site['about_lead'])}</p>
     </header>
 {chr(10).join(sections)}
     <section class="about-section" aria-labelledby="about-desks">
@@ -787,7 +806,7 @@ def copy_nav_marks() -> None:
 
 
 def build() -> None:
-    site = load_json(DATA / "site.json")
+    site = load_site()
     schemes = load_json(DATA / "schemes.json")
     validate(site, schemes)
     home = render_home(site, schemes)

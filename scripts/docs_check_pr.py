@@ -14,6 +14,7 @@ WATCH_PATTERNS = (
     "site/*.css",
     "site/*.js",
     "scripts/build.py",
+    "data/site.json",
 )
 
 FAIL_MESSAGE = (
