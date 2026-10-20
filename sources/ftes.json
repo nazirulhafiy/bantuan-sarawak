@@ -3,5 +3,20 @@
   "fetched": "2026-10-20T13:58:18Z",
   "sha256": "adf9caa848a2acddef0391a2a08cb901549c71f8a9c4bfd0602a9e0eaf9426cf",
   "method": "transcript",
-  "note": "Hand transcript of FAQ images hosted on the linked MEITD page (file_manager download ids)."
+  "note": "Hand transcript of FAQ images hosted on the linked MEITD page (file_manager download ids).",
+  "asset_sha256": {
+    "1181": "75a041f4af9d91fa9a615f73c2b01982d4a361cf0951faa34b5510ee14bc2211",
+    "1182": "d6b10d30a83b6fab65d53acd1f931ea2b40eb7dfd72da548b4180dfa005da580",
+    "1183": "c59f3bcd8635460b0205a123d422f887b06af46d80f3d68ccda66405529d6ee0",
+    "1184": "ec1dd159d7644d3f34ea447b4c1fa3c000135c563148972638b8b9741cc90d5f",
+    "1185": "3f0a62aa03b8458f8ec5ff5a9bf691f6cab7eedd0a907c87566c21bed86aa6f5",
+    "1171": "bf86615cf65420f9256081f5672c64bf1d91f20410a5147dc5f949c23b58a5ad",
+    "1172": "0ddd7af71761c76668f037d314cb5ed5f295619b5a3c59e647a93358b6052e57",
+    "1173": "6067be4832fe3b2691c94aa34c01cd66836bf6df678fca294b976e196c240f82",
+    "1174": "51415afc1e448b12c2fb1b0ce8a84a08a102e4752c3fdf112c152430ef5c2987",
+    "1176": "f404f349d5509225b2a3e8a02999c9240719e4ab6f319623217922d629d22f3a",
+    "1177": "1fdbfa6df8501a31642c2778ae98ab4eb42b21f49f8c3767a4c15aa9b25de21f",
+    "1178": "2af0dfa23a3613cf7a1936cbca0a34369302c43b7dce00e94f3b22f19b8f9da4",
+    "1180": "85c0eb08804e66c81ef0138d8d28024627d015ce329ef1cd1301c2a0a0d134f7"
+  }
 }
