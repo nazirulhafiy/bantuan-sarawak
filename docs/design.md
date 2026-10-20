@@ -4,6 +4,28 @@ The live site is the static pages from `scripts/build.py`, styled by `site/style
 
 Type is Geist, then ui-sans-serif, system-ui, and the system sans-serif stack. Geist is the official variable font (weights 100–900), self-hosted under the SIL Open Font License from the vercel/geist-font v1.7.2 release, with `font-display: swap`. The page is white, ink is near-black, and the accents are Sarawak red `#d22630`, yellow `#f7c948`, and black `#111111`. The body is at most 840px wide. The brief, category list, and cards sit on a 760px rail. Dark mode uses the same hierarchy on a near-black canvas. Cards stay 8px radius or less.
 
+Custom properties come from `site/style.css`. `python3 kit/generate_docs.py` writes the table from the first `:root` and `html[data-theme="dark"]` rules.
+
+<!-- BEGIN GENERATED: design-tokens -->
+| Token | `:root` | `html[data-theme="dark"]` |
+| --- | --- | --- |
+| `--canvas` | #ffffff | #0f1115 |
+| `--page` | #ffffff | #0f1115 |
+| `--card` | #ffffff | #171b22 |
+| `--ink` | #111827 | #f3f5f7 |
+| `--muted` | #6b7280 | #aeb6c2 |
+| `--line` | #e2e4e9 | #2c333d |
+| `--sarawak-red` | #d22630 | #f15b61 |
+| `--sarawak-red-ink` | #9f1d26 | #ff8d92 |
+| `--sarawak-yellow` | #f7c948 | #f7c948 |
+| `--sarawak-yellow-soft` | #fffbea | #3a3110 |
+| `--sarawak-black` | #111111 | #111111 |
+| `--group-icon-tile` | #fff6d2 | rgba(247, 201, 72, 0.12) |
+| `--group-icon-border` | #f7c948 | rgba(247, 201, 72, 0.55) |
+| `--page-gutter` | 20px |  |
+| `--card-head` |  | #222833 |
+<!-- END GENERATED: design-tokens -->
+
 ## Masthead
 
 The top bar (`.bar`) sticks to the viewport. Its background is the page colour and runs edge to edge, so the list scrolls underneath it. The wordmark, Home and About, the theme control, and the menu sit in an inner rail (`.bar-inner`, at most 760px) lined up with the brief and the cards.
@@ -16,7 +38,15 @@ After any scroll, `site/app.js` adds `.is-scrolled` on the bar. That draws a thi
 
 ## Home brief
 
-Site wording is owned by `data/site.json` (`title`, `tagline`, `description`, `about_lead`). The build fills every surface from that file; do not hand-type those strings in `scripts/`, `tests/`, `docs/`, or `README.md`. `tests/test_site_copy.py` fails if they appear elsewhere in source.
+Site wording is owned by `data/site.json` (`title`, `tagline`, `description`, `about_lead`). The build fills every surface from that file; do not hand-type those strings in `scripts/`, `tests/`, `docs/`, or `README.md`, except inside a generated block. `tests/test_site_copy.py` fails if they appear elsewhere. `python3 kit/generate_docs.py` writes the table from `data/site.json`.
+
+<!-- BEGIN GENERATED: site-copy -->
+| Field | Value |
+| --- | --- |
+| `title` | Bantuan.Sarawak.News |
+| `tagline` | Sarawak government assistance, in one directory. |
+| `description` | Each scheme links to its source. |
+<!-- END GENERATED: site-copy -->
 
 - `title` → header and footer brand, `og:site_name`
 - `tagline` → home `<h1>`
@@ -98,23 +128,45 @@ When the buttons overflow, the row scrolls sideways with a 48px fade (`--categor
 
 ## Shared kit
 
-Fleet chrome (header, Contact footer link, back-to-top, analytics loader, nav marks) is vendored from [sarawak-news-hub](https://github.com/nazirulhafiy/sarawak-news-hub) `kit/` at the commit in `kit/PIN`. Do not hand-edit files under `kit/`; bump the PIN and re-sync. Local / CI: `python3 kit/sync.py --check --hub-path "$SN_HUB_PATH"`. Layout and commands: `kit/README.md`.
+Fleet chrome (header, Contact footer link, back-to-top, analytics loader, nav marks) is vendored from [sarawak-news-hub](https://github.com/nazirulhafiy/sarawak-news-hub) `kit/` at the commit in `kit/PIN`. Do not hand-edit files under `kit/`; bump the PIN and re-sync. Local / CI: `python3 kit/sync.py --check --hub-path "$SN_HUB_PATH"`. After sync, `python3 kit/generate_docs.py --check` fails when a generated block drifts from sources. Layout and commands: `kit/README.md`.
+
+## Hosting
+
+<!-- BEGIN GENERATED: hosting -->
+| Field | Value |
+| --- | --- |
+| `hostname` | `bantuan.sarawak.news` |
+| `target` | GitHub Pages |
+<!-- END GENERATED: hosting -->
+
+`.github/workflows/build.yml` runs the tests, builds `dist/`, checks generated docs, and deploys that folder with GitHub Pages on push to `main`. `dist/CNAME` matches the hostname above.
 
 ## Analytics
 
 [Bantuan Sarawak](https://bantuan.sarawak.news) uses one build-time analytics loader. It does not change what visitors see on the page.
 
-**Registry.** `data/analytics.json` is the typed fleet registry: shared `internal_cookie` (`sn_internal`), shared `spa` (`false`), and per-host GA4 measurement ID plus Cloudflare Web Analytics token. Validation lives in `kit/python/analytics_registry.py` (re-exported from `scripts/analytics_registry.py`). The build reads it; do not hard-code a second copy of IDs or cookie names in templates.
+**Registry.** `data/analytics.json` is the typed fleet registry. Validation lives in `kit/python/analytics_registry.py` (re-exported from `scripts/analytics_registry.py`). The build reads it; do not hard-code a second copy of IDs or cookie names in templates. `python3 kit/generate_docs.py` writes the table from the registry.
+
+<!-- BEGIN GENERATED: analytics -->
+| Field | Value |
+| --- | --- |
+| `ga4_measurement_id` | `G-PYSEQGMJLC` |
+| `cf_beacon_token` | `bfba3801f65a489185b168a7446c7a62` |
+| `internal_cookie` | `sn_internal` |
+| `hosts` | `bantuan.sarawak.news`, `www.bantuan.sarawak.news` |
+<!-- END GENERATED: analytics -->
 
 **Single loader.** `kit.python.analytics_loader.render_analytics_loader()` (called from `scripts/build.py`) emits one inline `<script data-sn-analytics-loader>` in `<head>` on every built page. That script loads GA4 `gtag.js` and injects the Cloudflare beacon — **only** when `location.hostname` is `bantuan.sarawak.news` or `www.bantuan.sarawak.news`. It does not load on `*.pages.dev`, `*.github.io`, `*.vercel.app`, `localhost`, or any other host.
 
-**Google Analytics 4.** Measurement ID `G-PYSEQGMJLC` (unchanged; from the registry host entry).
-
 **Internal traffic.** `?internal=1` sets a first-party cookie `sn_internal=1` (~1 year, `Path=/`, `SameSite=Lax`; `Secure` on https). `?internal=0` clears the primary cookie and every listed legacy name. While `sn_internal` **or** the legacy cookie `ga_internal` is set (devices already marked before the rename), GA4 config includes `traffic_type: 'internal'`, and the Cloudflare Web Analytics beacon is **not** loaded. Agents and automation that open the live site must use `?internal=1` (see `AGENTS.md`, `tools/shots.config.json`).
 
-**Cloudflare Web Analytics.** Privacy-friendly, cookie-less traffic measurement. The token for `bantuan.sarawak.news` lives in `data/analytics.json` (`cf_beacon_token`). Do not reuse tokens from ai.sarawak.news or other sites. Fleet `spa` is `false` (static pages).
+**Cloudflare Web Analytics.** Privacy-friendly, cookie-less traffic measurement. Do not reuse tokens from ai.sarawak.news or other sites. Fleet `spa` is `false` (static pages).
 
 The beacon URL is `https://static.cloudflareinsights.com/beacon.min.js` with `data-cf-beacon` JSON `{"token":"…","spa":false}`. CI runs `scripts/check_analytics_dist.py` so each built HTML page has exactly one loader, IDs/tokens match the registry, and cookie/`spa` values cannot drift. This repository does not ship a Content-Security-Policy meta tag; if one is added later, allow `www.googletagmanager.com` and `*.google-analytics.com` for GA4, and `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect) for Cloudflare when analytics is enabled.
+
+## Social image
+
+`site/social-card.png` is a 1200×630 PNG. The build copies it to `dist/social-card.png`. Home and About point `og:image` and `twitter:image` at `https://bantuan.sarawak.news/social-card.png` plus a content hash query string from `versioned_href` in `kit/python/asset_urls.py` (first 12 hex characters of the SHA-256 of that file). Replacing the file changes the query string. `tests/test_asset_urls.py` fails if `scripts/`, `kit/`, `docs/`, `README.md`, `AGENTS.md`, or site HTML, JS, CSS, or SVG contain a hand-typed asset query stamp outside a generated block. The provisional favicon remains the inline emoji data URI in `scripts/build.py`.
 
 ## Back to top
 

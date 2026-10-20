@@ -1,6 +1,14 @@
 # Bantuan Sarawak
 
-Independent directory of Sarawak government assistance, for [bantuan.sarawak.news](https://bantuan.sarawak.news/). Site title, tagline, description, and About lead live only in [`data/site.json`](data/site.json); the build fills every page surface from that file.
+Independent directory of Sarawak government assistance, for [bantuan.sarawak.news](https://bantuan.sarawak.news/). Site title, tagline, description, and About lead live only in [`data/site.json`](data/site.json); the build fills every page surface from that file. `python3 kit/generate_docs.py` writes the table below.
+
+<!-- BEGIN GENERATED: site-copy -->
+| Field | Value |
+| --- | --- |
+| `title` | Bantuan.Sarawak.News |
+| `tagline` | Sarawak government assistance, in one directory. |
+| `description` | Each scheme links to its source. |
+<!-- END GENERATED: site-copy -->
 
 This is not a news feed and not a government website. It lists state schemes. Each card has one link, to the official page its figure came from. The link name is usually the agency in charge; **Service Sarawak** when the only source is the Service Sarawak portal (`service.sarawak.gov.my`). The site does not take applications. The home page “Last updated” line is the only check date. If a ringgit amount was not on an official page, it is not shown. A time-sensitive card states the current phase, and a due date from that page is a red label.
 
@@ -33,6 +41,7 @@ Checks:
 
 ```bash
 python3 kit/sync.py --check --hub-path "$SN_HUB_PATH"
+python3 kit/generate_docs.py --check
 python3 -m unittest discover -s tests -v
 python3 scripts/build.py
 python3 scripts/check_analytics_dist.py
@@ -60,15 +69,34 @@ python3 scripts/check_analytics_dist.py
 
 ## GitHub Pages
 
-`.github/workflows/build.yml` runs the tests, builds `dist/`, and deploys that folder with GitHub Pages. `dist/CNAME` is `bantuan.sarawak.news`.
+<!-- BEGIN GENERATED: hosting -->
+| Field | Value |
+| --- | --- |
+| `hostname` | `bantuan.sarawak.news` |
+| `target` | GitHub Pages |
+<!-- END GENERATED: hosting -->
+
+`.github/workflows/build.yml` runs the tests, checks generated docs, builds `dist/`, and deploys that folder with GitHub Pages. `dist/CNAME` matches the hostname above.
+
+## Analytics
+
+<!-- BEGIN GENERATED: analytics -->
+| Field | Value |
+| --- | --- |
+| `ga4_measurement_id` | `G-PYSEQGMJLC` |
+| `cf_beacon_token` | `bfba3801f65a489185b168a7446c7a62` |
+| `internal_cookie` | `sn_internal` |
+| `hosts` | `bantuan.sarawak.news`, `www.bantuan.sarawak.news` |
+<!-- END GENERATED: analytics -->
+
+The build emits one kit `data-sn-analytics-loader` script in `<head>` (production hosts only). `?internal=1` sets the shared `sn_internal` cookie so gtag sends `traffic_type: 'internal'` and the CF beacon is skipped; the loader also honours legacy `ga_internal`. CI runs `scripts/check_analytics_dist.py`. Do not reuse tokens from ai.sarawak.news or other sites. See `docs/design.md` (Analytics). Header, Contact, back-to-top, nav marks, and the loader are vendored from hub `kit/` at `kit/PIN` (`python3 kit/sync.py --check --hub-path "$SN_HUB_PATH"`). Share image URLs use a content hash query string from `kit/python/asset_urls.py`.
 
 ## Before the public hostname works
 
 These are not done in this repository:
 
 1. **Custom domain.** On the `sarawak.news` zone, point `bantuan.sarawak.news` at GitHub Pages and set that hostname as the Pages custom domain. The published `CNAME` file is the Pages side of that setup. This project does not change DNS or the Cloudflare zone.
-2. **Analytics.** Google Analytics 4 (`G-PYSEQGMJLC`) and [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) come from `data/analytics.json`. The build emits one kit `data-sn-analytics-loader` script in `<head>` (production hosts only). `?internal=1` sets the shared `sn_internal` cookie so gtag sends `traffic_type: 'internal'` and the CF beacon is skipped; the loader also honours legacy `ga_internal`. CI runs `scripts/check_analytics_dist.py`. Do not reuse tokens from ai.sarawak.news or other sites. See `docs/design.md` (Analytics). Header, Contact, back-to-top, nav marks, and the loader are vendored from hub `kit/` at `kit/PIN` (`python3 kit/sync.py --check --hub-path "$SN_HUB_PATH"`).
-3. **Favicon.** The current mark is a provisional 🫶 emoji.
+2. **Favicon.** The current mark is a provisional 🫶 emoji.
 
 ## What the directory leaves out
 

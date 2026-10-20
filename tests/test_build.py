@@ -1,3 +1,4 @@
+import hashlib
 import re
 import unittest
 from pathlib import Path
@@ -157,7 +158,10 @@ class BuildTests(unittest.TestCase):
             self.assertIn(f'<link rel="canonical" href="{canonical}"', page)
             self.assertIn('property="og:title"', page)
             self.assertIn('property="og:description"', page)
-            self.assertIn('property="og:image" content="https://bantuan.sarawak.news/social-card.png"', page)
+            card_hash = hashlib.sha256((ROOT / "site" / "social-card.png").read_bytes()).hexdigest()[:12]
+            og_url = "https://bantuan.sarawak.news/social-card.png?v=" + card_hash
+            self.assertIn(f'property="og:image" content="{og_url}"', page)
+            self.assertIn(f'name="twitter:image" content="{og_url}"', page)
             self.assertIn('name="twitter:card" content="summary_large_image"', page)
             self.assertIn("<title>", page)
             self.assertIn('name="description"', page)
