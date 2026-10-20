@@ -19,9 +19,39 @@ Concurrency is split so PR runs do not stomp on each other or on production:
 - **Pull requests:** concurrency group `build-pr-<number>` with `cancel-in-progress` enabled, so a new push on the same PR cancels only that PR’s older run.
 - **`main`:** concurrency group `pages` with **no** cancel-in-progress, so a `main` deploy is never cancelled mid-way when another PR or push starts a build.
 
+# Maintainer Monday message (on demand)
+
+The Sarawak News Cursor Project Maintainer Bot Monday message is **modular**. Each section is a separate on-demand check with its own one-line result. There is **no** Cursor timer and **no** repo cron for these sections — they run when that Monday message asks for them.
+
+1. **Source re-fetch** — `workflow_dispatch` on the source-refetch workflow (`scripts/check_source_changes.py`, when landed). One-line result from that job.
+2. **Electricity headed check** — `scripts/check_electricity_headed.py` (this section). Opens the Sarawak Energy announcement in **headed** Chromium (Playwright), cleans main text the same way as `scripts/snapshot_sources.py`, normalizes with `scripts/text_normalize.py` (same rules as validate / the fact-check stack), and compares to `sources/electricity.txt`.
+   - **Difference:** open or update the single GitHub issue titled exactly `source changed`, with an `electricity (headed weekly check)` section and a short diff.
+   - **Load failure** (HTTP 403, timeout, Access Denied, empty body): post a clear note in that **same** issue (status + date). Never silent.
+   - **Match and loaded fine:** do nothing (no issue touch).
+   - One-line results look like `electricity headed: no change`, `electricity headed: source text differs`, or `electricity headed: load failure (…)`.
+3. *(Optional, not implemented.)* Room for further on-demand checks (for example a live-site pass) as later numbered sections in the same Monday message.
+
+### How to run section 2 (headed dry-run)
+
+```bash
+# once per machine
+python3 -m pip install playwright
+python3 -m playwright install chromium
+
+# mocked paths (CI / no browser)
+python3 scripts/check_electricity_headed.py --dry-run --skip-issue \
+  --mock-live-text /path/to/altered.txt --out /tmp/elec-changed.md
+python3 scripts/check_electricity_headed.py --dry-run --skip-issue \
+  --mock-failure "HTTP 403" --out /tmp/elec-fail.md
+
+# real headed run (needs a display or xvfb-run)
+xvfb-run -a python3 scripts/check_electricity_headed.py --dry-run --out /tmp/elec.md
+# drop --dry-run to upsert the "source changed" issue via gh
+```
+
 # Weekly pass
 
-There is no bot and no schedule. Do not add either until Nazirul says the site is complete. A person does this pass.
+There is no bot and no schedule. Do not add either until Nazirul says the site is complete. A person does this pass. The Maintainer Monday sections above are on-demand Project prompts, not a repo schedule.
 
 Once a week, do both of these:
 
