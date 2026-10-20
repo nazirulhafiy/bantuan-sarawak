@@ -31,7 +31,30 @@ Scripts: `scripts/check_source_changes.py` (compare + report), `scripts/snapshot
 
 ## 2. Electricity headed check
 
-Separate from this workflow (lands in its own PR). Confirms the Sarawak Energy announcement is still readable with a headed client when automated fetches get HTTP 403. Returns its own one-line result.
+`scripts/check_electricity_headed.py` (this section). Opens the Sarawak Energy announcement in **headed** Chromium (Playwright), cleans main text the same way as `scripts/snapshot_sources.py`, normalizes with `scripts/text_normalize.py` (same rules as validate / the fact-check stack), and compares to `sources/electricity.txt`.
+
+- **Difference:** open or update the single GitHub issue titled exactly `source changed`, with an `electricity (headed weekly check)` section and a short diff.
+- **Load failure** (HTTP 403, timeout, Access Denied, empty body): post a clear note in that **same** issue (status + date). Never silent.
+- **Match and loaded fine:** do nothing (no issue touch).
+- One-line results look like `electricity headed: no change`, `electricity headed: source text differs`, or `electricity headed: load failure (…)`.
+
+### How to run section 2 (headed dry-run)
+
+```bash
+# once per machine
+python3 -m pip install playwright
+python3 -m playwright install chromium
+
+# mocked paths (CI / no browser)
+python3 scripts/check_electricity_headed.py --dry-run --skip-issue \
+  --mock-live-text /path/to/altered.txt --out /tmp/elec-changed.md
+python3 scripts/check_electricity_headed.py --dry-run --skip-issue \
+  --mock-failure "HTTP 403" --out /tmp/elec-fail.md
+
+# real headed run (needs a display or xvfb-run)
+xvfb-run -a python3 scripts/check_electricity_headed.py --dry-run --out /tmp/elec.md
+# drop --dry-run to upsert the "source changed" issue via gh
+```
 
 # Wednesday card-audit — RETIRED
 
