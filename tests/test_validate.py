@@ -94,5 +94,24 @@ class ValidateScript(unittest.TestCase):
         self.assertIn("OK:", result.stdout)
 
 
+class NormalizeHyphens(unittest.TestCase):
+    def test_normalize_folds_unicode_hyphens_and_spacing(self):
+        """Electricity snapshot forms like 'non ‑commercial' and '2026 .' must match ASCII quotes."""
+        import validate as V
+
+        # U+2011 non-breaking hyphen with surrounding spaces, as in sources/electricity.txt
+        snap = (
+            "The domestic tariff applies to residential homes only "
+            "(non \u2011commercial purposes) and does not apply to commercial properties.\n"
+            "Eligible customers will receive a 25% discount on their total monthly "
+            "electricity bill for electricity consumption from April to December 2026 .\n"
+        )
+        self.assertIn(V.normalize_text("non-commercial"), V.normalize_text(snap))
+        self.assertIn(V.normalize_text("2026."), V.normalize_text(snap))
+        # En dash / em dash also fold, with whitespace collapsed around the hyphen
+        self.assertEqual(V.normalize_text("pro \u2013 rated"), V.normalize_text("pro-rated"))
+        self.assertEqual(V.normalize_text("a \u2014 b"), V.normalize_text("a-b"))
+
+
 if __name__ == "__main__":
     unittest.main()
