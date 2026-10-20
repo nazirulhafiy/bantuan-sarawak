@@ -1,0 +1,463 @@
+[
+  {
+    "id": "skas",
+    "group": "household",
+    "level": "STATE",
+    "short": "SKAS",
+    "title": "Sumbangan Keperluan Asas Sarawak (SKAS) 2026",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,100 for a household",
+      "RM600 for a senior",
+      "RM375 for a single adult"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "For an Anak Sarawak with identity-card status K who lives in Sarawak.",
+      "You are included automatically from Sumbangan Tunai Rahmah (STR) 2026. There is no new application.",
+      "A household with income of RM5,000 or below.",
+      "A single adult aged 21 to 59, or a single person with a disability aged 19 to 59, with income of RM2,500 or below.",
+      "A senior aged 60 or older, without a spouse or eligible children, with income of RM5,000 or below.",
+      "The current phase is the payment on 10 November 2026. Acknowledge the claim in S Pay Global before mid-December 2026.",
+      "Paid through S Pay Global for essential food."
+    ],
+    "due": ["10 November 2026", "mid-December 2026"],
+    "links": [
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/821/"}
+    ]
+  },
+  {
+    "id": "electricity",
+    "group": "household",
+    "level": "STATE",
+    "short": "Electricity",
+    "title": "Domestic Electricity Discount",
+    "amount_basis": "page",
+    "amounts": [
+      "25% for domestic users, April to December 2026"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Sarawak Energy domestic customer on Tariff D. Not for commercial use.",
+      "The current phase is the discount on April–December 2026 usage, applied on the bill. No application.",
+      "Bill corrections: contact Sarawak Energy by 28 February 2027."
+    ],
+    "due": "28 February 2027",
+    "links": [
+      {"label": "Sarawak Energy", "url": "https://www.sarawakenergy.com/media-info/announcements-publications/extension-of-electricity-discounts-for-sarawak-energy-account-holders-until-december-2026"}
+    ]
+  },
+  {
+    "id": "bkk-ipt",
+    "group": "student",
+    "level": "STATE",
+    "short": "BKK IPT",
+    "title": "Bantuan Kewangan Khas (BKK) for IPT Students",
+    "amount_basis": "none",
+    "copy_ordered": true,
+    "paragraphs": [
+      "At least one parent or guardian is Sarawakian. Full-time diploma or bachelor student at an IPTA or IPTS recognised by the Ministry of Higher Education.",
+      "The current phase is Special Financial Assistance 2026. Applications close on 30 October 2026."
+    ],
+    "due": "30 October 2026",
+    "links": [
+      {"label": "Yayasan Sarawak", "url": "https://myys.yayasansarawak.org.my/"}
+    ]
+  },
+  {
+    "id": "laptop",
+    "group": "student",
+    "level": "STATE",
+    "short": "Laptop",
+    "title": "Free Laptop",
+    "amount_basis": "none",
+    "copy_ordered": true,
+    "paragraphs": [
+      "A laptop is given in kind.",
+      "For a first-year diploma or bachelor student. Family income per person must be RM1,500 or below.",
+      "The current phase is Free Laptop Programme Phase 2, 2026. Applications close on 30 October 2026."
+    ],
+    "due": "30 October 2026",
+    "links": [
+      {"label": "Yayasan Sarawak", "url": "https://myys.yayasansarawak.org.my/"}
+    ]
+  },
+  {
+    "id": "book-voucher",
+    "group": "student",
+    "level": "STATE",
+    "short": "Books",
+    "title": "Book Voucher",
+    "amount_basis": "none",
+    "copy_ordered": true,
+    "paragraphs": [
+      "Book aid for a full-time IPTA or IPTS student. At least one parent or guardian is Sarawakian.",
+      "Household income per person RM1,500 or below.",
+      "The current phase is Book Voucher Programme Phase 2, 2026. Applications close on 30 October 2026."
+    ],
+    "due": "30 October 2026",
+    "links": [
+      {"label": "Yayasan Sarawak", "url": "https://myys.yayasansarawak.org.my/"}
+    ]
+  },
+  {
+    "id": "igps",
+    "group": "student",
+    "level": "STATE",
+    "short": "IGPS",
+    "title": "Inisiatif Graduan Pulang Sarawak (IGPS)",
+    "amount_basis": "page",
+    "amounts": [
+      "Up to RM300 a trip",
+      "Up to 2 trips a year"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Flight subsidy home to Sarawak for a full-time student aged 18+ studying outside Sarawak. At least one Sarawakian parent.",
+      "Apply online to Yayasan Sarawak. Open all year.",
+      "Claim within 60 days of the flight."
+    ],
+    "links": [
+      {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/biasiswa-2/"}
+    ]
+  },
+  {
+    "id": "ipt-entry",
+    "group": "student",
+    "level": "STATE",
+    "short": "Entry grant",
+    "title": "Geran Kemasukan IPT",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,000 for study in Sarawak",
+      "RM1,500 for study outside Sarawak"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "First semester of certificate, matriculation, foundation, pre-diploma, diploma or bachelor. At least one Sarawakian parent.",
+      "Family income per person RM1,500 or below.",
+      "Apply online to Yayasan Sarawak. Open all year."
+    ],
+    "links": [
+      {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/biasiswa-2/"}
+    ]
+  },
+  {
+    "id": "ftes",
+    "group": "student",
+    "level": "STATE",
+    "short": "FTES",
+    "title": "Selected-Course Tuition Waiver at Four Institutions",
+    "amount_basis": "page",
+    "amounts": [
+      "RM15,000 a year, only if income per person is RM1,500 or below"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Tuition waiver for selected courses at Swinburne, Curtin, UTS and i-CATS, from 2026.",
+      "Apply through the university where you will study. The stipend does not need a separate application.",
+      "Stipend: RM5,000 accommodation, managed by the university, and RM10,000 living expenses through S Pay Global."
+    ],
+    "links": [
+      {"label": "Ministry of Education, Innovation and Talent Development", "url": "https://meitd.sarawak.gov.my/web/subpage/webpage_view/156"}
+    ]
+  },
+  {
+    "id": "school-uniform",
+    "group": "student",
+    "level": "STATE",
+    "short": "Uniform",
+    "title": "School Uniform Assistance Programme",
+    "amount_basis": "page",
+    "amounts": [
+      "RM200 voucher"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "For school uniform, shoes and a bag at participating shops.",
+      "Pupils who qualify on e-Kasih data: Year 1, Form 1, special-needs pupils, or Penan pupils.",
+      "Confirmed by the District Focus Group. The school identifies pupils. The list goes through the District Education Office and the Resident's Office for Yayasan Sarawak."
+    ],
+    "links": [
+      {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
+    ]
+  },
+  {
+    "id": "school-transport",
+    "group": "student",
+    "level": "STATE",
+    "short": "School bus",
+    "title": "Free School Transportation Service for Students",
+    "amount_basis": "none",
+    "copy_ordered": true,
+    "paragraphs": [
+      "Pilot free school bus service for B40 pupils. Household income below RM3,720 a month.",
+      "Eligible pupils receive a QR card. Scan it when boarding and leaving the bus.",
+      "The school applies and registers eligible pupils."
+    ],
+    "links": [
+      {"label": "Yayasan Sarawak", "url": "https://yayasansarawak.org.my/en/bantuan-pelajar-ke-ipt2/"}
+    ]
+  },
+  {
+    "id": "hdas",
+    "group": "housing",
+    "level": "STATE",
+    "short": "HDAS",
+    "title": "HDAS Deposit Assistance",
+    "amount_basis": "page",
+    "amounts": [
+      "Deposit of 10%, or a maximum of RM10,000"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "First-home deposit for a B40 or M40 buyer. Registered developer home or build on SPK or SPS land.",
+      "Apply through Mutiara on 082-313035."
+    ],
+    "links": [
+      {"label": "Housing Development Corporation", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/163"}
+    ]
+  },
+  {
+    "id": "sras",
+    "group": "housing",
+    "level": "STATE",
+    "short": "SRAS",
+    "title": "SRAS Rent Assistance",
+    "amount_basis": "page",
+    "amounts": [
+      "RM200 a month, for up to 4 years"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Public tenants, civil servants in government or employer quarters, and PPR tenants. Income not above RM5,504 a month.",
+      "IPTA or IPTS students need status K. Parent, guardian or household income is RM5,504 a month, and the student comes from outside the district of study.",
+      "Public tenants and PPR tenants need status K. Open in Kuching, Samarahan, Siburan, Serian, Sri Aman, Betong, Sibu, Mukah, Bintulu and Miri. PPR is HDC homes in Kuching, Sibu and Bintulu."
+    ],
+    "links": [
+      {"label": "Housing Development Corporation", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/139"}
+    ]
+  },
+  {
+    "id": "spektra-permata",
+    "group": "housing",
+    "level": "STATE",
+    "short": "Spektra Permata",
+    "title": "Rumah Spektra Permata",
+    "amount_basis": "page",
+    "amounts": [
+      "Selling price below RM200,000",
+      "Household income RM1,500 to RM6,000"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Affordable home for a married applicant or single parent aged 18 to 65 without an existing house or land.",
+      "Financing through Mutiara Mortgage & Credit.",
+      "Amounts above are price and income band, not a cash grant."
+    ],
+    "links": [
+      {"label": "Housing Development Corporation", "url": "https://hdc.sarawak.gov.my/web/subpage/webpage_view/127"}
+    ]
+  },
+  {
+    "id": "sri-pertiwi",
+    "group": "housing",
+    "level": "STATE",
+    "short": "Sri Pertiwi",
+    "title": "Sri Pertiwi",
+    "amount_basis": "none",
+    "unspecified": "This is an affordable house, not a cash payment. Selling-price caps are not listed here.",
+    "paragraphs": [
+      "Malaysian from Sarawak, or a Sarawak permanent resident, in the B40 or M40 group. Household income RM4,000 to RM10,000."
+    ],
+    "links": [
+      {"label": "Ministry of Urban Development and Natural Resources", "url": "https://mudenr.sarawak.gov.my/web/attachment/show/?docid=U2JnN2NtQmNWZi9DWkhaYUlUMnhsdz09OjrhxKX9m6xObBhS-XQMz_Kf"}
+    ]
+  },
+  {
+    "id": "schb",
+    "group": "health",
+    "level": "STATE",
+    "short": "SCHB",
+    "title": "Senior Citizen Health Benefit (SCHB)",
+    "amount_basis": "page",
+    "amounts": [
+      "Up to RM500 a person a year"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Status K, aged 60+, household income RM7,000 or below, no other outpatient cover.",
+      "Apply online on Service Sarawak.",
+      "Cashless outpatient treatment at panel clinics."
+    ],
+    "links": [
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/0/742/"}
+    ]
+  },
+  {
+    "id": "kgc",
+    "group": "health",
+    "level": "STATE",
+    "short": "KGC",
+    "title": "Kenyalang Gold Card (KGC)",
+    "amount_basis": "none",
+    "copy_ordered": true,
+    "paragraphs": [
+      "Participating merchants give discounts.",
+      "Status K, aged 60+, living in Sarawak. Included automatically.",
+      "Activate online. Virtual card is in SarawakPass."
+    ],
+    "links": [
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/822"}
+    ]
+  },
+  {
+    "id": "bik",
+    "group": "health",
+    "level": "STATE",
+    "short": "BIK",
+    "title": "Bantuan Ihsan Kematian (BIK)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,800 to the next of kin"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Registered next of kin of a Kenyalang Gold Card holder who has died.",
+      "No JPA death benefit and not living in a government institution.",
+      "Apply on Service Sarawak within 4 months of the death."
+    ],
+    "links": [
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/847/"}
+    ]
+  },
+  {
+    "id": "bib",
+    "group": "baby",
+    "level": "STATE",
+    "short": "BIB",
+    "title": "Bantuan Ibu Bersalin (BIB)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM450 cash"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Malaysian mother with status K, or wife of a Malaysian with status K. Birth in or outside Sarawak. At least 22 weeks gestation.",
+      "Apply within 3 months on iSarawakCare. Needs SarawakPass and S Pay Global."
+    ],
+    "links": [
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/211/383/"}
+    ]
+  },
+  {
+    "id": "efs",
+    "group": "baby",
+    "level": "STATE",
+    "short": "EFS",
+    "title": "Endowment Fund Sarawak (EFS)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,000 in trust savings"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Birth or adopted child. Parent Malaysian with status K. Child born in or outside Sarawak.",
+      "Apply on Service Sarawak within 1 year.",
+      "Child born overseas without MyKid: manual form to efs@sarawak.gov.my."
+    ],
+    "links": [
+      {"label": "Kementerian Pembangunan Wanita, Kanak-Kanak dan Kesejahteraan Komuniti", "url": "https://kpwk.sarawak.gov.my/web/subpage/webpage_view/100"}
+    ]
+  },
+  {
+    "id": "kirwas",
+    "group": "business",
+    "level": "STATE",
+    "short": "KIRWaS",
+    "title": "Bantuan Ketua Isi Rumah Wanita (KIRWaS)",
+    "amount_basis": "page",
+    "amounts": [
+      "RM1,000 one-off"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Sarawakian woman aged 18 or older with status K, or the wife of a status K holder. Single mother or female head of household, and not on welfare aid.",
+      "For a woman in business. Household income RM2,618 or below.",
+      "Apply by submitting the form to Jabatan Wanita dan Keluarga Sarawak."
+    ],
+    "links": [
+      {"label": "Jabatan Wanita dan Keluarga Sarawak", "url": "https://jwks.sarawak.gov.my/web/subpage/webpage_view/182"}
+    ]
+  },
+  {
+    "id": "smcs",
+    "group": "business",
+    "level": "STATE",
+    "short": "SMCS",
+    "title": "Sarawak Micro Credit Scheme (SMCS)",
+    "amount_basis": "page",
+    "amounts": [
+      "Type 1: RM1,000 to RM10,000 at 0%",
+      "Type 2: RM5,001 to RM50,000 at 4%"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "Sarawakian business operating in Sarawak at least 6 months. Working capital, premises, or machinery.",
+      "Apply online, or at SEDC or Agrobank.",
+      "Type 1 is for B40 borrowers. Agriculture is excluded."
+    ],
+    "links": [
+      {"label": "Service Sarawak", "url": "https://service.sarawak.gov.my/web/web/home/sla_view/259/390"}
+    ]
+  },
+  {
+    "id": "geran-pelancaran",
+    "group": "business",
+    "level": "STATE",
+    "short": "Geran Pelancaran",
+    "title": "Geran Pelancaran / Modal Mikro",
+    "amount_basis": "page",
+    "amounts": [
+      "Up to RM5,000, one-off"
+    ],
+    "copy_ordered": true,
+    "paragraphs": [
+      "JKMS client who can still work, income at or below the poverty line.",
+      "One-off startup capital."
+    ],
+    "links": [
+      {"label": "Jabatan Kebajikan Masyarakat Sarawak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/159"}
+    ]
+  },
+  {
+    "id": "ba",
+    "group": "welfare",
+    "level": "STATE",
+    "short": "BA",
+    "title": "Bantuan Am (BA)",
+    "amount_basis": "none",
+    "unspecified": "The monthly rate is not stated on this page.",
+    "paragraphs": [
+      "State aid. Household income at or below RM1,198 a month. Apply at a JKMS office."
+    ],
+    "links": [
+      {"label": "Jabatan Kebajikan Masyarakat Sarawak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
+    ]
+  },
+  {
+    "id": "bbb",
+    "group": "welfare",
+    "level": "STATE",
+    "short": "BBB",
+    "title": "Bantuan Belia-Beliawanis (BBB)",
+    "amount_basis": "none",
+    "unspecified": "The monthly rate is not stated on this page.",
+    "paragraphs": [
+      "State aid. Household income at or below RM1,198 a month. Apply at a JKMS office."
+    ],
+    "links": [
+      {"label": "Jabatan Kebajikan Masyarakat Sarawak", "url": "https://welfare.sarawak.gov.my/web/subpage/webpage_view/130"}
+    ]
+  }
+]
