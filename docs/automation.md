@@ -21,7 +21,7 @@ Concurrency is split so PR runs do not stomp on each other or on production:
 
 # Maintainer Monday message (on demand)
 
-The Sarawak News Cursor Project Maintainer Bot Monday message is **modular**. Each section is a separate on-demand check with its own one-line result. There is **no** Cursor timer and **no** repo cron for these sections — they run when that Monday message asks for them.
+The Sarawak News Cursor Project Maintainer Bot Monday message has **two** on-demand sections only (§1 and §2). Each has its own one-line result. There is **no** Cursor timer and **no** repo schedule for either section — they run when that Monday message asks for them. Live-site checks are run by the Maintainer itself, not as a Monday-message section.
 
 1. **Source re-fetch** — `workflow_dispatch` on the source-refetch workflow (`scripts/check_source_changes.py`, when landed). One-line result from that job.
 2. **Electricity headed check** — `scripts/check_electricity_headed.py` (this section). Opens the Sarawak Energy announcement in **headed** Chromium (Playwright), cleans main text the same way as `scripts/snapshot_sources.py`, normalizes with `scripts/text_normalize.py` (same rules as validate / the fact-check stack), and compares to `sources/electricity.txt`.
@@ -29,7 +29,6 @@ The Sarawak News Cursor Project Maintainer Bot Monday message is **modular**. Ea
    - **Load failure** (HTTP 403, timeout, Access Denied, empty body): post a clear note in that **same** issue (status + date). Never silent.
    - **Match and loaded fine:** do nothing (no issue touch).
    - One-line results look like `electricity headed: no change`, `electricity headed: source text differs`, or `electricity headed: load failure (…)`.
-3. *(Optional, not implemented.)* Room for further on-demand checks (for example a live-site pass) as later numbered sections in the same Monday message.
 
 ### How to run section 2 (headed dry-run)
 
@@ -51,7 +50,7 @@ xvfb-run -a python3 scripts/check_electricity_headed.py --dry-run --out /tmp/ele
 
 # Weekly pass
 
-There is no bot and no schedule. Do not add either until Nazirul says the site is complete. A person does this pass. The Maintainer Monday sections above are on-demand Project prompts, not a repo schedule.
+There is no bot and no schedule. Do not add either until Nazirul says the site is complete. A person does this pass. Maintainer Monday §1 and §2 above are on-demand Project prompts only — not a Cursor timer and not a repo schedule.
 
 Once a week, do both of these:
 
