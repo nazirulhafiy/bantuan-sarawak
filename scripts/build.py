@@ -520,8 +520,10 @@ def render_footer(site: dict, active: str) -> str:
         for group in site["groups"]
     )
     categories = (
+        '        <div class="site-footer-categories">\n'
         '        <h2 class="site-footer-categories-title">Categories</h2>\n'
         f"        <ul>\n{group_links}\n        </ul>\n"
+        "        </div>\n"
     )
     footer = kit_render_footer(
         brand_title=site["title"],
