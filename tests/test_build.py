@@ -353,6 +353,17 @@ class BuildTests(unittest.TestCase):
             '<a class="site-footer-link" href="mailto:contact@sarawak.news">Contact</a>',
             self.home,
         )
+        for fleet_href in (
+            "https://sarawak.news/",
+            "https://ai.sarawak.news/",
+            "https://events.sarawak.news/",
+        ):
+            self.assertIn(f'<a class="site-footer-link" href="{fleet_href}">', self.home)
+        self.assertNotIn(
+            '<a class="site-footer-link" href="https://bantuan.sarawak.news/">',
+            self.home,
+        )
+        self.assertNotIn("nofollow", self.home)
         self.assertIn('<nav aria-label="Explore" class="site-footer-nav">', self.about)
         self.assertIn('<a class="site-footer-link" href="/">Home</a>', self.about)
         self.assertIn(

@@ -14,6 +14,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_JSON = ROOT / "data" / "site.json"
+SKIP_FILES = {
+    SITE_JSON.resolve(),
+    (ROOT / "kit" / "fleet-cross-links.json").resolve(),
+}
 
 # Production and project text only. Build output and tooling caches are out of scope.
 # .hub-kit-check is the shallow hub clone CI uses for kit/sync.py --check.
@@ -73,7 +77,7 @@ def iter_source_files() -> list[Path]:
             continue
         if any(part in SKIP_DIR_NAMES for part in path.parts):
             continue
-        if path.resolve() == SITE_JSON.resolve():
+        if path.resolve() in SKIP_FILES:
             continue
         suffix = path.suffix.lower()
         if suffix in SKIP_SUFFIXES:

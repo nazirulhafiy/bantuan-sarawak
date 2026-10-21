@@ -532,6 +532,7 @@ def render_footer(site: dict, active: str) -> str:
             NavItem("about", "about.html", "About"),
         ),
         credit_html=FOOTER_CREDIT_HTML,
+        fleet_site="bantuan",
     )
     # Kit footer has no extra_nav hook; insert Categories before Explore </nav>.
     needle = "        </ul>\n      </nav>"
