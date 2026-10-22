@@ -28,7 +28,7 @@ Custom properties come from `site/style.css`. `python3 kit/generate_docs.py` wri
 
 ## Masthead
 
-The top bar (`.bar`) sticks to the viewport. Its background is the page colour and runs edge to edge, so the list scrolls underneath it. The wordmark, Home and About, the theme control, and the menu sit in an inner rail (`.bar-inner`, at most 760px) lined up with the brief and the cards.
+The top bar (`.bar`) sticks to the viewport. Its background is the page colour and runs edge to edge, so the list scrolls underneath it. At rest there is no full-bleed gray hairline under the bar; only the Sarawak tri-colour segments mark the bottom edge. The wordmark, Home and About, the theme control, and the menu sit in an inner rail (`.bar-inner`, at most 760px) lined up with the brief and the cards.
 
 The home link (`.brand`) starts with Design Bot’s origami line hornbill (hub `#snnav` / `#snnav2`), then the site `title` from `data/site.json`, with a small gap. Markup comes from `kit.python.shell.render_header`. Sources are `kit/assets/icons/nav-mark-transparent.svg` (light) and `kit/assets/icons/nav-mark-transparent-dark.svg` (dark; transparent, no `#111` square), mirrored under `site/icons/` and published to `dist/icons/`. Images use `alt=""` and `aria-hidden`; the text labels the link. Mark height matches the wordmark line (`1.15em`). The brand stays on one line (`white-space: nowrap`) down to 375px. SVGs are used as supplied — no recolouring.
 
