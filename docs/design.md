@@ -28,13 +28,11 @@ Custom properties come from `site/style.css`. `python3 kit/generate_docs.py` wri
 
 ## Masthead
 
-The top bar (`.bar`) sticks to the viewport. Its background is the page colour and runs edge to edge, so the list scrolls underneath it. At rest there is no full-bleed gray hairline under the bar; only the Sarawak tri-colour segments mark the bottom edge. The wordmark, Home and About, the theme control, and the menu sit in an inner rail (`.bar-inner`, at most 760px) lined up with the brief and the cards.
+The top bar (`.bar`) scrolls with the page (`position: relative`). Its background is the page colour and runs edge to edge. At rest there is no full-bleed gray hairline under the bar; only the Sarawak tri-colour segments mark the bottom edge. The wordmark, Home and About, the theme control, and the menu sit in an inner rail (`.bar-inner`, at most 760px) lined up with the brief and the cards.
 
 The home link (`.brand`) starts with Design Bot’s origami line hornbill (hub `#snnav` / `#snnav2`), then the site `title` from `data/site.json`, with a small gap. Markup comes from `kit.python.shell.render_header`. Sources are `kit/assets/icons/nav-mark-transparent.svg` (light) and `kit/assets/icons/nav-mark-transparent-dark.svg` (dark; transparent, no `#111` square), mirrored under `site/icons/` and published to `dist/icons/`. Images use `alt=""` and `aria-hidden`; the text labels the link. Mark height matches the wordmark line (`1.15em`). The brand stays on one line (`white-space: nowrap`) down to 375px. SVGs are used as supplied — no recolouring.
 
-On viewports wider than 560px the Sarawak rule stays on that rail. Red sits under the wordmark. Yellow and black split the rest of the rail equally. From 560px down the rule runs from the left edge of the screen to the right, including behind the theme control and the menu. The red segment shifts left by the bar’s side padding (`--page-gutter`: 20px, or 15px from 560px down). The yellow and black segment runs past those controls to the right edge. The bar background and the scrolled shadow stay full-bleed at every width.
-
-After any scroll, `site/app.js` adds `.is-scrolled` on the bar. That draws a thin bottom edge and a soft shadow. `html` uses `overflow-x: clip` so the full-bleed bar does not add a horizontal scrollbar, and `scroll-padding-top` (72px, 76px from 560px down) so in-page links clear the bar.
+On viewports wider than 560px the Sarawak rule stays on that rail. Red sits under the wordmark. Yellow and black split the rest of the rail equally. From 560px down the rule runs from the left edge of the screen to the right, including behind the theme control and the menu. The red segment shifts left by the bar’s side padding (`--page-gutter`: 20px, or 15px from 560px down). The yellow and black segment runs past those controls to the right edge. The bar background stays full-bleed at every width. `html` uses `overflow-x: clip` so the full-bleed bar does not add a horizontal scrollbar.
 
 ## Home brief
 
@@ -170,7 +168,7 @@ The beacon URL is `https://static.cloudflareinsights.com/beacon.min.js` with `da
 
 ## Back to top
 
-Markup comes from `kit.python.shell.render_back_to_top`. CSS and JS are owned by `kit/css/back-to-top.css` and `kit/js/back-to-top.js`, mirrored into `site/style.css` / `site/app.js` between `/* sn-kit:back-to-top:begin|end */` markers. The control is a `<button type="button" class="back-to-top" aria-label="Back to top">` with a “Back to top” label and an `↑` arrow (`aria-hidden`). It is fixed to the bottom-right corner of the screen, under the sticky masthead (`z-index: 5` against the bar’s `40`), so it does not cover the bar or the theme control. The paint is hardcoded on the control. It does not use the page colour tokens.
+Markup comes from `kit.python.shell.render_back_to_top`. CSS and JS are owned by `kit/css/back-to-top.css` and `kit/js/back-to-top.js`, mirrored into `site/style.css` / `site/app.js` between `/* sn-kit:back-to-top:begin|end */` markers. The control is a `<button type="button" class="back-to-top" aria-label="Back to top">` with a “Back to top” label and an `↑` arrow (`aria-hidden`). It is fixed to the bottom-right corner of the screen (`z-index: 5`) so it does not cover the theme control when visible. The paint is hardcoded on the control. It does not use the page colour tokens.
 
 Above 560px it is a pill: padding 8px 12px, gap 3.08px, 11px Geist, weight 850, line-height 1.3, letter-spacing normal, radius 999px. It sits 24px from the right edge and 24px from the bottom edge. On a wide viewport that inset lands in the margin beside the centred column, clear of the cards. From 560px down the label is hidden and the control is a 44×44px circle (`border-radius: 50%`), 18px arrow, gap 5.04px, padding 0. The phone inset is `max(14px, env(safe-area-inset-right, 0px) + 14px)` on the right and the same with `safe-area-inset-bottom` on the bottom.
 
