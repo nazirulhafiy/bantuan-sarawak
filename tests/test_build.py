@@ -340,6 +340,15 @@ class BuildTests(unittest.TestCase):
         )
         self.assertEqual(self.home.count('<footer class="site-footer">'), 1)
         self.assertEqual(self.about.count('<footer class="site-footer">'), 1)
+        self.assertIn('site-footer-main site-footer-main--column-stacks', self.home)
+        self.assertIn('site-footer-categories site-footer-grid-categories', self.home)
+        self.assertIn('site-footer-grid-brand-cell', self.home)
+        self.assertIn('site-footer-grid-stack-left', self.home)
+        self.assertIn('site-footer-grid-stack-right', self.home)
+        self.assertIn('class="site-footer-grid-explore-divider"', self.home)
+        self.assertIn('<h2>Hub</h2>', self.home)
+        self.assertIn('aria-label="Hub"', self.home)
+        self.assertIn('class="site-footer-categories-title">Categories</h2>', self.home)
         self.assertIn('<h2>Explore</h2>', self.home)
         self.assertIn(
             '<a class="site-footer-link" href="/" aria-current="page">Home</a>',
@@ -364,7 +373,10 @@ class BuildTests(unittest.TestCase):
             self.home,
         )
         self.assertNotIn("nofollow", self.home)
-        self.assertIn('<nav aria-label="Explore" class="site-footer-nav">', self.about)
+        self.assertIn(
+            '<nav aria-label="Explore" class="site-footer-nav site-footer-grid-explore">',
+            self.about,
+        )
         self.assertIn('<a class="site-footer-link" href="/">Home</a>', self.about)
         self.assertIn(
             '<a class="site-footer-link" href="about.html" aria-current="page">About</a>',
