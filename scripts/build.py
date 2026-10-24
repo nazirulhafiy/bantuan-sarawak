@@ -513,19 +513,20 @@ def render_header(site: dict, active: str) -> str:
     )
 
 
-def render_footer(site: dict, active: str) -> str:
-    """Kit footer (Explore + Contact) plus bantuan Categories list."""
+def footer_categories_inner(site: dict) -> str:
     group_links = "\n".join(
         f'          <li><a class="site-footer-link" href="/#{esc(group["id"])}">{esc(group["title"])}</a></li>'
         for group in site["groups"]
     )
-    categories = (
-        '        <div class="site-footer-categories">\n'
-        '        <h2 class="site-footer-categories-title">Categories</h2>\n'
-        f"        <ul>\n{group_links}\n        </ul>\n"
-        "        </div>\n"
+    return (
+        '<h2 class="site-footer-categories-title">Categories</h2>\n'
+        f"        <ul>\n{group_links}\n        </ul>"
     )
-    footer = kit_render_footer(
+
+
+def render_footer(site: dict, active: str) -> str:
+    """Kit column-stack footer with scheme-group Categories in the right stack."""
+    return kit_render_footer(
         brand_title=site["title"],
         brand_note=FOOTER_BRAND_NOTE,
         active=active,
@@ -535,12 +536,10 @@ def render_footer(site: dict, active: str) -> str:
         ),
         credit_html=FOOTER_CREDIT_HTML,
         fleet_site="bantuan",
+        layout="column_stacks",
+        fleet_section_label="Hub",
+        extra_nav_right=footer_categories_inner(site),
     )
-    # Kit footer has no extra_nav hook; insert Categories before Explore </nav>.
-    needle = "        </ul>\n      </nav>"
-    if needle not in footer:
-        raise SystemExit("kit footer missing Explore </ul></nav> anchor for Categories")
-    return footer.replace(needle, f"        </ul>\n{categories}      </nav>", 1)
 
 
 def theme_boot() -> str:
