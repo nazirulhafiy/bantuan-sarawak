@@ -1,7 +1,7 @@
 {
   "url": "https://www.sarawakenergy.com/media-info/announcements-publications/extension-of-electricity-discounts-for-sarawak-energy-account-holders-until-december-2026",
-  "fetched": "2026-10-20T14:16:57Z",
-  "sha256": "dbb3d64ffe1d5b358b451c7b9fcb1566a02799f23c64bac64ee7434a818580d4",
+  "fetched": "2026-10-26T01:43:43Z",
+  "sha256": "ca3f2e0a109cbaf57e316d4601b58270e836de310cb410d0dbee3a0dd23cc669",
   "method": "manual",
-  "note": "Live page returns HTTP 403 to automated clients. Text is from an Internet Archive capture of the official URL."
+  "note": "Live page returns HTTP 403 to urllib. Text from headed Chromium (Playwright) capture of the official URL."
 }

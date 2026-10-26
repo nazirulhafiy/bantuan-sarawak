@@ -1,14 +1,19 @@
 Sarawak Energy announcement (manual snapshot).
-Text below came from an Internet Archive capture of the official URL
+Text below came from a headed Chromium capture of the official URL
 (https://www.sarawakenergy.com/media-info/announcements-publications/extension-of-electricity-discounts-for-sarawak-energy-account-holders-until-december-2026).
-The live page returns HTTP 403 to automated clients. Capture used for transcription: 2026-10-20.
+The live page returns HTTP 403 to automated urllib clients; headed Playwright succeeds. Capture used for transcription: 2026-10-26.
 
 EXTENSION OF ELECTRICITY DISCOUNTS FOR SARAWAK ENERGY ACCOUNT HOLDERS UNTIL DECEMBER 2026 - Sarawak Energy
 EXTENSION OF ELECTRICITY DISCOUNTS FOR SARAWAK ENERGY ACCOUNT HOLDERS UNTIL DECEMBER 2026
 Following the recent announcement by the Premier of Sarawak, The Right Honourable Datuk Patinggi Tan Sri (Dr) Abang Haji Abdul Rahman Zohari bin Tun Datuk Abang Haji Openg, the Sarawak Government has introduced a 25% electricity discount for all domestic tariff customers. Approximately 714,000 account holders are benefiting from this initiative.
 The discount covers electricity consumption from April to December 2026 and is applied automatically. Eligible customers are not required to register or submit an application to receive the discount.
 The discount for domestic customers is reflected automatically in the bills as follows:
-April 2026 usage → June 2026 bill; May 2026 onwards → same month's bill
+Bills issued in
+Discount reflected in
+April 2026
+June 2026
+May 2026 onwards
+May 2026 onwards
 FAQ
 Frequently Asked Questions (FAQ)
 1. Who is eligible for the electricity discount?
