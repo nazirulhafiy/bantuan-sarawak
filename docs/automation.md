@@ -21,11 +21,13 @@ Concurrency is split so PR runs do not stomp on each other or on production:
 
 # Maintainer Monday (Sarawak News Cursor Project)
 
-**Maintainer Bot** runs a modular Monday pass via the Sarawak News Cursor Project. **No schedule lives in the repo.** There is no Cursor timer. Only the two sections below. Each returns its own one-line result. Maintainer runs the live-site check itself (not a numbered Monday section here).
+**Maintainer Bot** runs a modular Monday pass via the Sarawak News Cursor Project. Source re-fetch is scheduled in-repo (see §1); there is no Cursor timer for it. Only the two sections below. Each returns its own one-line result. Maintainer runs the live-site check itself (not a numbered Monday section here).
 
 ## 1. Source re-fetch
 
-Triggers `.github/workflows/source-refetch.yml` with **`workflow_dispatch` only**. The workflow re-fetches the official pages behind `sources/`, compares cleaned-text hashes (and transcript asset / Canva bytes for SRAS and FTES), and when something changed it opens or updates **one** GitHub issue titled exactly `source changed`, with the diff. That issue is this section’s only output: it never commits, never fails a pull request, and never posts anywhere else.
+`.github/workflows/source-refetch.yml` runs on a **weekly cron** (`0 1 * * 1` — Monday 01:00 UTC / 09:00 MYT) and optionally via `workflow_dispatch`. The workflow re-fetches the official pages behind `sources/`, compares cleaned-text hashes (and transcript asset / Canva bytes for SRAS and FTES), and when something changed it opens or updates **one** GitHub issue titled exactly `source changed`, with the diff. It never commits, never fails a pull request, and never posts anywhere else.
+
+**Monday §1 (Maintainer Bot):** read the latest scheduled `source-refetch` run’s result and any open `source changed` issue. Do **not** start the run via `workflow_dispatch` (cloud agent tokens are `actions:read` only and get 403 on dispatch).
 
 Scripts: `scripts/check_source_changes.py` (compare + report), `scripts/snapshot_sources.py` (refresh snapshots locally when you choose to update `sources/`).
 
