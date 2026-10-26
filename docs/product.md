@@ -52,4 +52,4 @@ How to edit cards, including which pages to open, is `docs/automation.md`.
 
 ## Publishing
 
-Publishing still means a reviewed change merged to `main`. Maintainer Monday section 1 (source re-fetch via `workflow_dispatch`; no repo schedule) only opens or updates the `source changed` issue; it does not publish card edits by itself.
+Publishing still means a reviewed change merged to `main`. Maintainer Monday section 1 reads the latest scheduled `source-refetch` run and any `source changed` issue (it does not dispatch the workflow); that issue path does not publish card edits by itself.

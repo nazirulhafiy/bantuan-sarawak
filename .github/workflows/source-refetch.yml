@@ -1,13 +1,17 @@
 name: source-refetch
 
-# Re-fetch of official scheme source pages (workflow_dispatch only).
-# No schedule lives in this repo. Maintainer Monday section 1 (Sarawak News
-# Cursor Project) triggers workflow_dispatch. Section 2 (electricity headed
+# Weekly re-fetch of official scheme source pages.
+# Schedule: Monday 01:00 UTC (09:00 MYT). Optional workflow_dispatch for
+# ad-hoc runs. Maintainer Monday section 1 reads the latest scheduled run
+# and any "source changed" issue — it does not start the run via dispatch
+# (cloud agents are actions:read only). Section 2 (electricity headed
 # check) is separate. Wednesday card-audit is retired. Compares cleaned-text
 # hashes (and transcript asset / Canva bytes) to committed sources/. On change,
 # opens or updates ONE issue titled exactly "source changed". Never commits.
 # Never fails a pull request.
 on:
+  schedule:
+    - cron: "0 1 * * 1"
   workflow_dispatch:
 
 permissions:
