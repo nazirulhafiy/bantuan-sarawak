@@ -27,6 +27,7 @@ from kit.python.analytics_registry import AnalyticsRegistry, load_analytics  # n
 from kit.python.asset_urls import versioned_href  # noqa: E402
 from kit.python.shell import (  # noqa: E402
     NavItem,
+    fleet_cross_link_items,
     render_back_to_top,
     render_footer as kit_render_footer,
     render_header as kit_render_header,
@@ -53,6 +54,8 @@ FOOTER_CREDIT_HTML = (
     'href="https://hafiy.my" target="_blank" rel="noopener noreferrer">hafiy.my</a>, '
     "an independent publication. Not affiliated with the Sarawak Government."
 )
+
+FLEET_SITE_ID = "bantuan"
 
 
 def analytics_registry() -> AnalyticsRegistry:
@@ -524,6 +527,25 @@ def footer_categories_inner(site: dict) -> str:
     )
 
 
+def render_fleet_network_section(fleet_site: str = FLEET_SITE_ID) -> str:
+    """Crawlable main-content links to other fleet sites (excludes self)."""
+    items = []
+    for link in fleet_cross_link_items(fleet_site):
+        href = link.href if link.href.endswith("/") else f"{link.href}/"
+        about = f"{href}about.html"
+        items.append(
+            f'      <li><a href="{esc(href)}">{esc(link.label)}</a>'
+            f' · <a href="{esc(about)}">About</a></li>'
+        )
+    return f"""    <section class="about-section" aria-labelledby="about-network">
+      <h2 id="about-network">Related sites</h2>
+      <p>Also on this network:</p>
+      <ul>
+{chr(10).join(items)}
+      </ul>
+    </section>"""
+
+
 def render_footer(site: dict, active: str) -> str:
     """Kit column-stack footer with scheme-group Categories in the right stack."""
     return kit_render_footer(
@@ -639,6 +661,7 @@ def render_home(site: dict, schemes: list[dict]) -> str:
       {render_brief_net()}
       <h1>{esc(site['tagline'])}</h1>
       <p class="brief-deck">{esc(site['description'])}</p>
+      <p class="brief-about"><a href="about.html">About this directory</a></p>
       <p class="updated"><span class="updated-label">Last updated</span> <time datetime="{esc(site['checked'])}">{esc(checked_label(site['checked']))}</time></p>
     </header>
 {render_category_filter(site, schemes)}
@@ -691,6 +714,7 @@ def render_about(site: dict) -> str:
       <p class="about-lede">{esc(site['about_lead'])}</p>
     </header>
 {chr(10).join(sections)}
+{render_fleet_network_section()}
     <section class="about-section" aria-labelledby="about-desks">
       <h2 id="about-desks">Official help desks</h2>
       <p>Questions about an application go to the office that runs the scheme. These desks are listed on official pages. This website does not answer applications.</p>
