@@ -58,7 +58,7 @@ The home hero is the centred `.brief` block. The “Last updated” line follows
 
 Motion follows [ai.sarawak.news](https://ai.sarawak.news).
 
-The home brief and the About hero use `hero-reveal`: a rise of 18px over 0.85s, easing `cubic-bezier(.22, 1, .36, 1)`. The About hero is the title and lede only; there is no eyebrow line above the heading. The lines inside the brief, and each About section, use `hero-content-reveal`: a rise of 10px over 0.7s with the same easing. The brief network is not part of that content reveal.
+The home brief and the About hero use `hero-reveal`: a rise of 18px over 0.85s, easing `cubic-bezier(.22, 1, .36, 1)`. The About hero is the title and lede only; there is no eyebrow line above the heading. The lines inside the brief, and each About section, use `hero-content-reveal`: a rise of 10px over 0.7s with the same easing. The brief network is not part of that content reveal. The home brief also includes a crawlable `About this directory` link to `about.html` (header and footer Explore already link About). About includes a **Related sites** network section with home + About links from `kit/fleet-cross-links.json` to hub, AI, and Events only.
 
 Each scheme card uses `story-reveal` once: a rise of 12px over 0.7s with the same easing. `site/app.js` adds `is-revealed` when an IntersectionObserver sees the card enter the viewport, then unobserves that card. The reveal runs once. It does not use CSS `animation-timeline: view()`.
 
@@ -161,6 +161,10 @@ Fleet chrome (header, Contact footer link, back-to-top, analytics loader, nav ma
 **Cloudflare Web Analytics.** Privacy-friendly, cookie-less traffic measurement. Do not reuse tokens from ai.sarawak.news or other sites. Fleet `spa` is `false` (static pages).
 
 The beacon URL is `https://static.cloudflareinsights.com/beacon.min.js` with `data-cf-beacon` JSON `{"token":"…","spa":false}`. CI runs `scripts/check_analytics_dist.py` so each built HTML page has exactly one loader, IDs/tokens match the registry, and cookie/`spa` values cannot drift. This repository does not ship a Content-Security-Policy meta tag; if one is added later, allow `www.googletagmanager.com` and `*.google-analytics.com` for GA4, and `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect) for Cloudflare when analytics is enabled.
+
+## Sitemap and robots
+
+`robots.txt` allows `/` and points at `https://bantuan.sarawak.news/sitemap.xml`. The sitemap lists only the two indexable HTML pages (`/` and `about.html`), each with `<lastmod>` from `data/site.json` `checked`. Scheme cards stay on the homepage as `#id` anchors — they are not separate URLs and must not appear in the sitemap until per-scheme pages exist.
 
 ## Social image
 

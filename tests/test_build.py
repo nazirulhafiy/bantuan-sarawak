@@ -175,7 +175,15 @@ class BuildTests(unittest.TestCase):
         sitemap = (self.dist / "sitemap.xml").read_text(encoding="utf-8")
         self.assertIn("https://bantuan.sarawak.news/", sitemap)
         self.assertIn("https://bantuan.sarawak.news/about.html", sitemap)
+        self.assertEqual(sitemap.count("<url>"), 2)
+        self.assertIn("<lastmod>", sitemap)
         self.assertNotIn("skas.html", sitemap)
+        self.assertIn('href="about.html">About this directory</a>', self.home)
+        self.assertIn('id="about-network"', self.about)
+        self.assertIn('href="https://sarawak.news/"', self.about)
+        self.assertIn('href="https://ai.sarawak.news/"', self.about)
+        self.assertIn('href="https://events.sarawak.news/"', self.about)
+        self.assertNotIn("pcds2030", self.about.lower())
 
     def test_ga_script_production_gate_and_internal_cookie(self):
         ga = build.render_analytics_loader()
