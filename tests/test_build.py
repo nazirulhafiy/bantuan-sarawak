@@ -178,7 +178,8 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(sitemap.count("<url>"), 2)
         self.assertIn("<lastmod>", sitemap)
         self.assertNotIn("skas.html", sitemap)
-        self.assertIn('href="about.html">About this directory</a>', self.home)
+        self.assertNotIn("brief-about", self.home)
+        self.assertNotIn("About this directory", self.home)
         self.assertIn('id="about-network"', self.about)
         network = self.about.split('id="about-network"', 1)[1].split("</ul>", 1)[0]
         self.assertIn('href="https://sarawak.news/"', network)
