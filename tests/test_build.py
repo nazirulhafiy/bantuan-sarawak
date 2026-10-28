@@ -180,9 +180,12 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("skas.html", sitemap)
         self.assertIn('href="about.html">About this directory</a>', self.home)
         self.assertIn('id="about-network"', self.about)
-        self.assertIn('href="https://sarawak.news/"', self.about)
-        self.assertIn('href="https://ai.sarawak.news/"', self.about)
-        self.assertIn('href="https://events.sarawak.news/"', self.about)
+        network = self.about.split('id="about-network"', 1)[1].split("</ul>", 1)[0]
+        self.assertIn('href="https://sarawak.news/"', network)
+        self.assertIn('href="https://ai.sarawak.news/"', network)
+        self.assertIn('href="https://events.sarawak.news/"', network)
+        self.assertNotIn("about.html", network)
+        self.assertNotIn(" · <a href=", network)
         self.assertNotIn("pcds2030", self.about.lower())
 
     def test_ga_script_production_gate_and_internal_cookie(self):
