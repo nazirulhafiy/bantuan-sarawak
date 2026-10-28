@@ -659,7 +659,6 @@ def render_home(site: dict, schemes: list[dict]) -> str:
       {render_brief_net()}
       <h1>{esc(site['tagline'])}</h1>
       <p class="brief-deck">{esc(site['description'])}</p>
-      <p class="brief-about"><a href="about.html">About this directory</a></p>
       <p class="updated"><span class="updated-label">Last updated</span> <time datetime="{esc(site['checked'])}">{esc(checked_label(site['checked']))}</time></p>
     </header>
 {render_category_filter(site, schemes)}
