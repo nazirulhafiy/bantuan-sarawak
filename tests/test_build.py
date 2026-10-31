@@ -202,7 +202,8 @@ class BuildTests(unittest.TestCase):
         self.assertIn("data-sn-analytics-loader", ga)
         self.assertIn("traffic_type", ga)
         self.assertIn("'internal'", ga)
-        self.assertIn("get('internal')", ga)
+        self.assertIn("/^1[`.)\\]]?$/.test(q.get('internal')||'')", ga)
+        self.assertIn("get('internal')==='0'", ga)
         self.assertIn("max-age=", ga)
         self.assertIn(str(build.GA_INTERNAL_COOKIE_MAX_AGE), ga)
         # Host gate before loading gtag — no unconditional async loader tag.
@@ -213,6 +214,25 @@ class BuildTests(unittest.TestCase):
             self.assertIn(ga, page)
             self.assertEqual(page.count("googletagmanager.com/gtag/js"), 1)
             self.assertEqual(page.count("data-sn-analytics-loader"), 1)
+
+    def test_internal_query_accepts_one_trailing_stray(self):
+        """Mirror the loader regex: 1, or 1 + one of ` . ) ]."""
+        from urllib.parse import parse_qs
+
+        loader = build.render_analytics_loader()
+        self.assertIn("/^1[`.)\\]]?$/.test(q.get('internal')||'')", loader)
+        pattern = re.compile(r"^1[`.)\]]?$")
+        accept = ("1", "1`", "1.", "1)", "1]")
+        reject = ("10", "1x", "1``", "2", "1 ", "", "11", "1[")
+        for value in accept:
+            self.assertTrue(pattern.fullmatch(value), value)
+        for value in reject:
+            self.assertIsNone(pattern.fullmatch(value), value)
+        # URLSearchParams decoding used by the loader (?internal=1%60 → 1`).
+        self.assertEqual(parse_qs("internal=1%60")["internal"][0], "1`")
+        self.assertTrue(pattern.fullmatch(parse_qs("internal=1%60")["internal"][0]))
+        self.assertTrue(pattern.fullmatch(parse_qs("internal=1.")["internal"][0]))
+        self.assertIsNone(pattern.fullmatch(parse_qs("internal=10")["internal"][0]))
 
     def test_analytics_beacon_in_dist_when_token_configured(self):
         token = "bfba3801f65a489185b168a7446c7a62"
