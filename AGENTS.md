@@ -4,6 +4,10 @@
 (`links[].label`). Run `python3 scripts/validate.py` before claiming a data or
 build change is ready; CI runs the same check.
 
+Before Monday §2 (electricity headed check) on a fresh agent VM, run
+`bash scripts/ensure_playwright.sh` once so `scripts/check_electricity_headed.py`
+has Playwright + Chromium. Re-run is safe.
+
 For every screenshot, use `tools/shots.mjs` with `tools/shots.config.json` (3× phone, cropped to the change, light and dark).
 
 When opening the **live** site ([bantuan.sarawak.news](https://bantuan.sarawak.news)), always use `?internal=1` so the first-party `sn_internal` cookie (~1 year) is set. That marks GA4 with `traffic_type: 'internal'` and **skips** the Cloudflare Web Analytics beacon. Example: `https://bantuan.sarawak.news/?internal=1`. Use `?internal=0` only when you intentionally clear that cookie. The loader also honours the legacy `ga_internal` cookie so already-marked devices stay excluded. Local/`dist` previews and non-production hosts do not load GA or the CF beacon. See `docs/design.md` (Analytics) and `data/analytics.json`.
