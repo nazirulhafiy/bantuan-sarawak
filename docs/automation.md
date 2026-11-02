@@ -43,9 +43,8 @@ Scripts: `scripts/check_source_changes.py` (compare + report), `scripts/snapshot
 ### How to run section 2 (headed dry-run)
 
 ```bash
-# once per machine
-python3 -m pip install playwright
-python3 -m playwright install chromium
+# once per machine / fresh agent VM (idempotent)
+bash scripts/ensure_playwright.sh
 
 # mocked paths (CI / no browser)
 python3 scripts/check_electricity_headed.py --dry-run --skip-issue \
