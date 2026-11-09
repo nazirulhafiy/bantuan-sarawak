@@ -8,7 +8,7 @@ It is a list of schemes. It is not a news feed, not a government website, and no
 
 The published directory lists state schemes only. Federal schemes that were removed are recorded in `docs/federal-assistance-backlog.md`. A scheme with no direct official page is left out. So is a ringgit amount that was not on the page checked.
 
-The site is a static build. `data/schemes.json` and `data/site.json` go through `scripts/build.py` into `dist/`. GitHub Pages publishes `dist/` when changes merge to `main`.
+The site is a static build. `data/schemes.json` and `data/site.json` go through `scripts/build.py` into `dist/`. GitHub Pages publishes `dist/` when changes merge to `main`. Unknown paths use `dist/404.html` (custom GitHub Pages 404; not in the sitemap).
 
 ## Who it is for
 

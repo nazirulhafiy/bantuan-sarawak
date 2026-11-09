@@ -166,6 +166,10 @@ The beacon URL is `https://static.cloudflareinsights.com/beacon.min.js` with `da
 
 `robots.txt` allows `/` and points at `https://bantuan.sarawak.news/sitemap.xml`. The sitemap lists only the two indexable HTML pages (`/` and `about.html`), each with `<lastmod>` from `data/site.json` `checked`. Scheme cards stay on the homepage as `#id` anchors — they are not separate URLs and must not appear in the sitemap until per-scheme pages exist.
 
+## 404 page
+
+GitHub Pages serves `dist/404.html` for unknown paths. The build writes that file at the output root. The page reuses the shared header and footer, an About-style hero (`.about-hero` inside `.about-page.not-found-page`), the heading **Page not found**, one line of copy (“The page you're looking for doesn't exist or has moved.”), and a **Back to home** link to `/`. Asset and chrome URLs are root-absolute (`/style.css`, `/app.js`, `/icons/…`, `/`, `/about.html`) so nested missing paths still load the site shell. The page has `<meta name="robots" content="noindex">`, keeps the same analytics loader as Home and About (no synthetic events), and is not listed in `sitemap.xml`.
+
 ## Social image
 
 `site/social-card.png` is a 1200×630 PNG. The build copies it to `dist/social-card.png`. Home and About point `og:image` and `twitter:image` at `https://bantuan.sarawak.news/social-card.png` plus a content hash query string from `versioned_href` in `kit/python/asset_urls.py` (first 12 hex characters of the SHA-256 of that file). Replacing the file changes the query string. `tests/test_asset_urls.py` fails if `scripts/`, `kit/`, `docs/`, `README.md`, `AGENTS.md`, or site HTML, JS, CSS, or SVG contain a hand-typed asset query stamp outside a generated block. The provisional favicon remains the inline emoji data URI in `scripts/build.py`.
@@ -178,7 +182,7 @@ Above 560px it is a pill: padding 8px 12px, gap 3.08px, 11px Geist, weight 850, 
 
 The fill is `#111` in both themes. The label and the arrow are `#f7c948` in both themes. Light mode uses a 1px `#111` border. Dark mode (`html[data-theme="dark"]`) uses a 1px `#f7c948` border. Hover keeps those colours. The type is the Geist already on the page (variable, weights 100–900, so 850 is included), named again on the button so the pill does not inherit another family.
 
-Kit JS shows it when `scrollY` is at least 600 and hides it when `scrollY` is under 600. The shown state is `.back-to-top:not([hidden])`: opacity 1, visible, and no translate. Hidden, it sits at opacity 0, `visibility: hidden`, and `translateY(6px)`. The change is a 0.18s ease on opacity, transform, and visibility. `prefers-reduced-motion: reduce` drops that fade, and the scroll to the top is instant. The markup starts with the `hidden` attribute. `visibility: hidden` and `hidden` keep it out of the tab order. Focus, when it is shown, is a 3px `#f7c948` ring with a 2px offset. Activating it scrolls to the top (`smooth`, or `auto` when reduced motion is on). Home and About both include the control; short pages never scroll far enough to reveal it.
+Kit JS shows it when `scrollY` is at least 600 and hides it when `scrollY` is under 600. The shown state is `.back-to-top:not([hidden])`: opacity 1, visible, and no translate. Hidden, it sits at opacity 0, `visibility: hidden`, and `translateY(6px)`. The change is a 0.18s ease on opacity, transform, and visibility. `prefers-reduced-motion: reduce` drops that fade, and the scroll to the top is instant. The markup starts with the `hidden` attribute. `visibility: hidden` and `hidden` keep it out of the tab order. Focus, when it is shown, is a 3px `#f7c948` ring with a 2px offset. Activating it scrolls to the top (`smooth`, or `auto` when reduced motion is on). Home, About, and 404 include the control; short pages never scroll far enough to reveal it.
 
 ## Footer
 

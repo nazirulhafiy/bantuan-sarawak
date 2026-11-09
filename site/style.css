@@ -925,6 +925,18 @@ html[data-theme="dark"] .scheme-head {
   line-height: 1.5;
 }
 
+.not-found-home {
+  margin: 20px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.not-found-home a {
+  color: var(--ink);
+  font-weight: 650;
+  text-decoration-color: var(--sarawak-red);
+}
+
 .about-section {
   padding: 28px 0;
   border-bottom: 1px solid var(--line);

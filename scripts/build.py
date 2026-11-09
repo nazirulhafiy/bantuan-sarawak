@@ -504,15 +504,23 @@ def render_category_filter(site: dict, schemes: list[dict]) -> str:
     </section>"""
 
 
-def render_header(site: dict, active: str) -> str:
+def render_header(
+    site: dict,
+    active: str,
+    *,
+    absolute: bool = False,
+) -> str:
+    about_href = "/about.html" if absolute else "about.html"
+    mark_dir = "/icons" if absolute else "icons"
     return kit_render_header(
         brand_title=site["title"],
         brand_href="/",
         active=active,
         nav_items=(
             NavItem("home", "/", "Home"),
-            NavItem("about", "about.html", "About"),
+            NavItem("about", about_href, "About"),
         ),
+        mark_dir=mark_dir,
     )
 
 
@@ -544,15 +552,16 @@ def render_fleet_network_section(fleet_site: str = FLEET_SITE_ID) -> str:
     </section>"""
 
 
-def render_footer(site: dict, active: str) -> str:
+def render_footer(site: dict, active: str, *, absolute: bool = False) -> str:
     """Kit column-stack footer with scheme-group Categories in the right stack."""
+    about_href = "/about.html" if absolute else "about.html"
     return kit_render_footer(
         brand_title=site["title"],
         brand_note=FOOTER_BRAND_NOTE,
         active=active,
         explore_items=(
             NavItem("home", "/", "Home"),
-            NavItem("about", "about.html", "About"),
+            NavItem("about", about_href, "About"),
         ),
         credit_html=FOOTER_CREDIT_HTML,
         fleet_site="bantuan",
@@ -574,15 +583,30 @@ def theme_boot() -> str:
   </script>"""
 
 
-def render_head(site: dict, title: str, description: str, canonical: str, og_title: str, structured: str) -> str:
+def render_head(
+    site: dict,
+    title: str,
+    description: str,
+    canonical: str,
+    og_title: str,
+    structured: str,
+    *,
+    robots: str = "index,follow",
+    absolute_assets: bool = False,
+) -> str:
     image = versioned_href(f"{site['url']}social-card.png", SITE_DIR / "social-card.png")
+    css_href = "/style.css" if absolute_assets else "style.css"
+    js_src = "/app.js" if absolute_assets else "app.js"
+    structured_tag = (
+        f'\n  <script type="application/ld+json">{structured}</script>' if structured else ""
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="{esc(description)}" />
-  <meta name="robots" content="index,follow" />
+  <meta name="robots" content="{esc(robots)}" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="{esc(og_title)}" />
   <meta property="og:description" content="{esc(description)}" />
@@ -597,12 +621,11 @@ def render_head(site: dict, title: str, description: str, canonical: str, og_tit
   <meta name="twitter:description" content="{esc(description)}" />
   <meta name="twitter:image" content="{esc(image)}" />
   <link rel="canonical" href="{esc(canonical)}" />
-  <title>{esc(title)}</title>
-  <script type="application/ld+json">{structured}</script>
+  <title>{esc(title)}</title>{structured_tag}
 {theme_boot()}
   <link rel="icon" href="{FAVICON}" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="{css_href}" />
+  <script src="{js_src}" defer></script>
   {render_analytics_loader()}
 </head>"""
 
@@ -668,6 +691,41 @@ def render_home(site: dict, schemes: list[dict]) -> str:
 {render_footer(site, "home")}
 </body>"""
     return render_head(site, site["og_title"], site["description"], url, site["og_title"], structured) + "\n" + body + "\n</html>\n"
+
+
+def render_404(site: dict) -> str:
+    """Custom GitHub Pages 404 at dist root; absolute asset and nav URLs for nested paths."""
+    url = f"{site['url']}404.html"
+    description = "The page you're looking for doesn't exist or has moved."
+    title = f"Page not found · {site['short_name']}"
+    body = f"""<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+{render_header(site, "", absolute=True)}
+  <main id="content" class="about-page not-found-page">
+    <header class="about-hero">
+      <h1>Page not found</h1>
+      <p class="about-lede">{esc(description)}</p>
+      <p class="not-found-home"><a href="/">Back to home</a></p>
+    </header>
+  </main>
+{render_back_to_top()}
+{render_footer(site, "", absolute=True)}
+</body>"""
+    return (
+        render_head(
+            site,
+            title,
+            description,
+            url,
+            title,
+            "",
+            robots="noindex",
+            absolute_assets=True,
+        )
+        + "\n"
+        + body
+        + "\n</html>\n"
+    )
 
 
 def render_about(site: dict) -> str:
@@ -775,13 +833,15 @@ def build() -> None:
     validate(site, schemes)
     home = render_home(site, schemes)
     about = render_about(site)
-    assert_safe([home, about])
+    not_found = render_404(site)
+    assert_safe([home, about, not_found])
 
     if DIST.exists():
         shutil.rmtree(DIST)
     DIST.mkdir()
     (DIST / "index.html").write_text(home, encoding="utf-8")
     (DIST / "about.html").write_text(about, encoding="utf-8")
+    (DIST / "404.html").write_text(not_found, encoding="utf-8")
     (DIST / "style.css").write_text((SITE_DIR / "style.css").read_text(encoding="utf-8"), encoding="utf-8")
     (DIST / "app.js").write_text((SITE_DIR / "app.js").read_text(encoding="utf-8"), encoding="utf-8")
     shutil.copy2(SITE_DIR / "social-card.png", DIST / "social-card.png")
