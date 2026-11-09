@@ -67,11 +67,22 @@ class BuildTests(unittest.TestCase):
         cls.dist = ROOT / "dist"
         cls.home = (cls.dist / "index.html").read_text(encoding="utf-8")
         cls.about = (cls.dist / "about.html").read_text(encoding="utf-8")
+        cls.not_found = (cls.dist / "404.html").read_text(encoding="utf-8")
         cls.site = build.load_json(ROOT / "data" / "site.json")
         cls.schemes = build.load_json(ROOT / "data" / "schemes.json")
 
     def test_pages_and_assets(self):
-        for name in ("index.html", "about.html", "style.css", "app.js", "robots.txt", "sitemap.xml", "CNAME", "social-card.png"):
+        for name in (
+            "index.html",
+            "about.html",
+            "404.html",
+            "style.css",
+            "app.js",
+            "robots.txt",
+            "sitemap.xml",
+            "CNAME",
+            "social-card.png",
+        ):
             self.assertTrue((self.dist / name).is_file(), name)
         self.assertEqual((self.dist / "CNAME").read_text(encoding="utf-8").strip(), "bantuan.sarawak.news")
         self.assertEqual((ROOT / "CNAME").read_text(encoding="utf-8").strip(), "bantuan.sarawak.news")
@@ -91,6 +102,7 @@ class BuildTests(unittest.TestCase):
             self.assertIn('src="icons/nav-mark-transparent.svg"', page)
             self.assertIn('src="icons/nav-mark-transparent-dark.svg"', page)
             self.assertIn(f'<span class="brand-text">{self.site["title"]}</span>', page)
+        self.assertIn(f'<span class="brand-text">{self.site["title"]}</span>', self.not_found)
         css = (self.dist / "style.css").read_text(encoding="utf-8")
         self.assertIn("white-space: nowrap", css)
         self.assertIn(".brand-mark", css)
@@ -175,9 +187,32 @@ class BuildTests(unittest.TestCase):
         sitemap = (self.dist / "sitemap.xml").read_text(encoding="utf-8")
         self.assertIn("https://bantuan.sarawak.news/", sitemap)
         self.assertIn("https://bantuan.sarawak.news/about.html", sitemap)
+        self.assertNotIn("404.html", sitemap)
         self.assertEqual(sitemap.count("<url>"), 2)
         self.assertIn("<lastmod>", sitemap)
         self.assertNotIn("skas.html", sitemap)
+
+    def test_404_page(self):
+        self.assertTrue((self.dist / "404.html").is_file())
+        self.assertIn("<h1>Page not found</h1>", self.not_found)
+        self.assertIn(
+            "The page you&#x27;re looking for doesn&#x27;t exist or has moved.",
+            self.not_found,
+        )
+        self.assertIn('<meta name="robots" content="noindex" />', self.not_found)
+        self.assertIn('href="/style.css"', self.not_found)
+        self.assertIn('src="/app.js"', self.not_found)
+        self.assertIn('src="/icons/nav-mark-transparent.svg"', self.not_found)
+        self.assertIn('src="/icons/nav-mark-transparent-dark.svg"', self.not_found)
+        self.assertIn('href="/about.html"', self.not_found)
+        self.assertIn('class="not-found-home"><a href="/">Back to home</a>', self.not_found)
+        self.assertIn('class="site-footer"', self.not_found)
+        self.assertIn('class="bar"', self.not_found)
+        ga = build.render_analytics_loader()
+        self.assertIn(ga, self.not_found)
+        self.assertEqual(self.not_found.count("data-sn-analytics-loader"), 1)
+        self.assertNotIn("event(", self.not_found)
+        self.assertNotIn("gtag('event'", self.not_found)
         self.assertNotIn("brief-about", self.home)
         self.assertNotIn("About this directory", self.home)
         self.assertIn('id="about-network"', self.about)
@@ -210,7 +245,7 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn('<script async src="https://www.googletagmanager.com/gtag/js', ga)
         self.assertIn("googletagmanager.com/gtag/js?id=", ga)
         self.assertIn("H.indexOf(h)<0", ga)
-        for page in (self.home, self.about):
+        for page in (self.home, self.about, self.not_found):
             self.assertIn(ga, page)
             self.assertEqual(page.count("googletagmanager.com/gtag/js"), 1)
             self.assertEqual(page.count("data-sn-analytics-loader"), 1)
@@ -252,7 +287,7 @@ class BuildTests(unittest.TestCase):
             '<script defer src="https://static.cloudflareinsights.com/beacon.min.js"',
             loader,
         )
-        for page in (self.home, self.about):
+        for page in (self.home, self.about, self.not_found):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
             self.assertEqual(page.count("data-sn-analytics-loader"), 1)
@@ -263,7 +298,8 @@ class BuildTests(unittest.TestCase):
         loader = build.render_analytics_loader()
         home = build.render_home(self.site, self.schemes)
         about = build.render_about(self.site)
-        for page in (home, about):
+        not_found = build.render_404(self.site)
+        for page in (home, about, not_found):
             self.assertEqual(page.count("static.cloudflareinsights.com/beacon.min.js"), 1)
             self.assertEqual(page.count("data-cf-beacon"), 1)
             self.assertEqual(page.count("data-sn-analytics-loader"), 1)
