@@ -129,17 +129,18 @@ html[data-theme="dark"] .skip-link {
   position: relative;
 }
 
-.brand-lockup {
-  display: flex;
-  align-items: center;
-  gap: 0.4em;
-}
+.brand-lockup { display: flex; align-items: center; }
 
+/* Out of flow so lockup width (and red rule / yellow-black start) stay on the wordmark. */
 .site-beta {
-  flex: 0 0 auto;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-left: 0.4em;
   padding: 0.14em 0.36em 0.12em;
   border: 1px solid var(--line);
   border-radius: 3px;
@@ -149,7 +150,9 @@ html[data-theme="dark"] .skip-link {
   letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
+  transform: translateY(-50%);
   user-select: none;
+  pointer-events: none;
 }
 
 .bar-rule-tail {
