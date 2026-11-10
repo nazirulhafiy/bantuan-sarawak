@@ -443,6 +443,25 @@ class BuildTests(unittest.TestCase):
             '<a class="site-footer-link" href="https://bantuan.sarawak.news/">',
             self.home,
         )
+        # Restrained BETA beside Events in Hub fleet; not Sarawak/AI; self omitted.
+        self.assertIn(
+            '<a class="site-footer-link" href="https://events.sarawak.news/">'
+            "Events</a>"
+            '<span class="site-beta" aria-label="Beta">BETA</span>',
+            self.home,
+        )
+        self.assertNotIn(
+            'href="https://sarawak.news/">Sarawak</a>'
+            '<span class="site-beta" aria-label="Beta">BETA</span>',
+            self.home,
+        )
+        self.assertNotIn(
+            'href="https://ai.sarawak.news/">AI</a>'
+            '<span class="site-beta" aria-label="Beta">BETA</span>',
+            self.home,
+        )
+        css = (self.dist / "style.css").read_text(encoding="utf-8")
+        self.assertIn(".site-footer-fleet-nav .site-beta", css)
         self.assertNotIn("nofollow", self.home)
         self.assertIn(
             '<nav aria-label="Explore" class="site-footer-nav site-footer-grid-explore">',

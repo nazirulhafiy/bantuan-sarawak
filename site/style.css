@@ -155,6 +155,18 @@ html[data-theme="dark"] .skip-link {
   pointer-events: none;
 }
 
+/* Footer Hub: inline BETA beside Events/Bantuan (same language as header badge). */
+.site-footer-fleet-nav .site-beta {
+  position: static;
+  left: auto;
+  top: auto;
+  z-index: auto;
+  display: inline-block;
+  vertical-align: 0.18em;
+  margin-left: 0.42em;
+  transform: none;
+}
+
 .bar-rule-tail {
   flex: 1 1 auto;
   min-width: 0;

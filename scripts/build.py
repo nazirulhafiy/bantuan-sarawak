@@ -506,6 +506,12 @@ def render_category_filter(site: dict, schemes: list[dict]) -> str:
 
 SITE_BETA_BADGE = '<span class="site-beta" aria-label="Beta">BETA</span>'
 
+# Fleet Hub links that get a restrained BETA (Events + Bantuan only; not Sarawak/AI).
+FLEET_BETA_HREFS = (
+    "https://events.sarawak.news/",
+    "https://bantuan.sarawak.news/",
+)
+
 
 def render_header(
     site: dict,
@@ -534,6 +540,32 @@ def render_header(
         f"</a>{SITE_BETA_BADGE}</span>\n    <nav class=\"site-nav\"",
         1,
     )
+
+
+def inject_fleet_hub_beta(footer_html: str) -> str:
+    """Append BETA after Events/Bantuan fleet anchors; leave kit shell untouched."""
+    marker = 'class="site-footer-fleet-nav"'
+    start = footer_html.find(marker)
+    if start < 0:
+        return footer_html
+    end = footer_html.find("</nav>", start)
+    if end < 0:
+        raise RuntimeError("footer fleet nav missing closing </nav>")
+    end += len("</nav>")
+    fleet = footer_html[start:end]
+    for href in FLEET_BETA_HREFS:
+        needle = f'<a class="site-footer-link" href="{href}">'
+        idx = fleet.find(needle)
+        if idx < 0:
+            continue
+        close = fleet.find("</a>", idx)
+        if close < 0:
+            raise RuntimeError(f"fleet link missing </a> for {href}")
+        close += len("</a>")
+        if fleet[close : close + len(SITE_BETA_BADGE)] == SITE_BETA_BADGE:
+            continue
+        fleet = fleet[:close] + SITE_BETA_BADGE + fleet[close:]
+    return footer_html[:start] + fleet + footer_html[end:]
 
 
 def footer_categories_inner(site: dict) -> str:
@@ -567,7 +599,7 @@ def render_fleet_network_section(fleet_site: str = FLEET_SITE_ID) -> str:
 def render_footer(site: dict, active: str, *, absolute: bool = False) -> str:
     """Kit column-stack footer with scheme-group Categories in the right stack."""
     about_href = "/about.html" if absolute else "about.html"
-    return kit_render_footer(
+    footer = kit_render_footer(
         brand_title=site["title"],
         brand_note=FOOTER_BRAND_NOTE,
         active=active,
@@ -581,6 +613,8 @@ def render_footer(site: dict, active: str, *, absolute: bool = False) -> str:
         fleet_section_label="Hub",
         extra_nav_right=footer_categories_inner(site),
     )
+    # Local-only BETA beside Events (and Bantuan when present); kit stays unchanged.
+    return inject_fleet_hub_beta(footer)
 
 
 def theme_boot() -> str:
