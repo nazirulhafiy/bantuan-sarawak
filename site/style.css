@@ -1461,6 +1461,18 @@ html[data-theme="dark"] .site-footer {
   }
 
   .site-footer-bottom { padding: 14px 18px; }
+
+  /* Mobile: brand + Hub share Explore/Categories left gutter.
+     Kit sets display:contents on .site-footer-grid-brand-cell (padding lost)
+     and negative gutters on .site-footer-grid-fleet (cancels the inset). */
+  .site-footer-main.site-footer-main--column-stacks .site-footer-grid-brand {
+    padding: 22px var(--sn-footer-mobile-gutter) 0;
+  }
+
+  .site-footer-main.site-footer-main--column-stacks .site-footer-grid-fleet {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
