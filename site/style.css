@@ -1166,12 +1166,18 @@ html[data-theme="dark"] .back-to-top:hover{border-color:#f7c948}
     padding: 22px var(--sn-footer-mobile-gutter) 0;
   }
 
+  /* brand-cell uses display:contents — pad the inner brand box for the left gutter.
+     Bottom gap before Hub comes from .site-footer-grid-fleet margin-top. */
+  .site-footer-main.site-footer-main--column-stacks .site-footer-grid-brand {
+    padding: 22px var(--sn-footer-mobile-gutter) 0;
+  }
+
   .site-footer-main.site-footer-main--column-stacks .site-footer-grid-fleet {
     order: 2;
     margin-top: var(--sn-footer-fleet-gap);
     margin-left: calc(-1 * var(--sn-footer-mobile-gutter));
     margin-right: calc(-1 * var(--sn-footer-mobile-gutter));
-    padding: var(--sn-footer-fleet-gap) var(--sn-footer-mobile-gutter) 0;
+    padding: var(--sn-footer-fleet-gap) var(--sn-footer-mobile-gutter) var(--sn-footer-fleet-gap);
     border-top: 1px solid var(--line);
   }
 
@@ -1184,7 +1190,7 @@ html[data-theme="dark"] .back-to-top:hover{border-color:#f7c948}
   }
 
   .site-footer-main.site-footer-main--column-stacks .site-footer-grid-stack-right .site-footer-grid-categories {
-    padding: 0 var(--sn-footer-mobile-gutter) 22px;
+    padding: 0 var(--sn-footer-mobile-gutter) var(--sn-footer-fleet-gap);
     border-top: 1px solid var(--line);
   }
 
@@ -1201,7 +1207,7 @@ html[data-theme="dark"] .back-to-top:hover{border-color:#f7c948}
   }
 
   .site-footer-main.site-footer-main--column-stacks .site-footer-grid-explore.site-footer-nav {
-    padding: 22px var(--sn-footer-mobile-gutter) 0;
+    padding: 22px var(--sn-footer-mobile-gutter) var(--sn-footer-fleet-gap);
     border-top: 1px solid var(--line);
     border-bottom: 0;
   }
@@ -1462,13 +1468,10 @@ html[data-theme="dark"] .site-footer {
 
   .site-footer-bottom { padding: 14px 18px; }
 
-  /* Mobile: brand + Hub share Explore/Categories left gutter.
-     Kit sets display:contents on .site-footer-grid-brand-cell (padding lost)
-     and negative gutters on .site-footer-grid-fleet (cancels the inset). */
-  .site-footer-main.site-footer-main--column-stacks .site-footer-grid-brand {
-    padding: 22px var(--sn-footer-mobile-gutter) 0;
-  }
-
+  /* Mobile: Hub left gutter matches Explore/Categories.
+     Kit still uses negative fleet side margins for full-bleed rules;
+     zero them here so text insets with --sn-footer-mobile-gutter.
+     Brand left gutter comes from kit (.site-footer-grid-brand). */
   .site-footer-main.site-footer-main--column-stacks .site-footer-grid-fleet {
     margin-left: 0;
     margin-right: 0;
