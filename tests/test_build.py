@@ -102,11 +102,14 @@ class BuildTests(unittest.TestCase):
             self.assertIn('src="icons/nav-mark-transparent.svg"', page)
             self.assertIn('src="icons/nav-mark-transparent-dark.svg"', page)
             self.assertIn(f'<span class="brand-text">{self.site["title"]}</span>', page)
+            self.assertIn('<span class="site-beta" aria-label="Beta">BETA</span>', page)
         self.assertIn(f'<span class="brand-text">{self.site["title"]}</span>', self.not_found)
+        self.assertIn('<span class="site-beta" aria-label="Beta">BETA</span>', self.not_found)
         css = (self.dist / "style.css").read_text(encoding="utf-8")
         self.assertIn("white-space: nowrap", css)
         self.assertIn(".brand-mark", css)
         self.assertIn('html[data-theme="dark"] .brand-mark-dark', css)
+        self.assertIn(".site-beta", css)
 
     def test_geist_font_is_self_hosted(self):
         source = ROOT / "site" / "fonts" / "Geist-Variable.woff2"
