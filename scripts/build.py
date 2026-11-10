@@ -504,6 +504,9 @@ def render_category_filter(site: dict, schemes: list[dict]) -> str:
     </section>"""
 
 
+SITE_BETA_BADGE = '<span class="site-beta" aria-label="Beta">BETA</span>'
+
+
 def render_header(
     site: dict,
     active: str,
@@ -512,7 +515,7 @@ def render_header(
 ) -> str:
     about_href = "/about.html" if absolute else "about.html"
     mark_dir = "/icons" if absolute else "icons"
-    return kit_render_header(
+    html = kit_render_header(
         brand_title=site["title"],
         brand_href="/",
         active=active,
@@ -521,6 +524,15 @@ def render_header(
             NavItem("about", about_href, "About"),
         ),
         mark_dir=mark_dir,
+    )
+    # Local-only badge beside the kit brand link; keep kit shell untouched.
+    needle = "</a></span>\n    <nav class=\"site-nav\""
+    if needle not in html:
+        raise RuntimeError("header markup missing brand-lockup close before nav")
+    return html.replace(
+        needle,
+        f"</a>{SITE_BETA_BADGE}</span>\n    <nav class=\"site-nav\"",
+        1,
     )
 
 
